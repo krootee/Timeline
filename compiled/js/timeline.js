@@ -6243,9 +6243,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 					min: 			.1,
 					max: 			50
 				},
-				rows: 				[1, 1, 1],
+				rows: 				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 				width: 				960,
-				height: 			200,
+				height: 			500,
 				marker: {
 					width: 			150,
 					height: 		48
@@ -6265,7 +6265,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				},
 				nav: {
 					width: 			100,
-					height: 		200
+					height: 		500
 				}
 			},
 			ease: 					"easeInOutExpo",
@@ -6324,7 +6324,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			}
 			
 			config.nav.width			=	config.width;
-			config.nav.height			=	200;
+			config.nav.height			=	500;
 			config.feature.width		=	config.width;
 			config.feature.height		=	config.height - config.nav.height;
 			VMM.Timeline.Config			=	config;
@@ -6727,7 +6727,8 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 		/* ADD to Config
 		================================================== */
 		var config				= 	VMM.Timeline.Config;
-		config.nav.rows			= 	[1, config.nav.marker.height, config.nav.marker.height*2];
+		config.nav.rows			= 	[1, config.nav.marker.height, config.nav.marker.height*2, config.nav.marker.height*3, config.nav.marker.height*4,
+                                     config.nav.marker.height*5, config.nav.marker.height*6, config.nav.marker.height*7, config.nav.marker.height*8, config.nav.marker.height*9];
 		
 		if (content_width != null && content_width != "") {
 			config.nav.width	= 	content_width;
@@ -7242,7 +7243,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 				row						= 2,
 				lpos					= 0,
 				row_depth				= 0,
-				_line_last_height_pos	= 150,
+				_line_last_height_pos	= 450,
 				_line_height			= 6,
 				cur_mark				= 0,
 				in_view_margin			= config.width,
@@ -7739,6 +7740,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			VMM.bindEvent(".zoom-in", onZoomIn, "click");
 			VMM.bindEvent(".zoom-out", onZoomOut, "click");
 			VMM.fireEvent(layout, "LOADED");
+            VMM.fireEvent(".zoom-in", "click");
 			_active = true;
 			
 			reSize(true);
