@@ -1,157 +1,3 @@
-/* DEVICE AND BROWSER DETECTION
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
-	
-	VMM.Browser = {
-		init: function () {
-			this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
-			this.version = this.searchVersion(navigator.userAgent)
-				|| this.searchVersion(navigator.appVersion)
-				|| "an unknown version";
-			this.OS = this.searchString(this.dataOS) || "an unknown OS";
-			this.device = this.searchDevice(navigator.userAgent);
-			this.orientation = this.searchOrientation(window.orientation);
-		},
-		searchOrientation: function(orientation) {
-			if ( orientation == 0  || orientation == 180) {  
-				return "portrait";
-			} else if ( orientation == 90 || orientation == -90) {  
-				return "landscape";
-			} else {
-				return "normal";
-			}
-		},
-		searchDevice: function(d) {
-			if (d.match(/Android/i) || d.match(/iPhone|iPod/i)) {
-				return "mobile";
-			} else if (d.match(/iPad/i)) {
-				return "tablet";
-			} else if (d.match(/BlackBerry/i) || d.match(/IEMobile/i)) {
-				return "other mobile";
-			} else {
-				return "desktop";
-			}
-		},
-		searchString: function (data) {
-			for (var i=0;i<data.length;i++)	{
-				var dataString = data[i].string;
-				var dataProp = data[i].prop;
-				this.versionSearchString = data[i].versionSearch || data[i].identity;
-				if (dataString) {
-					if (dataString.indexOf(data[i].subString) != -1)
-						return data[i].identity;
-				}
-				else if (dataProp)
-					return data[i].identity;
-			}
-		},
-		searchVersion: function (dataString) {
-			var index = dataString.indexOf(this.versionSearchString);
-			if (index == -1) return;
-			return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
-		},
-		dataBrowser: [
-			{
-				string: navigator.userAgent,
-				subString: "Chrome",
-				identity: "Chrome"
-			},
-			{ 	string: navigator.userAgent,
-				subString: "OmniWeb",
-				versionSearch: "OmniWeb/",
-				identity: "OmniWeb"
-			},
-			{
-				string: navigator.vendor,
-				subString: "Apple",
-				identity: "Safari",
-				versionSearch: "Version"
-			},
-			{
-				prop: window.opera,
-				identity: "Opera",
-				versionSearch: "Version"
-			},
-			{
-				string: navigator.vendor,
-				subString: "iCab",
-				identity: "iCab"
-			},
-			{
-				string: navigator.vendor,
-				subString: "KDE",
-				identity: "Konqueror"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "Firefox",
-				identity: "Firefox"
-			},
-			{
-				string: navigator.vendor,
-				subString: "Camino",
-				identity: "Camino"
-			},
-			{		// for newer Netscapes (6+)
-				string: navigator.userAgent,
-				subString: "Netscape",
-				identity: "Netscape"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "MSIE",
-				identity: "Explorer",
-				versionSearch: "MSIE"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "Gecko",
-				identity: "Mozilla",
-				versionSearch: "rv"
-			},
-			{ 		// for older Netscapes (4-)
-				string: navigator.userAgent,
-				subString: "Mozilla",
-				identity: "Netscape",
-				versionSearch: "Mozilla"
-			}
-		],
-		dataOS : [
-			{
-				string: navigator.platform,
-				subString: "Win",
-				identity: "Windows"
-			},
-			{
-				string: navigator.platform,
-				subString: "Mac",
-				identity: "Mac"
-			},
-			{
-				string: navigator.userAgent,
-				subString: "iPhone",
-				identity: "iPhone/iPod"
-		    },
-			{
-				string: navigator.userAgent,
-				subString: "iPad",
-				identity: "iPad"
-		    },
-			{
-				string: navigator.platform,
-				subString: "Linux",
-				identity: "Linux"
-			}
-		]
-
-	}
-	VMM.Browser.init();
-}
-
-/*********************************************** 
-     Begin VMM.Timeline.License.js 
-***********************************************/ 
-
 /*!
 	TimelineJS
 	Designed and built by Zach Wise at VéritéCo
@@ -169,1695 +15,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 	http://www.gnu.org/licenses/
 	
 */
-
-/*********************************************** 
-     Begin VMM.LoadLib.js 
-***********************************************/ 
-
-/*
-	LoadLib
-	Based on LazyLoad by Ryan Grove
-	https://github.com/rgrove/lazyload/ 
-	Copyright (c) 2011 Ryan Grove <ryan@wonko.com>
-	All rights reserved.
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy of
-	this software and associated documentation files (the 'Software'), to deal in
-	the Software without restriction, including without limitation the rights to
-	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-	the Software, and to permit persons to whom the Software is furnished to do so,
-	subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
-
-================================================== */
-window.loadedJS = [];
-
-
-if(typeof VMM != 'undefined' && typeof VMM.LoadLib == 'undefined') {
-	//VMM.LoadLib.js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', onJQueryLoaded);
-	//VMM.LoadLib.css('http://someurl.css', onCSSLoaded);
-	
-	
-	
-	VMM.LoadLib = (function (doc) {
-		var env,
-		head,
-		pending = {},
-		pollCount = 0,
-		queue = {css: [], js: []},
-		styleSheets = doc.styleSheets;
-	
-		var loaded_Array = [];
-	
-		function isLoaded(url) {
-			var has_been_loaded = false;
-			for(var i=0; i<loaded_Array.length; i++) {
-				if (loaded_Array[i] == url) {
-					has_been_loaded = true;
-				}
-			}
-			if (!has_been_loaded) {
-				loaded_Array.push(url);
-			}
-			return has_been_loaded;
-		}
-
-		function createNode(name, attrs) {
-			var node = doc.createElement(name), attr;
-
-			for (attr in attrs) {
-				if (attrs.hasOwnProperty(attr)) {
-					node.setAttribute(attr, attrs[attr]);
-				}
-			}
-
-			return node;
-		}
-
-	  function finish(type) {
-	    var p = pending[type],
-	        callback,
-	        urls;
-
-	    if (p) {
-	      callback = p.callback;
-	      urls     = p.urls;
-	      urls.shift();
-	      pollCount = 0;
-	      if (!urls.length) {
-	        callback && callback.call(p.context, p.obj);
-	        pending[type] = null;
-	        queue[type].length && load(type);
-	      }
-	    }
-	  }
-
-	  function getEnv() {
-	    var ua = navigator.userAgent;
-
-	    env = {
-
-	      async: doc.createElement('script').async === true
-	    };
-
-	    (env.webkit = /AppleWebKit\//.test(ua))
-	      || (env.ie = /MSIE/.test(ua))
-	      || (env.opera = /Opera/.test(ua))
-	      || (env.gecko = /Gecko\//.test(ua))
-	      || (env.unknown = true);
-	  }
-
-	  function load(type, urls, callback, obj, context) {
-	    var _finish = function () { finish(type); },
-	        isCSS   = type === 'css',
-	        nodes   = [],
-	        i, len, node, p, pendingUrls, url;
-
-	    env || getEnv();
-
-	    if (urls) {
-
-	      urls = typeof urls === 'string' ? [urls] : urls.concat();
-
-	      if (isCSS || env.async || env.gecko || env.opera) {
-
-	        queue[type].push({
-	          urls    : urls,
-	          callback: callback,
-	          obj     : obj,
-	          context : context
-	        });
-	      } else {
-	        for (i = 0, len = urls.length; i < len; ++i) {
-	          queue[type].push({
-	            urls    : [urls[i]],
-	            callback: i === len - 1 ? callback : null,
-	            obj     : obj,
-	            context : context
-	          });
-	        }
-	      }
-	    }
-
-	    if (pending[type] || !(p = pending[type] = queue[type].shift())) {
-	      return;
-	    }
-
-	    head || (head = doc.head || doc.getElementsByTagName('head')[0]);
-	    pendingUrls = p.urls;
-
-	    for (i = 0, len = pendingUrls.length; i < len; ++i) {
-	      url = pendingUrls[i];
-
-	      if (isCSS) {
-	          node = env.gecko ? createNode('style') : createNode('link', {
-	            href: url,
-	            rel : 'stylesheet'
-	          });
-	      } else {
-	        node = createNode('script', {src: url});
-	        node.async = false;
-	      }
-
-	      node.className = 'lazyload';
-	      node.setAttribute('charset', 'utf-8');
-
-	      if (env.ie && !isCSS) {
-	        node.onreadystatechange = function () {
-	          if (/loaded|complete/.test(node.readyState)) {
-	            node.onreadystatechange = null;
-	            _finish();
-	          }
-	        };
-	      } else if (isCSS && (env.gecko || env.webkit)) {
-	        if (env.webkit) {
-	          p.urls[i] = node.href; 
-	          pollWebKit();
-	        } else {
-	          node.innerHTML = '@import "' + url + '";';
-	          pollGecko(node);
-	        }
-	      } else {
-	        node.onload = node.onerror = _finish;
-	      }
-
-	      nodes.push(node);
-	    }
-
-	    for (i = 0, len = nodes.length; i < len; ++i) {
-	      head.appendChild(nodes[i]);
-	    }
-	  }
-
-	  function pollGecko(node) {
-	    var hasRules;
-
-	    try {
-
-	      hasRules = !!node.sheet.cssRules;
-	    } catch (ex) {
-	      pollCount += 1;
-
-	      if (pollCount < 200) {
-	        setTimeout(function () { pollGecko(node); }, 50);
-	      } else {
-
-	        hasRules && finish('css');
-	      }
-
-	      return;
-	    }
-
-	    finish('css');
-	  }
-
-	  function pollWebKit() {
-	    var css = pending.css, i;
-
-	    if (css) {
-	      i = styleSheets.length;
-
-	      while (--i >= 0) {
-	        if (styleSheets[i].href === css.urls[0]) {
-	          finish('css');
-	          break;
-	        }
-	      }
-
-	      pollCount += 1;
-
-	      if (css) {
-	        if (pollCount < 200) {
-	          setTimeout(pollWebKit, 50);
-	        } else {
-
-	          finish('css');
-	        }
-	      }
-	    }
-	  }
-
-	  return {
-
-		css: function (urls, callback, obj, context) {
-			if (isLoaded(urls)) {
-				return callback;
-			} else {
-				load('css', urls, callback, obj, context);
-			}
-		},
-
-		js: function (urls, callback, obj, context) {
-			if (isLoaded(urls)) {
-				return callback;
-			} else {
-				load('js', urls, callback, obj, context);
-			}
-		}
-
-	  };
-	})(this.document);
-}
-
-
-
-/*********************************************** 
-     Begin VMM.Slider.js 
-***********************************************/ 
-
-/* Slider
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
-	
-	VMM.Slider = function(parent, parent_config) {
-		
-		var events = {}, config;
-		var $slider, $slider_mask, $slider_container, $slides_items;
-		var data = [], slides = [], slide_positions = [];
-		
-		var slides_content		=	"";
-		var current_slide		=	0;
-		var current_width		=	960;
-		var touch				=	{move: false, x: 10, y:0, off: 0, dampen: 48};
-		var content				=	"";
-		var _active				=	false;
-		var layout				=	parent;
-		var navigation			=	{nextBtn:"", prevBtn:"", nextDate:"", prevDate:"", nextTitle:"", prevTitle:""};
-		var timer;
-		
-		// CONFIG
-		if(typeof VMM.Timeline != 'undefined') {
-			config	= 	VMM.Timeline.Config;
-		} else {
-			config = {
-				preload: 4,
-				current_slide: 0,
-				interval: 10, 
-				something: 0, 
-				width: 720, 
-				height: 400, 
-				ease: "easeInOutExpo", 
-				duration: 1000, 
-				timeline: false, 
-				spacing: 15,
-				slider: {
-					width: 720, 
-					height: 400, 
-					content: {
-						width: 720, 
-						height: 400, 
-						padding: 130
-					}, 
-					nav: {
-						width: 100, 
-						height: 200
-					} 
-				} 
-			};
-		}
-		
-		/* PUBLIC VARS
-		================================================== */
-		this.ver = "0.6";
-		
-		config.slider.width		=	config.width;
-		config.slider.height	=	config.height;
-		
-		/* PUBLIC FUNCTIONS
-		================================================== */
-		this.init = function(d) {
-			slides = [];
-			slide_positions = [];
-			
-			if(typeof d != 'undefined') {
-				this.setData(d);
-			} else {
-				trace("WAITING ON DATA");
-			}
-		};
-		
-		this.width = function(w) {
-			if (w != null && w != "") {
-				config.slider.width = w;
-				reSize();
-			} else {
-				return config.slider.width;
-			}
-		}
-		
-		this.height = function(h) {
-			if (h != null && h != "") {
-				config.slider.height = h;
-				reSize();
-			} else {
-				return config.slider.height;
-			}
-		}
-		
-		/* GETTERS AND SETTERS
-		================================================== */
-		this.setData = function(d) {
-			if(typeof d != 'undefined') {
-				data = d;
-				build();
-			} else{
-				trace("NO DATA");
-			}
-		};
-		
-		this.getData = function() {
-			return data;
-		};
-		
-		this.setConfig = function(d) {
-			if(typeof d != 'undefined') {
-				config = d;
-			} else{
-				trace("NO CONFIG DATA");
-			}
-		}
-		
-		this.getConfig = function() {
-			return config;
-		};
-		
-		this.setSize = function(w, h) {
-			if (w != null) {config.slider.width = w};
-			if (h != null) {config.slider.height = h};
-			if (_active) {
-				reSize();
-			}
-			
-		}
-		
-		this.active = function() {
-			return _active;
-		};
-		
-		this.getCurrentNumber = function() {
-			return current_slide;
-		};
-		
-		this.setSlide = function(n) {
-			goToSlide(n);
-		};
-		
-		/* ON EVENT
-		================================================== */
-		function onConfigSet() {
-			trace("onConfigSet");
-		};
-		
-		function reSize(go_to_slide, from_start) {
-			
-			var _go_to_slide = true;
-			var _from_start = false;
-			
-			if (go_to_slide != null) {_go_to_slide = go_to_slide};
-			if (from_start != null) {_from_start = from_start};
-			
-			current_width = config.slider.width;
-			
-			config.slider.nav.height = VMM.Lib.height(navigation.prevBtnContainer);
-			
-			config.slider.content.width = current_width - (config.slider.content.padding *2);
-			
-			VMM.Lib.width($slides_items, (slides.length * config.slider.content.width));
-			
-			if (_from_start) {
-				var _pos = slides[current_slide].leftpos();
-				VMM.Lib.css($slider_container, "left", _pos);
-			}
-			
-			// RESIZE SLIDES
-			sizeSlides();
-			
-			// POSITION SLIDES
-			positionSlides();
-			
-			// POSITION NAV
-			VMM.Lib.css(navigation.nextBtn, "left", (current_width - config.slider.nav.width));
-			VMM.Lib.height(navigation.prevBtn, config.slider.height);
-			VMM.Lib.height(navigation.nextBtn, config.slider.height);
-			VMM.Lib.css(navigation.nextBtnContainer, "top", ( (config.slider.height/2) - (config.slider.nav.height/2) ) + 10 );
-			VMM.Lib.css(navigation.prevBtnContainer, "top", ( (config.slider.height/2) - (config.slider.nav.height/2) ) + 10 );
-			
-			// Animate Changes
-			VMM.Lib.height($slider_mask, config.slider.height);
-			VMM.Lib.width($slider_mask, current_width);
-			
-			if (_go_to_slide) {
-				goToSlide(current_slide, "linear", 1);
-			};
-			
-			if (current_slide == 0) {
-				VMM.Lib.visible(navigation.prevBtn, false);
-			}
-			
-		}
-		
-		/* NAVIGATION
-		================================================== */
-		function onNextClick(e) {
-			if (current_slide == slides.length - 1) {
-				VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": -(slides[current_slide].leftpos()) } );
-			} else {
-				goToSlide(current_slide+1);
-				upDate();
-			}
-		}
-		
-		function onPrevClick(e) {
-			if (current_slide == 0) {
-				goToSlide(current_slide);
-			} else {
-				goToSlide(current_slide-1);
-				upDate();
-			}
-		}
-
-		function onKeypressNav(e) {
-			switch(e.keyCode) {
-				case 39:
-					// RIGHT ARROW
-					onNextClick(e);
-					break;
-				case 37:
-					// LEFT ARROW
-					onPrevClick(e);
-					break;
-			}
-		}
-		
-		function onTouchUpdate(e, b) {
-			if (slide_positions.length == 0) {
-				for(var i = 0; i < slides.length; i++) {
-					slide_positions.push( slides[i].leftpos() );
-				}
-			}
-			if (typeof b.left == "number") {
-				var _pos = b.left;
-				var _slide_pos = -(slides[current_slide].leftpos());
-				if (_pos < _slide_pos - (config.slider_width/3)) {
-					onNextClick();
-				} else if (_pos > _slide_pos + (config.slider_width/3)) {
-					onPrevClick();
-				} else {
-					VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": _slide_pos });
-				}
-			} else {
-				VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": _slide_pos });
-			}
-			
-			if (typeof b.top == "number") {
-				VMM.Lib.animate($slider_container, config.duration, config.ease, {"top": -b.top});
-			} else {
-				
-			}
-		};
-		
-		/* UPDATE
-		================================================== */
-		function upDate() {
-			config.current_slide = current_slide;
-			VMM.fireEvent(layout, "UPDATE");
-		};
-		
-		/* GET DATA
-		================================================== */
-		var getData = function(d) {
-			data = d;
-		};
-		
-		/* BUILD SLIDES
-		================================================== */
-		var buildSlides = function(d) {
-			VMM.attachElement($slides_items, "");
-			slides = [];
-			
-			for(var i = 0; i < d.length; i++) {
-				var _slide = new VMM.Slider.Slide(d[i], $slides_items);
-				//_slide.show();
-				slides.push(_slide);
-			}
-		}
-		
-		var preloadSlides = function(skip) {
-			if (skip) {
-				preloadTimeOutSlides();
-			} else {
-				for(var k = 0; k < slides.length; k++) {
-					slides[k].clearTimers();
-				}
-				timer = setTimeout(preloadTimeOutSlides, config.duration);
-				
-			}
-		}
-		
-		var preloadTimeOutSlides = function() {
-			for(var k = 0; k < slides.length; k++) {
-				slides[k].enqueue = true;
-			}
-			
-			for(var j = 0; j < config.preload; j++) {
-				if ( !((current_slide + j) > slides.length - 1)) {
-					slides[current_slide + j].show();
-					slides[current_slide + j].enqueue = false;
-				}
-				if ( !( (current_slide - j) < 0 ) ) {
-					slides[current_slide - j].show();
-					slides[current_slide - j].enqueue = false;
-				}
-			}
-			
-			if (slides.length > 50) {
-				for(var i = 0; i < slides.length; i++) {
-					if (slides[i].enqueue) {
-						slides[i].hide();
-					}
-				}
-			}
-			
-			sizeSlides();
-		}
-		
-		var sizeSlide = function(slide_id) {
-			
-		}
-		/* SIZE SLIDES
-		================================================== */
-		var sizeSlides = function() {
-			var layout_text_media = 		".slider-item .layout-text-media .media .media-container ";
-			var layout_media = 				".slider-item .layout-media .media .media-container ";
-			var layout_both	= 				".slider-item .media .media-container";
-			var mediasize = {
-				text_media: {
-					width: 		(config.slider.content.width/100) * 60,
-					height: 	config.slider.height - 60,
-					video: {
-						width: 	0,
-						height: 0
-					},
-					text: {
-						width:	((config.slider.content.width/100) * 40) - 30,
-						height:	config.slider.height
-					}
-				},
-				media: {
-					width: 		config.slider.content.width,
-					height: 	config.slider.height - 110,
-					video: {
-						width: 	0,
-						height: 0
-					}
-				}
-			}
-			
-			VMM.master_config.sizes.api.width = mediasize.media.width;
-			VMM.master_config.sizes.api.height = mediasize.media.height;
-			
-			mediasize.text_media.video = 	VMM.Util.ratio.fit(mediasize.text_media.width, mediasize.text_media.height, 16, 9);
-			mediasize.media.video = 		VMM.Util.ratio.fit(mediasize.media.width, mediasize.media.height, 16, 9);
-			
-			VMM.Lib.css(".slider-item", "width", config.slider.content.width );
-			VMM.Lib.height(".slider-item", config.slider.height);
-			
-			// HANDLE SMALLER SIZES
-			var is_skinny = false;
-			
-			if (current_width <= 640) {
-				is_skinny = true;
-			} else if (VMM.Browser.device == "mobile" && VMM.Browser.orientation == "portrait") {
-				is_skinny = true;
-			} else if (VMM.Browser.device == "tablet" && VMM.Browser.orientation == "portrait") {
-				//is_skinny = true;
-			}
-			
-			if (is_skinny) {
-				
-				mediasize.text_media.width = 	config.slider.content.width;
-				mediasize.text_media.height = 	((config.slider.height/100) * 50 ) - 50;
-				mediasize.media.height = 		((config.slider.height/100) * 70 ) - 40;
-				
-				mediasize.text_media.video = 	VMM.Util.ratio.fit(mediasize.text_media.width, mediasize.text_media.height, 16, 9);
-				mediasize.media.video = 		VMM.Util.ratio.fit(mediasize.media.width, mediasize.media.height, 16, 9);
-				
-				VMM.Lib.css(".slider-item .layout-text-media .text", "width", "100%" );
-				VMM.Lib.css(".slider-item .layout-text-media .text", "display", "block" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container", "display", "block" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", config.slider.content.width );
-				
-				VMM.Lib.css(".slider-item .layout-text-media .media", "float", "none" );
-				VMM.Lib.addClass(".slider-item .content-container", "pad-top");
-				
-				VMM.Lib.css(".slider-item .media blockquote p", "line-height", "18px" );
-				VMM.Lib.css(".slider-item .media blockquote p", "font-size", "16px" );
-				
-				VMM.Lib.css(".slider-item", "overflow-y", "auto" );
-				
-				
-			} else {
-				
-				VMM.Lib.css(".slider-item .layout-text-media .text", "width", "40%" );
-				VMM.Lib.css(".slider-item .layout-text-media .text", "display", "table-cell" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container", "display", "table-cell" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", "auto" );
-				VMM.Lib.css(".slider-item .layout-text-media .text .container .start", "width", mediasize.text_media.text.width );
-				//VMM.Lib.addClass(".slider-item .content-container", "pad-left");
-				VMM.Lib.removeClass(".slider-item .content-container", "pad-top");
-				
-				VMM.Lib.css(".slider-item .layout-text-media .media", "float", "left" );
-				VMM.Lib.css(".slider-item .layout-text-media", "display", "table" );
-				
-				VMM.Lib.css(".slider-item .media blockquote p", "line-height", "36px" );
-				VMM.Lib.css(".slider-item .media blockquote p", "font-size", "28px" );
-				
-				VMM.Lib.css(".slider-item", "display", "table" );
-				VMM.Lib.css(".slider-item", "overflow-y", "auto" );
-			}
-			
-			// MEDIA FRAME
-			VMM.Lib.css(	layout_text_media + ".media-frame", 		"max-width", 	mediasize.text_media.width);
-			VMM.Lib.height(	layout_text_media + ".media-frame", 						mediasize.text_media.height);
-			VMM.Lib.width(	layout_text_media + ".media-frame", 						mediasize.text_media.width);
-			
-			// WEBSITES
-			//VMM.Lib.css(	layout_both + 		".website", 			"max-width", 	300 );
-			
-			// IMAGES
-			VMM.Lib.css(	layout_text_media + "img", 					"max-height", 	mediasize.text_media.height );
-			VMM.Lib.css(	layout_media + 		"img", 					"max-height", 	mediasize.media.height );
-			
-			// FIX FOR NON-WEBKIT BROWSERS
-			VMM.Lib.css(	layout_text_media + "img", 					"max-width", 	mediasize.text_media.width );
-			VMM.Lib.css(	layout_text_media + ".avatar img", "max-width", 			32 );
-			VMM.Lib.css(	layout_text_media + ".avatar img", "max-height", 			32 );
-			VMM.Lib.css(	layout_media + 		".avatar img", "max-width", 			32 );
-			VMM.Lib.css(	layout_media + 		".avatar img", "max-height", 			32 );
-			
-			VMM.Lib.css(	layout_text_media + ".article-thumb", "max-width", 			"50%" );
-			//VMM.Lib.css(	layout_text_media + ".article-thumb", "max-height", 		100 );
-			VMM.Lib.css(	layout_media + 		".article-thumb", "max-width", 			200 );
-			//VMM.Lib.css(	layout_media + 		".article-thumb", "max-height", 		100 );
-			
-			
-			// IFRAME FULL SIZE VIDEO
-			VMM.Lib.width(	layout_text_media + ".media-frame", 						mediasize.text_media.video.width);
-			VMM.Lib.height(	layout_text_media + ".media-frame", 						mediasize.text_media.video.height);
-			VMM.Lib.width(	layout_media + 		".media-frame", 						mediasize.media.video.width);
-			VMM.Lib.height(	layout_media + 		".media-frame", 						mediasize.media.video.height);
-			VMM.Lib.css(	layout_media + 		".media-frame", 		"max-height", 	mediasize.media.video.height);
-			VMM.Lib.css(	layout_media + 		".media-frame", 		"max-width", 	mediasize.media.video.width);
-			
-			// SOUNDCLOUD
-			VMM.Lib.height(	layout_media + 		".soundcloud", 							168);
-			VMM.Lib.height(	layout_text_media + ".soundcloud", 							168);
-			VMM.Lib.width(	layout_media + 		".soundcloud", 							mediasize.media.width);
-			VMM.Lib.width(	layout_text_media + ".soundcloud", 							mediasize.text_media.width);
-			VMM.Lib.css(	layout_both + 		".soundcloud", 			"max-height", 	168 );
-			
-			// MAPS
-			VMM.Lib.height(	layout_text_media + ".map", 								mediasize.text_media.height);
-			VMM.Lib.css(	layout_media + 		".map", 				"max-height", 	mediasize.media.height);
-			VMM.Lib.width(	layout_media + 		".map", 								mediasize.media.width);
-
-			// DOCS
-			VMM.Lib.height(	layout_text_media + ".doc", 								mediasize.text_media.height);
-			VMM.Lib.height(	layout_media + 		".doc", 								mediasize.media.height);
-			
-			// IE8 NEEDS THIS
-			VMM.Lib.width(	layout_media + 		".wikipedia", 							mediasize.media.width);
-			VMM.Lib.width(	layout_media + 		".twitter", 							mediasize.media.width);
-			VMM.Lib.width(	layout_media + 		".plain-text-quote", 					mediasize.media.width);
-			VMM.Lib.width(	layout_media + 		".plain-text", 							mediasize.media.width);
-			
-			// MAINTAINS VERTICAL CENTER IF IT CAN
-			for(var i = 0; i < slides.length; i++) {
-				
-				slides[i].layout(is_skinny);
-				
-				if (slides[i].content_height() > config.slider.height + 20) {
-					slides[i].css("display", "block");
-				} else {
-					slides[i].css("display", "table");
-				}
-			}
-			
-		}
-		
-		/* POSITION SLIDES
-		================================================== */
-		var positionSlides = function() {
-			var pos = 0;
-			for(var i = 0; i < slides.length; i++) {
-				pos = i * (config.slider.width+config.spacing);
-				slides[i].leftpos(pos);
-			}
-		}
-		
-		/* OPACITY SLIDES
-		================================================== */
-		var opacitySlides = function(n) {
-			var _ease = "linear";
-			for(var i = 0; i < slides.length; i++) {
-				if (i == current_slide) {
-					slides[i].animate(config.duration, _ease, {"opacity": 1});
-				} else if (i == current_slide - 1 || i == current_slide + 1) {
-					slides[i].animate(config.duration, _ease, {"opacity": 0.1});
-				} else {
-					slides[i].opacity(n);
-				}
-			}
-		}
-		
-		/* GO TO SLIDE
-			goToSlide(n, ease, duration);
-		================================================== */
-		var goToSlide = function(n, ease, duration, fast, firstrun) {
-			
-			/* STOP ANY VIDEO PLAYERS ACTIVE
-			================================================== */
-			VMM.ExternalAPI.youtube.stopPlayers();
-			
-			// Set current slide
-			current_slide = n;
-			
-			var _ease = config.ease;
-			var _duration = config.duration;
-			var is_last = false;
-			var is_first = false;
-			var _pos = slides[current_slide].leftpos();
-			var _title = "";
-			
-			if (current_slide == 0) {is_first = true};
-			if (current_slide +1 >= slides.length) {is_last = true};
-			if (ease != null && ease != "") {_ease = ease};
-			if (duration != null && duration != "") {_duration = duration};
-			
-			/* set proper nav titles and dates etc.
-			================================================== */
-			if (is_first) {
-				VMM.Lib.visible(navigation.prevBtn, false);
-			} else {
-				VMM.Lib.visible(navigation.prevBtn, true);
-				_title = VMM.Util.unlinkify(data[current_slide - 1].title)
-				if (config.type == "timeline") {
-					if(typeof data[current_slide - 1].date === "undefined") {
-						VMM.attachElement(navigation.prevDate, _title);
-						VMM.attachElement(navigation.prevTitle, "");
-					} else {
-						VMM.attachElement(navigation.prevDate, VMM.Date.prettyDate(data[current_slide - 1].startdate));
-						VMM.attachElement(navigation.prevTitle, _title);
-					}
-				} else {
-					VMM.attachElement(navigation.prevTitle, _title);
-				}
-				
-			}
-			if (is_last) {
-				VMM.Lib.visible(navigation.nextBtn, false);
-			} else {
-				VMM.Lib.visible(navigation.nextBtn, true);
-				_title = VMM.Util.unlinkify(data[current_slide + 1].title);
-				if (config.type == "timeline") {
-					if(typeof data[current_slide + 1].date === "undefined") {
-						VMM.attachElement(navigation.nextDate, _title);
-						VMM.attachElement(navigation.nextTitle, "");
-					} else {
-						VMM.attachElement(navigation.nextDate, VMM.Date.prettyDate(data[current_slide + 1].startdate) );
-						VMM.attachElement(navigation.nextTitle, _title);
-					}
-				} else {
-					VMM.attachElement(navigation.nextTitle,  _title);
-				}
-				
-			}
-			
-			/* ANIMATE SLIDE
-			================================================== */
-			if (fast) {
-				VMM.Lib.css($slider_container, "left", -(_pos - config.slider.content.padding));	
-			} else{
-				VMM.Lib.stop($slider_container);
-				VMM.Lib.animate($slider_container, _duration, _ease, {"left": -(_pos - config.slider.content.padding)});
-			}
-			
-			if (firstrun) {
-				VMM.fireEvent(layout, "LOADED");
-			}
-			
-			/* SET Vertical Scoll
-			================================================== */
-			if (slides[current_slide].height() > config.slider_height) {
-				VMM.Lib.css(".slider", "overflow-y", "scroll" );
-			} else {
-				VMM.Lib.css(layout, "overflow-y", "hidden" );
-				VMM.Lib.animate(layout, _duration, _ease, {scrollTop: VMM.Lib.prop(layout, "scrollHeight") - VMM.Lib.height(layout) });
-			}
-			
-			preloadSlides();
-		}
-
-		/* BUILD NAVIGATION
-		================================================== */
-		var buildNavigation = function() {
-			
-			var temp_icon = "<div class='icon'>&nbsp;</div>";
-			
-			navigation.nextBtn = VMM.appendAndGetElement($slider, "<div>", "nav-next");
-			navigation.prevBtn = VMM.appendAndGetElement($slider, "<div>", "nav-previous");
-			navigation.nextBtnContainer = VMM.appendAndGetElement(navigation.nextBtn, "<div>", "nav-container", temp_icon);
-			navigation.prevBtnContainer = VMM.appendAndGetElement(navigation.prevBtn, "<div>", "nav-container", temp_icon);
-			if (config.type == "timeline") {
-				navigation.nextDate = VMM.appendAndGetElement(navigation.nextBtnContainer, "<div>", "date", "");
-				navigation.prevDate = VMM.appendAndGetElement(navigation.prevBtnContainer, "<div>", "date", "");
-			}
-			navigation.nextTitle = VMM.appendAndGetElement(navigation.nextBtnContainer, "<div>", "title", "Title Goes Here");
-			navigation.prevTitle = VMM.appendAndGetElement(navigation.prevBtnContainer, "<div>", "title", "Title Goes Here");
-			
-			VMM.bindEvent(".nav-next", onNextClick);
-			VMM.bindEvent(".nav-previous", onPrevClick);
-			VMM.bindEvent(window, onKeypressNav, 'keydown');
-		}
-		
-		/* BUILD
-		================================================== */
-		var build = function() {
-			
-			// Clear out existing content
-			VMM.attachElement(layout, "");
-			
-			// Get DOM Objects to local objects
-			$slider = VMM.getElement("div.slider");
-			$slider_mask = VMM.appendAndGetElement($slider, "<div>", "slider-container-mask");
-			$slider_container = VMM.appendAndGetElement($slider_mask, "<div>", "slider-container");
-			$slides_items = VMM.appendAndGetElement($slider_container, "<div>", "slider-item-container");
-			
-			// BUILD NAVIGATION
-			buildNavigation();
-
-			// ATTACH SLIDES
-			buildSlides(data);
-			
-			/* MAKE SLIDER TOUCHABLE
-			================================================== */
-			
-			var __duration = 3000;
-			
-			if (VMM.Browser.device == "tablet" || VMM.Browser.device == "mobile") {
-				config.duration = 500;
-				__duration = 1000;
-				//VMM.TouchSlider.createPanel($slider_container, $slider_container, VMM.Lib.width(slides[0]), config.spacing, true);
-				//VMM.TouchSlider.createPanel($slider_container, $slider_container, slides[0].width(), config.spacing, true);
-				//VMM.bindEvent($slider_container, onTouchUpdate, "TOUCHUPDATE");
-			} else if (VMM.Browser.device == "mobile") {
-				
-			} else {
-				//VMM.DragSlider.createPanel($slider_container, $slider_container, VMM.Lib.width(slides[0]), config.spacing, true);
-			}
-			
-			reSize(false, true);
-			VMM.Lib.visible(navigation.prevBtn, false);
-			goToSlide(config.current_slide, "easeOutExpo", __duration, true, true);
-			
-			_active = true;
-		};
-		
-	};
-	
-}
-
-
-
-
-
-
-/*********************************************** 
-     Begin VMM.MediaElement.js 
-***********************************************/ 
-
-/* MediaElement
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
-	
-	VMM.MediaElement = ({
-		
-		init: function() {
-			return this;
-		},
-		
-		thumbnail: function(data, w, h, uid) {
-			var _w		= 16,
-				_h		= 24,
-				_uid	= "";
-				
-			if (w != null && w != "") {_w = w};
-			if (h != null && h != "") {_h = h};
-			if (uid != null && uid != "") {_uid = uid};
-			
-			if (data.media != null && data.media != "") {
-				var _valid		= true,
-					mediaElem	= "",
-					m			= VMM.MediaType(data.media); //returns an object with .type and .id
-						
-				// CREATE MEDIA CODE 
-				if (m.type == "image") {
-					mediaElem		=	"<div class='thumbnail thumb-photo'></div>";
-					return mediaElem;
-				} else if (m.type	==	"flickr") {
-					mediaElem		=	"<div class='thumbnail thumb-photo' id='flickr_" + m.id + "_thumb'></div>";
-					return mediaElem;
-				} else if (m.type	==	"instagram") {
-					mediaElem		=	"<div class='thumbnail thumb-instagram' id='instagram_" + m.id + "_thumb'><img src='" + VMM.ExternalAPI.instagram.get(m.id, true) + "'></div>";
-					return mediaElem;
-				} else if (m.type	==	"youtube") {
-					mediaElem		=	"<div class='thumbnail thumb-youtube' id='youtube_" + m.id + "_thumb'></div>";
-					return mediaElem;
-				} else if (m.type	==	"googledoc") {
-					mediaElem		=	"<div class='thumbnail thumb-document'></div>";
-					return mediaElem;
-				} else if (m.type	==	"vimeo") {
-					mediaElem		=	"<div class='thumbnail thumb-vimeo' id='vimeo_" + m.id + "_thumb'></div>";
-					return mediaElem;
-				} else if (m.type  ==  "dailymotion") {
-					mediaElem		=  "<div class='thumbnail thumb-video'></div>";
-					return mediaElem;
-				} else if (m.type	==	"twitter"){
-					mediaElem		=	"<div class='thumbnail thumb-twitter'></div>";
-					return mediaElem;
-				} else if (m.type	==	"twitter-ready") {
-					mediaElem		=	"<div class='thumbnail thumb-twitter'></div>";
-					return mediaElem;
-				} else if (m.type	==	"soundcloud") {
-					mediaElem		=	"<div class='thumbnail thumb-audio'></div>";
-					return mediaElem;
-				} else if (m.type	==	"google-map") {
-					mediaElem		=	"<div class='thumbnail thumb-map'></div>";
-					return mediaElem;
-				} else if (m.type		==	"googleplus") {
-					mediaElem		=	"<div class='thumbnail thumb-googleplus'></div>";
-					return mediaElem;
-				} else if (m.type	==	"wikipedia") {
-					mediaElem		=	"<div class='thumbnail thumb-wikipedia'></div>";
-					return mediaElem;
-				} else if (m.type	==	"storify") {
-					mediaElem		=	"<div class='thumbnail thumb-storify'></div>";
-					return mediaElem;
-				} else if (m.type	==	"quote") {
-					mediaElem		=	"<div class='thumbnail thumb-quote'></div>";
-					return mediaElem;
-				} else if (m.type	==	"unknown") {
-					if (m.id.match("blockquote")) {
-						mediaElem	=	"<div class='thumbnail thumb-quote'></div>";
-					} else {
-						mediaElem	=	"<div class='thumbnail thumb-plaintext'></div>";
-					}
-					return mediaElem;
-				} else if (m.type	==	"website") {
-					mediaElem		=	"<div class='thumbnail thumb-website'></div>";
-					return mediaElem;
-				} else {
-					mediaElem = "<div class='thumbnail thumb-plaintext'></div>";
-					return mediaElem;
-				}
-			} 
-		},
-		
-		create: function(data, secondary) {
-			var _valid = false,
-				loading_messege			=	"<span class='messege'><p>" + VMM.master_config.language.messages.loading + "</p></span>";
-			
-			if (data.media != null && data.media != "") {
-				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false, m;
-				
-				m = VMM.MediaType(data.media); //returns an object with .type and .id
-				_valid = true;
-				
-			// CREDIT
-				if (data.credit != null && data.credit != "") {
-					creditElem			=	"<div class='credit'>" + VMM.Util.linkify_with_twitter(data.credit, "_blank") + "</div>";
-				}
-			// CAPTION
-				if (data.caption != null && data.caption != "") {
-					captionElem			=	"<div class='caption'>" + VMM.Util.linkify_with_twitter(data.caption, "_blank") + "</div>";
-				}
-			// IMAGE
-				if (m.type				==	"image") {
-					mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
-			// FLICKR
-				} else if (m.type		==	"flickr") {
-					_id					=	"flickr_" + m.id;
-					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img id='" + _id + "_large" + "'></a></div>";
-					VMM.ExternalAPI.flickr.get(m.id, "#" + _id);
-			// INSTAGRAM
-				} else if (m.type		==	"instagram") {
-					_id					=	"flickr_" + m.id;
-					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img src='" + VMM.ExternalAPI.instagram.get(m.id) + "'></a></div>";
-			// GOOGLE DOCS
-				} else if (m.type		==	"googledoc") {
-					_id					=	"googledoc_" + VMM.Util.unique_ID(5);
-					mediaElem			=	"<div class='media-frame media-shadow doc' id='" + _id + "'>" + loading_messege + "</div>";
-					VMM.ExternalAPI.googledocs.get(m.id, _id);
-			// YOUTUBE
-				} else if (m.type		==	"youtube") {
-					mediaElem			=	"<div class='media-shadow'><div class='media-frame video youtube' id='youtube_" + m.id + "'>" + loading_messege + "</div></div>";
-					VMM.ExternalAPI.youtube.get(m.id);
-			// VIMEO
-				} else if (m.type		==	"vimeo") {
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video vimeo' autostart='false' frameborder='0' width='100%' height='100%' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'></iframe></div>";
-					VMM.ExternalAPI.vimeo.get(m.id);
-			// DAILYMOTION
-				} else if (m.type		==	"dailymotion") {
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video dailymotion' autostart='false' frameborder='0' width='100%' height='100%' src='http://www.dailymotion.com/embed/video/" + m.id + "'></iframe></div>";
-			// TWITTER
-				} else if (m.type		==	"twitter"){
-					mediaElem			=	"<div class='twitter' id='" + "twitter_" + m.id + "'>" + loading_messege + "</div>";
-					isTextMedia			=	true;
-					VMM.ExternalAPI.twitter.prettyHTML(m.id, secondary);
-			// TWITTER
-				} else if (m.type		==	"twitter-ready") {
-					isTextMedia			=	true;
-					mediaElem			=	m.id;
-			// SOUNDCLOUD
-				} else if (m.type		==	"soundcloud") {
-					_id					=	"soundcloud_" + VMM.Util.unique_ID(5);
-					mediaElem			=	"<div class='media-frame media-shadow soundcloud' id='" + _id + "'>" + loading_messege + "</div>";
-					VMM.ExternalAPI.soundcloud.get(m.id, _id);
-			// GOOGLE MAPS
-				} else if (m.type		==	"google-map") {
-					_id					=	"googlemap_" + VMM.Util.unique_ID(7);
-					mediaElem			=	"<div class='media-frame media-shadow map' id='" + _id + "'>" + loading_messege + "</div>";
-					VMM.ExternalAPI.googlemaps.get(m.id, _id);
-			// GOOGLE PLUS
-				} else if (m.type		==	"googleplus") {
-					_id					=	"googleplus_" + m.id;
-					mediaElem			=	"<div class='googleplus' id='" + _id + "'>" + loading_messege + "</div>";
-					isTextMedia			=	true;
-					VMM.ExternalAPI.googleplus.get(m.user, m.id);
-			// WIKIPEDIA
-				} else if (m.type		==	"wikipedia") {
-					_id					=	"wikipedia_" + VMM.Util.unique_ID(7);
-					mediaElem			=	"<div class='wikipedia' id='" + _id + "'>" + loading_messege + "</div>";
-					isTextMedia			=	true;
-					VMM.ExternalAPI.wikipedia.get(m.id, _id, m.lang);
-			// STORIFY
-				} else if (m.type		==	"storify") { 
-					isTextMedia			=	true;
-					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
-			// QUOTE
-				} else if (m.type		==	"quote") { 
-					isTextMedia			=	true;
-					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
-			// UNKNOWN
-				} else if (m.type		==	"unknown") { 
-					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML"); 
-					isTextMedia			=	true;
-					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
-			// WEBSITE
-				} else if (m.type		==	"website") { 
-					//mediaElem			=	"<div class='media-shadow'><iframe class='media-frame website' frameborder='0' autostart='false' width='100%' height='100%' scrolling='yes' marginheight='0' marginwidth='0' src='" + m.id + "'></iframe></div>";
-					//mediaElem			=	"<a href='" + m.id + "' target='_blank'>" + "<img src='http://api.snapito.com/free/lc?url=" + m.id + "'></a>";
-					
-					mediaElem			=	"<div class='media-shadow website'><a href='" + m.id + "' target='_blank'>" + "<img src='http://api1.thumbalizr.com/?url=" + m.id.replace(/[\./]$/g, "") + "&width=300' class='media-image'></a></div>";
-					
-			// NO MATCH
-				} else {
-					trace("NO KNOWN MEDIA TYPE FOUND");
-					trace(m.type);
-				}
-				
-			// WRAP THE MEDIA ELEMENT
-				mediaElem				=	"<div class='media-container' >" + mediaElem + creditElem + captionElem + "</div>";
-			// RETURN
-				if (isTextMedia) {
-					return "<div class='text-media'><div class='media-wrapper'>" + mediaElem + "</div></div>";
-				} else {
-					return "<div class='media-wrapper'>" + mediaElem + "</div>";
-				}
-				
-			};
-			
-		}
-		
-	}).init();
-}
-
-/*********************************************** 
-     Begin VMM.Media.js 
-***********************************************/ 
-
-/* Media
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Media == 'undefined') {
-	
-	// something = new VMM.Media(parent, w, h, {thedata});
-	VMM.Media = function(parent, w, h, thedata) {  
-		
-		/* PRIVATE VARS
-		================================================== */
-		var data = {}; // HOLDS DATA
-		
-		var _valid = false;
-		
-		var config = {
-			width: 720,
-			height: 400,
-			content_width: 720,
-			content_height: 400,
-			ease: "easeInOutExpo",
-			duration: 1000,
-			spacing: 15
-		};
-		/* ELEMENTS
-		================================================== */
-		var $media = "";
-		var $container = "";
-		var $mediacontainer  = "";
-		var $mediaelement = "";
-		var layout = parent; // expecting media div
-		
-		if (w != null && w != "") {config.width = w};
-		if (h != null && h != "") {config.height = h};
-		/*
-		if (typeof thedata != "undefined") {
-			data = thedata;
-			this.init(data);
-		}
-		*/
-		/* PUBLIC FUNCTIONS
-		================================================== */
-		this.init = function(d) {
-			if(typeof d != 'undefined') {
-				this.setData(d);
-			} else {
-				trace("WAITING ON DATA");
-			}
-		};
-		
-		var build = function(media, caption, credit) {
-			
-			$media = VMM.appendAndGetElement(layout, "<div>", "media");
-			$container = VMM.appendAndGetElement($media, "<div>", "container");
-			$mediacontainer = VMM.appendAndGetElement($container, "<div>", "media-container");
-			
-
-			if (data.media != null && data.media != "") {
-
-				_valid = true;
-				var m = {};
-				
-				m = VMM.MediaType(data.media); //returns an object with .type and .id
-				
-				if (m.type == "image") {
-					VMM.appendElement($mediacontainer, "<img src='" + m.id + "'>");  
-				} else if (m.type == "youtube") {
-					VMM.appendElement($mediacontainer, "<iframe frameborder='0' src='http://www.youtube.com/embed/" + m.id + "?&rel=0&theme=light&showinfo=0&hd=1&autohide=0&color=white' allowfullscreen>");
-				} else if (m.type == "vimeo") {
-					VMM.appendElement($mediacontainer, "<iframe frameborder='0' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'>");
-				} else {
-					
-				}
-				
-				// CREDIT
-				if (data.credit != null && data.credit != "") {
-					VMM.appendElement($container, VMM.createElement("div", data.credit, "credit"));
-				}
-
-				// CAPTION
-				if (data.caption != null && data.caption != "") {
-					VMM.appendElement($container, VMM.createElement("div", data.caption, "caption"));
-				}
-
-			}
-	    };
-	
-		
-	
-		/* GETTERS AND SETTERS
-		================================================== */
-		
-		this.setData = function(d) {
-			if(typeof d != 'undefined') {
-				data = d;
-				build();
-			} else{
-				trace("NO DATA");
-			}
-		};
-		
-		/* RESIZE
-		================================================== */
-		
-		function reSize() {
-
-		}
-		
-
-
-	}
-	
-	// Less expensive to use prototype
-	
-	VMM.Media.prototype.height = function(h) {
-		if (h != null && h != "") {
-			config.height = h;
-			reSize();
-		} else {
-			return config.height;
-		}
-	};
-	
-	VMM.Media.prototype.width = function(w) {
-		if (w != null && w != "") {
-			config.width = w;
-			reSize();
-		} else {
-			return config.width;
-		}
-	};
-	
-	/* GETTERS AND SETTERS
-	================================================== */
-	
-	VMM.Media.prototype.getData = function() {
-		return data;
-	};
-	
-	VMM.Media.prototype.setConfig = function(d) {
-		if(typeof d != 'undefined') {
-			config = d;
-		} else{
-			trace("NO CONFIG DATA");
-		}
-	};
-	
-	VMM.Media.prototype.getConfig = function() {
-		return config;
-	};
-	
-	VMM.Media.prototype.setSize = function(w, h) {
-		if (w != null) {config.width = w};
-		if (h != null) {config.height = h};
-		if (_active) {
-			reSize();
-		}
-		
-	}
-	
-	VMM.Media.prototype.active = function() {
-		return _active;
-	};
-	
-}
-
-/*********************************************** 
-     Begin VMM.FileExtention.js 
-***********************************************/ 
-
-/* File Extention
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.FileExtention == 'undefined') {
-	//VMM.FileExtention.googleDocType(url);
-	VMM.FileExtention = {
-		googleDocType: function(url) {
-			var fileName = url;
-			var fileExtension = "";
-			//fileExtension = fileName.substr(5);
-			fileExtension = fileName.substr(fileName.length - 5, 5);
-			var validFileExtensions = ["DOC","DOCX","XLS","XLSX","PPT","PPTX","PDF","PAGES","AI","PSD","TIFF","DXF","SVG","EPS","PS","TTF","XPS","ZIP","RAR"];
-			var flag = false;
-			
-			for (var i = 0; i < validFileExtensions.length; i++) {
-
-				
-				if (fileExtension.toLowerCase().match(validFileExtensions[i].toString().toLowerCase()) || fileName.match("docs.google.com") ) {
-					flag = true;
-				}
-				
-			}
-			
-			return flag;
-
-		}
-	}
-}
-
-/*********************************************** 
-     Begin VMM.Date.js 
-***********************************************/ 
-
-/* Utilities and Useful Functions
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
-	
-	VMM.Date = ({
-		
-		init: function() {
-			return this;
-		},
-		
-		dateformats: {
-			year: "yyyy",
-			month_short: "mmm",
-			month: "mmmm yyyy",
-			full_short: "mmm d",
-			full: "mmmm d',' yyyy",
-			time_no_seconds_short: "h:MM TT",
-			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
-			full_long: "mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
-		},
-			
-		month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-		month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
-		day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-		day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."],
-		hour: [1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12],
-		hour_suffix: ["am"],
-			
-		//B.C.
-		bc_format: {
-			year: "yyyy",
-			month_short: "mmm",
-			month: "mmmm yyyy",
-			full_short: "mmm d",
-			full: "mmmm d',' yyyy",
-			time_no_seconds_short: "h:MM TT",
-			time_no_seconds_small_date: "dddd', 'h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
-			full_long: "dddd',' mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>'dddd',' mmm d',' yyyy'</small>'",
-		},
-			
-		setLanguage: function(lang) {
-			trace("SET DATE LANGUAGE");
-			VMM.Date.dateformats		=	lang.dateformats;	
-			VMM.Date.month				=	lang.date.month;
-			VMM.Date.month_abbr			=	lang.date.month_abbr;
-			VMM.Date.day				=	lang.date.day;
-			VMM.Date.day_abbr			=	lang.date.day_abbr;
-			dateFormat.i18n.dayNames	=	lang.date.day_abbr.concat(lang.date.day);
-			dateFormat.i18n.monthNames	=	lang.date.month_abbr.concat(lang.date.month);
-		},
-			
-		parse: function(d) {
-			if (type.of(d) == "date") {
-				return d;
-			} else {
-				var _date = new Date(0, 0, 1, 0, 0, 0, 0);
-				var _d_array, _t_array;
-				var _time_parse, _times;
-				
-				if ( d.match(/,/gi) ) {
-					_d_array = d.split(",");
-					for(var i = 0; i < _d_array.length; i++) {
-						_d_array[i] = parseInt(_d_array[i]);
-					}
-					if (	_d_array[0]			) {	_date.setFullYear(		_d_array[0]);			}
-					if (	_d_array[1]	> 1		) {	_date.setMonth(			_d_array[1] - 1);		}
-					if (	_d_array[2]	> 1		) {	_date.setDate(			_d_array[2]);			}
-					if (	_d_array[3]	> 1		) {	_date.setHours(			_d_array[3]);			}
-					if (	_d_array[4]	> 1		) {	_date.setMinutes(		_d_array[4]);			}
-					if (	_d_array[5]	> 1		) {	_date.setSeconds(		_d_array[5]);			}
-					if (	_d_array[6]	> 1		) {	_date.setMilliseconds(	_d_array[6]);			}
-				} else if (d.match("/")) {
-					if (d.match(" ")) {
-						_time_parse = d.split(" ");
-						if (d.match(":")) {
-							_t_array = _time_parse[1].split(":");
-							if (	_t_array[0]	>= 1	) {		_date.setHours(			_t_array[0]);	}
-							if (	_t_array[1]	>= 1	) {		_date.setMinutes(		_t_array[1]);	}
-							if (	_t_array[2]	>= 1	) {		_date.setSeconds(		_t_array[2]);	}
-							if (	_t_array[3]	>= 1	) {		_date.setMilliseconds(	_t_array[3]);	}
-						}
-						_d_array = _time_parse[0].split("/");
-					} else {
-						_d_array = d.split("/");
-					}
-					if (	_d_array[2]			) {	_date.setFullYear(		_d_array[2]);			}
-					if (	_d_array[0]	> 1		) {	_date.setMonth(			_d_array[0] - 1);		}
-					if (	_d_array[1]	> 1		) {	_date.setDate(			_d_array[1]);			}
-				} else if (d.length <= 5) {
-					_date.setFullYear(parseInt(d));
-					_date.setMonth(0);
-					_date.setDate(1);
-					_date.setHours(0);
-					_date.setMinutes(0);
-					_date.setSeconds(0);
-					_date.setMilliseconds(0);
-				} else if (d.match("T")) {
-					if (navigator.userAgent.match(/MSIE\s(?!9.0)/)) {
-					    // IE 8 < Won't accept dates with a "-" in them.
-						_time_parse = d.split("T");
-						if (d.match(":")) {
-							_t_array = _time_parse[1].split(":");
-							if (	_t_array[0]	>= 1	) {		_date.setHours(			_t_array[0]);	}
-							if (	_t_array[1]	>= 1	) {		_date.setMinutes(		_t_array[1]);	}
-							if (	_t_array[2]	>= 1	) {		_date.setSeconds(		_t_array[2]);	}
-							if (	_t_array[3]	>= 1	) {		_date.setMilliseconds(	_t_array[3]);	}
-						}
-						_d_array = _time_parse[0].split("-");
-						if (	_d_array[0]			) {	_date.setFullYear(		_d_array[0]);			}
-						if (	_d_array[1]	> 1		) {	_date.setMonth(			_d_array[1] - 1);		}
-						if (	_d_array[2]	> 1		) {	_date.setDate(			_d_array[2]);			}
-						
-					} else {
-						_date = new Date(Date.parse(d));
-					}
-				} else {
-					_date = new Date(
-						parseInt(d.slice(0,4)), 
-						parseInt(d.slice(4,6)) - 1, 
-						parseInt(d.slice(6,8)), 
-						parseInt(d.slice(8,10)), 
-						parseInt(d.slice(10,12))
-					);
-				}
-				return _date;
-			}
-		},
-			
-		prettyDate: function(d, is_abbr, d2) {
-			var _date;
-			var _date2;
-			var format;
-			var bc_check;
-			var is_pair = false;
-				
-			if (d2 != null) {
-				is_pair = true;
-			}
-				
-			if (type.of(d) == "date") {
-				if (d.getMonth() === 0 && d.getDate() == 1 && d.getHours() === 0 && d.getMinutes() === 0 ) {
-					// YEAR ONLY
-					format = VMM.Date.dateformats.year;
-				} else if (d.getDate() <= 1 && d.getHours() === 0 && d.getMinutes() === 0) {
-					// YEAR MONTH
-					if (is_abbr) {
-						format = VMM.Date.dateformats.month_short;
-					} else {
-						format = VMM.Date.dateformats.month;
-					}
-				} else if (d.getHours() === 0 && d.getMinutes() === 0) {
-					// YEAR MONTH DAY
-					if (is_abbr) {
-						format = VMM.Date.dateformats.full_short;
-					} else {
-						format = VMM.Date.dateformats.full;
-					}
-				} else  if (d.getMinutes() === 0) {
-					// YEAR MONTH DAY HOUR
-					if (is_abbr) {
-						format = VMM.Date.dateformats.time_no_seconds_short;
-					} else {
-						format = VMM.Date.dateformats.time_no_seconds_small_date;
-					}
-				} else {
-					// YEAR MONTH DAY HOUR MINUTE
-					if (is_abbr){
-						format = VMM.Date.dateformats.time_no_seconds_short; 
-					} else {
-						format = VMM.Date.dateformats.full_long; 
-					}
-				}
-					
-				_date = dateFormat(d, format);
-				bc_check = _date.split(" ");
-					
-				// BC TIME SUPPORT
-				for(var i = 0; i < bc_check.length; i++) {
-					if ( parseInt(bc_check[i]) < 0 ) {
-						trace("YEAR IS BC");
-						var bc_original = 	bc_check[i];
-						var bc_number = 	Math.abs( parseInt(bc_check[i]) );
-						var bc_string = 	bc_number.toString() + " B.C.";
-						_date = _date.replace(bc_original, bc_string);
-					}
-				}
-					
-					
-				if (is_pair) {
-					_date2 = dateFormat(d2, format);
-					bc_check = _date2.split(" ");
-					// BC TIME SUPPORT
-					for(var i = 0; i < bc_check.length; i++) {
-						if ( parseInt(bc_check[i]) < 0 ) {
-							trace("YEAR IS BC");
-							var bc_original = 	bc_check[i];
-							var bc_number = 	Math.abs( parseInt(bc_check[i]) );
-							var bc_string = 	bc_number.toString() + " B.C.";
-							_date2 = _date2.replace(bc_original, bc_string);
-						}
-					}
-						
-				}
-			} else {
-				trace("NOT A VALID DATE?");
-				trace(d);
-			}
-				
-			if (is_pair) {
-				return _date + " &mdash; " + _date2;
-			} else {
-				return _date;
-			}
-		}
-		
-	}).init();
-	
-	/*
-	 * Date Format 1.2.3
-	 * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
-	 * MIT license
-	 *
-	 * Includes enhancements by Scott Trenda <scott.trenda.net>
-	 * and Kris Kowal <cixar.com/~kris.kowal/>
-	 *
-	 * Accepts a date, a mask, or a date and a mask.
-	 * Returns a formatted version of the given date.
-	 * The date defaults to the current date/time.
-	 * The mask defaults to dateFormat.masks.default.
-	 */
-
-	var dateFormat = function () {
-		var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-			timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
-			timezoneClip = /[^-+\dA-Z]/g,
-			pad = function (val, len) {
-				val = String(val);
-				len = len || 2;
-				while (val.length < len) val = "0" + val;
-				return val;
-			};
-
-		// Regexes and supporting functions are cached through closure
-		return function (date, mask, utc) {
-			var dF = dateFormat;
-
-			// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-			if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-				mask = date;
-				date = undefined;
-			}
-
-			// Passing date through Date applies Date.parse, if necessary
-			// Caused problems in IE
-			// date = date ? new Date(date) : new Date;
-			if (isNaN(date)) {
-				trace("invalid date " + date);
-				//return "";
-			} 
-
-			mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-
-			// Allow setting the utc argument via the mask
-			if (mask.slice(0, 4) == "UTC:") {
-				mask = mask.slice(4);
-				utc = true;
-			}
-
-			var	_ = utc ? "getUTC" : "get",
-				d = date[_ + "Date"](),
-				D = date[_ + "Day"](),
-				m = date[_ + "Month"](),
-				y = date[_ + "FullYear"](),
-				H = date[_ + "Hours"](),
-				M = date[_ + "Minutes"](),
-				s = date[_ + "Seconds"](),
-				L = date[_ + "Milliseconds"](),
-				o = utc ? 0 : date.getTimezoneOffset(),
-				flags = {
-					d:    d,
-					dd:   pad(d),
-					ddd:  dF.i18n.dayNames[D],
-					dddd: dF.i18n.dayNames[D + 7],
-					m:    m + 1,
-					mm:   pad(m + 1),
-					mmm:  dF.i18n.monthNames[m],
-					mmmm: dF.i18n.monthNames[m + 12],
-					yy:   String(y).slice(2),
-					yyyy: y,
-					h:    H % 12 || 12,
-					hh:   pad(H % 12 || 12),
-					H:    H,
-					HH:   pad(H),
-					M:    M,
-					MM:   pad(M),
-					s:    s,
-					ss:   pad(s),
-					l:    pad(L, 3),
-					L:    pad(L > 99 ? Math.round(L / 10) : L),
-					t:    H < 12 ? "a"  : "p",
-					tt:   H < 12 ? "am" : "pm",
-					T:    H < 12 ? "A"  : "P",
-					TT:   H < 12 ? "AM" : "PM",
-					Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-					o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-					S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-				};
-
-			return mask.replace(token, function ($0) {
-				return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-			});
-		};
-	}();
-
-	// Some common format strings
-	dateFormat.masks = {
-		"default":      "ddd mmm dd yyyy HH:MM:ss",
-		shortDate:      "m/d/yy",
-		mediumDate:     "mmm d, yyyy",
-		longDate:       "mmmm d, yyyy",
-		fullDate:       "dddd, mmmm d, yyyy",
-		shortTime:      "h:MM TT",
-		mediumTime:     "h:MM:ss TT",
-		longTime:       "h:MM:ss TT Z",
-		isoDate:        "yyyy-mm-dd",
-		isoTime:        "HH:MM:ss",
-		isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-		isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-	};
-
-	// Internationalization strings
-	dateFormat.i18n = {
-		dayNames: [
-			"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-			"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-		],
-		monthNames: [
-			"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-			"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-		]
-	};
-
-	// For convenience...
-	Date.prototype.format = function (mask, utc) {
-		return dateFormat(this, mask, utc);
-	};
-	
-}
 
 /*********************************************** 
      Begin VMM.js 
@@ -2204,942 +361,6 @@ var type={
 
 
 
-
-/*********************************************** 
-     Begin VMM.DragSlider.js 
-***********************************************/ 
-
-/* DRAG SLIDER
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
-	// VMM.DragSlider.createSlidePanel(drag_object, move_object, w, padding, sticky);
-	// VMM.DragSlider.cancelSlide();
-	VMM.DragSlider = {
-		createPanel: function(drag_object, move_object, w, padding, sticky) {
-			
-
-			
-			var x = padding;
-			VMM.DragSlider.width = w;
-			VMM.DragSlider.makeDraggable(drag_object, move_object);
-			VMM.DragSlider.drag_elem = drag_object;
-			/*
-			if (sticky != null && sticky != "") {
-				VMM.TouchSlider.sticky = sticky;
-			} else {
-				VMM.TouchSlider.sticky = false;
-			}
-			*/
-			VMM.DragSlider.sticky = sticky;
-		},
-		makeDraggable: function(drag_object, move_object) {
-			VMM.bindEvent(drag_object, VMM.DragSlider.onDragStart, "mousedown", {element: move_object, delement: drag_object});
-			//VMM.bindEvent(drag_object, VMM.DragSlider.onDragMove, "mousemove", {element: move_object});
-			VMM.bindEvent(drag_object, VMM.DragSlider.onDragEnd, "mouseup", {element: move_object, delement: drag_object});
-			VMM.bindEvent(drag_object, VMM.DragSlider.onDragLeave, "mouseleave", {element: move_object, delement: drag_object});
-	    },
-		cancelSlide: function(e) {
-			VMM.unbindEvent(VMM.DragSlider.drag_elem, VMM.DragSlider.onDragMove, "mousemove");
-			//VMM.DragSlider.drag_elem.preventDefault();
-			//VMM.DragSlider.drag_elem.stopPropagation();
-			return true;
-		},
-		onDragLeave: function(e) {
-
-			VMM.unbindEvent(e.data.delement, VMM.DragSlider.onDragMove, "mousemove");
-			e.preventDefault();
-			e.stopPropagation();
-			return true;
-		},
-		onDragStart: function(e) {
-			VMM.DragSlider.dragStart(e.data.element, e.data.delement, e);
-			
-			e.preventDefault();
-			e.stopPropagation();
-			return true;
-		},
-		onDragEnd: function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			
-			if (VMM.DragSlider.sliding) {
-				VMM.DragSlider.sliding = false;
-				VMM.DragSlider.dragEnd(e.data.element, e.data.delement, e);
-				return false;
-			} else {
-				return true;
-			}
-			
-		},
-		onDragMove: function(e) {
-			VMM.DragSlider.dragMove(e.data.element, e);
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
-		},
-		dragStart: function(elem, delem, e) {
-			
-			VMM.DragSlider.startX = e.pageX;
-			
-			VMM.DragSlider.startLeft = VMM.DragSlider.getLeft(elem);
-			VMM.DragSlider.dragStartTime = new Date().getTime();
-			VMM.DragSlider.dragWidth = VMM.Lib.width(delem);
-			
-			// CANCEL CURRENT ANIMATION IF ANIMATING
-			var _newx = Math.round(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft);
-			
-			VMM.Lib.stop(elem);
-			VMM.bindEvent(delem, VMM.DragSlider.onDragMove, "mousemove", {element: elem});
-
-	    },
-		dragEnd: function(elem, delem, e) {
-			VMM.unbindEvent(delem, VMM.DragSlider.onDragMove, "mousemove");
-			//VMM.DragSlider.dragMomentum(elem, e);
-			if (VMM.DragSlider.getLeft(elem) > 0) {
-				//(VMM.DragSlider.dragWidth/2)
-				//This means they dragged to the right past the first item
-				//VMM.Lib.animate(elem, 1000, "linear", {"left": 0});
-				
-				//VMM.fireEvent(elem, "DRAGUPDATE", [0]);
-			} else {
-				//This means they were just dragging within the bounds of the grid and we just need to handle the momentum and snap to the grid.
-				VMM.DragSlider.dragMomentum(elem, e);
-	         }
-		},
-		dragMove: function(elem, e) {
-			if (!VMM.DragSlider.sliding) {
-				//elem.parent().addClass('sliding');
-			}
-			
-			VMM.DragSlider.sliding = true;
-			if (VMM.DragSlider.startX > e.pageX) {
-				//Sliding to the left
-				VMM.Lib.css(elem, 'left', -(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft));
-				VMM.DragSlider.slidingLeft = true;
-			} else {
-				//Sliding to the right
-				var left = (e.pageX - VMM.DragSlider.startX + VMM.DragSlider.startLeft);
-				VMM.Lib.css(elem, 'left', -(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft));
-				VMM.DragSlider.slidingLeft = false;
-			}
-		},
-		dragMomentum: function(elem, e) {
-			var slideAdjust = (new Date().getTime() - VMM.DragSlider.dragStartTime) * 10;
-			var timeAdjust = slideAdjust;
-			var left = VMM.DragSlider.getLeft(elem);
-
-			var changeX = 6000 * (Math.abs(VMM.DragSlider.startLeft) - Math.abs(left));
-			//var changeX = 6000 * (VMM.DragSlider.startLeft - left);
-			slideAdjust = Math.round(changeX / slideAdjust);
-			
-			var newLeft = left + slideAdjust;
-			
-			var t = newLeft % VMM.DragSlider.width;
-			//left: Math.min(0, newLeft),
-			var _r_object = {
-				left: Math.min(newLeft),
-				time: timeAdjust
-			}
-			
-			VMM.fireEvent(elem, "DRAGUPDATE", [_r_object]);
-			var _ease = "easeOutExpo";
-			if (_r_object.time > 0) {
-				VMM.Lib.animate(elem, _r_object.time, _ease, {"left": _r_object.left});
-			};
-			
-			
-			//VMM.DragSlider.startX = null;
-		},
-		getLeft: function(elem) {
-			return parseInt(VMM.Lib.css(elem, 'left').substring(0, VMM.Lib.css(elem, 'left').length - 2), 10);
-		}
-	
-	}
-}
-
-/*********************************************** 
-     Begin AES.js 
-***********************************************/ 
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-/*  AES implementation in JavaScript (c) Chris Veness 2005-2011                                   */
-/*   - see http://csrc.nist.gov/publications/PubsFIPS.html#197                                    */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-var Aes = {};  // Aes namespace
-
-/**
- * AES Cipher function: encrypt 'input' state with Rijndael algorithm
- *   applies Nr rounds (10/12/14) using key schedule w for 'add round key' stage
- *
- * @param {Number[]} input 16-byte (128-bit) input state array
- * @param {Number[][]} w   Key schedule as 2D byte-array (Nr+1 x Nb bytes)
- * @returns {Number[]}     Encrypted output state array
- */
-Aes.cipher = function(input, w) {    // main Cipher function [§5.1]
-  var Nb = 4;               // block size (in words): no of columns in state (fixed at 4 for AES)
-  var Nr = w.length/Nb - 1; // no of rounds: 10/12/14 for 128/192/256-bit keys
-
-  var state = [[],[],[],[]];  // initialise 4xNb byte-array 'state' with input [§3.4]
-  for (var i=0; i<4*Nb; i++) state[i%4][Math.floor(i/4)] = input[i];
-
-  state = Aes.addRoundKey(state, w, 0, Nb);
-
-  for (var round=1; round<Nr; round++) {
-    state = Aes.subBytes(state, Nb);
-    state = Aes.shiftRows(state, Nb);
-    state = Aes.mixColumns(state, Nb);
-    state = Aes.addRoundKey(state, w, round, Nb);
-  }
-
-  state = Aes.subBytes(state, Nb);
-  state = Aes.shiftRows(state, Nb);
-  state = Aes.addRoundKey(state, w, Nr, Nb);
-
-  var output = new Array(4*Nb);  // convert state to 1-d array before returning [§3.4]
-  for (var i=0; i<4*Nb; i++) output[i] = state[i%4][Math.floor(i/4)];
-  return output;
-}
-
-/**
- * Perform Key Expansion to generate a Key Schedule
- *
- * @param {Number[]} key Key as 16/24/32-byte array
- * @returns {Number[][]} Expanded key schedule as 2D byte-array (Nr+1 x Nb bytes)
- */
-Aes.keyExpansion = function(key) {  // generate Key Schedule (byte-array Nr+1 x Nb) from Key [§5.2]
-  var Nb = 4;            // block size (in words): no of columns in state (fixed at 4 for AES)
-  var Nk = key.length/4  // key length (in words): 4/6/8 for 128/192/256-bit keys
-  var Nr = Nk + 6;       // no of rounds: 10/12/14 for 128/192/256-bit keys
-
-  var w = new Array(Nb*(Nr+1));
-  var temp = new Array(4);
-
-  for (var i=0; i<Nk; i++) {
-    var r = [key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]];
-    w[i] = r;
-  }
-
-  for (var i=Nk; i<(Nb*(Nr+1)); i++) {
-    w[i] = new Array(4);
-    for (var t=0; t<4; t++) temp[t] = w[i-1][t];
-    if (i % Nk == 0) {
-      temp = Aes.subWord(Aes.rotWord(temp));
-      for (var t=0; t<4; t++) temp[t] ^= Aes.rCon[i/Nk][t];
-    } else if (Nk > 6 && i%Nk == 4) {
-      temp = Aes.subWord(temp);
-    }
-    for (var t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t];
-  }
-
-  return w;
-}
-
-/*
- * ---- remaining routines are private, not called externally ----
- */
- 
-Aes.subBytes = function(s, Nb) {    // apply SBox to state S [§5.1.1]
-  for (var r=0; r<4; r++) {
-    for (var c=0; c<Nb; c++) s[r][c] = Aes.sBox[s[r][c]];
-  }
-  return s;
-}
-
-Aes.shiftRows = function(s, Nb) {    // shift row r of state S left by r bytes [§5.1.2]
-  var t = new Array(4);
-  for (var r=1; r<4; r++) {
-    for (var c=0; c<4; c++) t[c] = s[r][(c+r)%Nb];  // shift into temp copy
-    for (var c=0; c<4; c++) s[r][c] = t[c];         // and copy back
-  }          // note that this will work for Nb=4,5,6, but not 7,8 (always 4 for AES):
-  return s;  // see asmaes.sourceforge.net/rijndael/rijndaelImplementation.pdf
-}
-
-Aes.mixColumns = function(s, Nb) {   // combine bytes of each col of state S [§5.1.3]
-  for (var c=0; c<4; c++) {
-    var a = new Array(4);  // 'a' is a copy of the current column from 's'
-    var b = new Array(4);  // 'b' is a•{02} in GF(2^8)
-    for (var i=0; i<4; i++) {
-      a[i] = s[i][c];
-      b[i] = s[i][c]&0x80 ? s[i][c]<<1 ^ 0x011b : s[i][c]<<1;
-
-    }
-    // a[n] ^ b[n] is a•{03} in GF(2^8)
-    s[0][c] = b[0] ^ a[1] ^ b[1] ^ a[2] ^ a[3]; // 2*a0 + 3*a1 + a2 + a3
-    s[1][c] = a[0] ^ b[1] ^ a[2] ^ b[2] ^ a[3]; // a0 * 2*a1 + 3*a2 + a3
-    s[2][c] = a[0] ^ a[1] ^ b[2] ^ a[3] ^ b[3]; // a0 + a1 + 2*a2 + 3*a3
-    s[3][c] = a[0] ^ b[0] ^ a[1] ^ a[2] ^ b[3]; // 3*a0 + a1 + a2 + 2*a3
-  }
-  return s;
-}
-
-Aes.addRoundKey = function(state, w, rnd, Nb) {  // xor Round Key into state S [§5.1.4]
-  for (var r=0; r<4; r++) {
-    for (var c=0; c<Nb; c++) state[r][c] ^= w[rnd*4+c][r];
-  }
-  return state;
-}
-
-Aes.subWord = function(w) {    // apply SBox to 4-byte word w
-  for (var i=0; i<4; i++) w[i] = Aes.sBox[w[i]];
-  return w;
-}
-
-Aes.rotWord = function(w) {    // rotate 4-byte word w left by one byte
-  var tmp = w[0];
-  for (var i=0; i<3; i++) w[i] = w[i+1];
-  w[3] = tmp;
-  return w;
-}
-
-// sBox is pre-computed multiplicative inverse in GF(2^8) used in subBytes and keyExpansion [§5.1.1]
-Aes.sBox =  [0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
-             0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
-             0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
-             0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
-             0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
-             0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
-             0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
-             0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
-             0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
-             0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
-             0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
-             0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
-             0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
-             0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
-             0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
-             0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16];
-
-// rCon is Round Constant used for the Key Expansion [1st col is 2^(r-1) in GF(2^8)] [§5.2]
-Aes.rCon = [ [0x00, 0x00, 0x00, 0x00],
-             [0x01, 0x00, 0x00, 0x00],
-             [0x02, 0x00, 0x00, 0x00],
-             [0x04, 0x00, 0x00, 0x00],
-             [0x08, 0x00, 0x00, 0x00],
-             [0x10, 0x00, 0x00, 0x00],
-             [0x20, 0x00, 0x00, 0x00],
-             [0x40, 0x00, 0x00, 0x00],
-             [0x80, 0x00, 0x00, 0x00],
-             [0x1b, 0x00, 0x00, 0x00],
-             [0x36, 0x00, 0x00, 0x00] ]; 
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-/*  AES Counter-mode implementation in JavaScript (c) Chris Veness 2005-2011                      */
-/*   - see http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf                       */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-Aes.Ctr = {};  // Aes.Ctr namespace: a subclass or extension of Aes
-
-/** 
- * Encrypt a text using AES encryption in Counter mode of operation
- *
- * Unicode multi-byte character safe
- *
- * @param {String} plaintext Source text to be encrypted
- * @param {String} password  The password to use to generate a key
- * @param {Number} nBits     Number of bits to be used in the key (128, 192, or 256)
- * @returns {string}         Encrypted text
- */
-Aes.Ctr.encrypt = function(plaintext, password, nBits) {
-  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
-  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
-  plaintext = Utf8.encode(plaintext);
-  password = Utf8.encode(password);
-  //var t = new Date();  // timer
-	
-  // use AES itself to encrypt password to get cipher key (using plain password as source for key 
-  // expansion) - gives us well encrypted key (though hashed key might be preferred for prod'n use)
-  var nBytes = nBits/8;  // no bytes in key (16/24/32)
-  var pwBytes = new Array(nBytes);
-  for (var i=0; i<nBytes; i++) {  // use 1st 16/24/32 chars of password for key
-    pwBytes[i] = isNaN(password.charCodeAt(i)) ? 0 : password.charCodeAt(i);
-  }
-  var key = Aes.cipher(pwBytes, Aes.keyExpansion(pwBytes));  // gives us 16-byte key
-  key = key.concat(key.slice(0, nBytes-16));  // expand key to 16/24/32 bytes long
-
-  // initialise 1st 8 bytes of counter block with nonce (NIST SP800-38A §B.2): [0-1] = millisec, 
-  // [2-3] = random, [4-7] = seconds, together giving full sub-millisec uniqueness up to Feb 2106
-  var counterBlock = new Array(blockSize);
-  
-  var nonce = (new Date()).getTime();  // timestamp: milliseconds since 1-Jan-1970
-  var nonceMs = nonce%1000;
-  var nonceSec = Math.floor(nonce/1000);
-  var nonceRnd = Math.floor(Math.random()*0xffff);
-  
-  for (var i=0; i<2; i++) counterBlock[i]   = (nonceMs  >>> i*8) & 0xff;
-  for (var i=0; i<2; i++) counterBlock[i+2] = (nonceRnd >>> i*8) & 0xff;
-  for (var i=0; i<4; i++) counterBlock[i+4] = (nonceSec >>> i*8) & 0xff;
-  
-  // and convert it to a string to go on the front of the ciphertext
-  var ctrTxt = '';
-  for (var i=0; i<8; i++) ctrTxt += String.fromCharCode(counterBlock[i]);
-
-  // generate key schedule - an expansion of the key into distinct Key Rounds for each round
-  var keySchedule = Aes.keyExpansion(key);
-  
-  var blockCount = Math.ceil(plaintext.length/blockSize);
-  var ciphertxt = new Array(blockCount);  // ciphertext as array of strings
-  
-  for (var b=0; b<blockCount; b++) {
-    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
-    // done in two stages for 32-bit ops: using two words allows us to go past 2^32 blocks (68GB)
-    for (var c=0; c<4; c++) counterBlock[15-c] = (b >>> c*8) & 0xff;
-    for (var c=0; c<4; c++) counterBlock[15-c-4] = (b/0x100000000 >>> c*8)
-
-    var cipherCntr = Aes.cipher(counterBlock, keySchedule);  // -- encrypt counter block --
-    
-    // block size is reduced on final block
-    var blockLength = b<blockCount-1 ? blockSize : (plaintext.length-1)%blockSize+1;
-    var cipherChar = new Array(blockLength);
-    
-    for (var i=0; i<blockLength; i++) {  // -- xor plaintext with ciphered counter char-by-char --
-      cipherChar[i] = cipherCntr[i] ^ plaintext.charCodeAt(b*blockSize+i);
-      cipherChar[i] = String.fromCharCode(cipherChar[i]);
-    }
-    ciphertxt[b] = cipherChar.join(''); 
-  }
-
-  // Array.join is more efficient than repeated string concatenation in IE
-  var ciphertext = ctrTxt + ciphertxt.join('');
-  ciphertext = Base64.encode(ciphertext);  // encode in base64
-  
-  //alert((new Date()) - t);
-  return ciphertext;
-}
-
-/** 
- * Decrypt a text encrypted by AES in counter mode of operation
- *
- * @param {String} ciphertext Source text to be encrypted
- * @param {String} password   The password to use to generate a key
- * @param {Number} nBits      Number of bits to be used in the key (128, 192, or 256)
- * @returns {String}          Decrypted text
- */
-Aes.Ctr.decrypt = function(ciphertext, password, nBits) {
-  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
-  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
-  ciphertext = Base64.decode(ciphertext);
-  password = Utf8.encode(password);
-  //var t = new Date();  // timer
-  
-  // use AES to encrypt password (mirroring encrypt routine)
-  var nBytes = nBits/8;  // no bytes in key
-  var pwBytes = new Array(nBytes);
-  for (var i=0; i<nBytes; i++) {
-    pwBytes[i] = isNaN(password.charCodeAt(i)) ? 0 : password.charCodeAt(i);
-  }
-  var key = Aes.cipher(pwBytes, Aes.keyExpansion(pwBytes));
-  key = key.concat(key.slice(0, nBytes-16));  // expand key to 16/24/32 bytes long
-
-  // recover nonce from 1st 8 bytes of ciphertext
-  var counterBlock = new Array(8);
-  ctrTxt = ciphertext.slice(0, 8);
-  for (var i=0; i<8; i++) counterBlock[i] = ctrTxt.charCodeAt(i);
-  
-  // generate key schedule
-  var keySchedule = Aes.keyExpansion(key);
-
-  // separate ciphertext into blocks (skipping past initial 8 bytes)
-  var nBlocks = Math.ceil((ciphertext.length-8) / blockSize);
-  var ct = new Array(nBlocks);
-  for (var b=0; b<nBlocks; b++) ct[b] = ciphertext.slice(8+b*blockSize, 8+b*blockSize+blockSize);
-  ciphertext = ct;  // ciphertext is now array of block-length strings
-
-  // plaintext will get generated block-by-block into array of block-length strings
-  var plaintxt = new Array(ciphertext.length);
-
-  for (var b=0; b<nBlocks; b++) {
-    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
-    for (var c=0; c<4; c++) counterBlock[15-c] = ((b) >>> c*8) & 0xff;
-    for (var c=0; c<4; c++) counterBlock[15-c-4] = (((b+1)/0x100000000-1) >>> c*8) & 0xff;
-
-    var cipherCntr = Aes.cipher(counterBlock, keySchedule);  // encrypt counter block
-
-    var plaintxtByte = new Array(ciphertext[b].length);
-    for (var i=0; i<ciphertext[b].length; i++) {
-      // -- xor plaintxt with ciphered counter byte-by-byte --
-      plaintxtByte[i] = cipherCntr[i] ^ ciphertext[b].charCodeAt(i);
-      plaintxtByte[i] = String.fromCharCode(plaintxtByte[i]);
-    }
-    plaintxt[b] = plaintxtByte.join('');
-  }
-
-  // join array of blocks into single plaintext string
-  var plaintext = plaintxt.join('');
-  plaintext = Utf8.decode(plaintext);  // decode from UTF8 back to Unicode multi-byte chars
-  
-  //alert((new Date()) - t);
-  return plaintext;
-}
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-/*  Base64 class: Base 64 encoding / decoding (c) Chris Veness 2002-2011                          */
-/*    note: depends on Utf8 class                                                                 */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-var Base64 = {};  // Base64 namespace
-
-Base64.code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-
-/**
- * Encode string into Base64, as defined by RFC 4648 [http://tools.ietf.org/html/rfc4648]
- * (instance method extending String object). As per RFC 4648, no newlines are added.
- *
- * @param {String} str The string to be encoded as base-64
- * @param {Boolean} [utf8encode=false] Flag to indicate whether str is Unicode string to be encoded 
- *   to UTF8 before conversion to base64; otherwise string is assumed to be 8-bit characters
- * @returns {String} Base64-encoded string
- */ 
-Base64.encode = function(str, utf8encode) {  // http://tools.ietf.org/html/rfc4648
-  utf8encode =  (typeof utf8encode == 'undefined') ? false : utf8encode;
-  var o1, o2, o3, bits, h1, h2, h3, h4, e=[], pad = '', c, plain, coded;
-  var b64 = Base64.code;
-   
-  plain = utf8encode ? str.encodeUTF8() : str;
-  
-  c = plain.length % 3;  // pad string to length of multiple of 3
-  if (c > 0) { while (c++ < 3) { pad += '='; plain += '\0'; } }
-  // note: doing padding here saves us doing special-case packing for trailing 1 or 2 chars
-   
-  for (c=0; c<plain.length; c+=3) {  // pack three octets into four hexets
-    o1 = plain.charCodeAt(c);
-    o2 = plain.charCodeAt(c+1);
-    o3 = plain.charCodeAt(c+2);
-      
-    bits = o1<<16 | o2<<8 | o3;
-      
-    h1 = bits>>18 & 0x3f;
-    h2 = bits>>12 & 0x3f;
-    h3 = bits>>6 & 0x3f;
-    h4 = bits & 0x3f;
-
-    // use hextets to index into code string
-    e[c/3] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
-  }
-  coded = e.join('');  // join() is far faster than repeated string concatenation in IE
-  
-  // replace 'A's from padded nulls with '='s
-  coded = coded.slice(0, coded.length-pad.length) + pad;
-   
-  return coded;
-}
-
-/**
- * Decode string from Base64, as defined by RFC 4648 [http://tools.ietf.org/html/rfc4648]
- * (instance method extending String object). As per RFC 4648, newlines are not catered for.
- *
- * @param {String} str The string to be decoded from base-64
- * @param {Boolean} [utf8decode=false] Flag to indicate whether str is Unicode string to be decoded 
- *   from UTF8 after conversion from base64
- * @returns {String} decoded string
- */ 
-Base64.decode = function(str, utf8decode) {
-  utf8decode =  (typeof utf8decode == 'undefined') ? false : utf8decode;
-  var o1, o2, o3, h1, h2, h3, h4, bits, d=[], plain, coded;
-  var b64 = Base64.code;
-
-  coded = utf8decode ? str.decodeUTF8() : str;
-  
-  
-  for (var c=0; c<coded.length; c+=4) {  // unpack four hexets into three octets
-    h1 = b64.indexOf(coded.charAt(c));
-    h2 = b64.indexOf(coded.charAt(c+1));
-    h3 = b64.indexOf(coded.charAt(c+2));
-    h4 = b64.indexOf(coded.charAt(c+3));
-      
-    bits = h1<<18 | h2<<12 | h3<<6 | h4;
-      
-    o1 = bits>>>16 & 0xff;
-    o2 = bits>>>8 & 0xff;
-    o3 = bits & 0xff;
-    
-    d[c/4] = String.fromCharCode(o1, o2, o3);
-    // check for padding
-    if (h4 == 0x40) d[c/4] = String.fromCharCode(o1, o2);
-    if (h3 == 0x40) d[c/4] = String.fromCharCode(o1);
-  }
-  plain = d.join('');  // join() is far faster than repeated string concatenation in IE
-   
-  return utf8decode ? plain.decodeUTF8() : plain; 
-}
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-/*  Utf8 class: encode / decode between multi-byte Unicode characters and UTF-8 multiple          */
-/*              single-byte character encoding (c) Chris Veness 2002-2011                         */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-var Utf8 = {};  // Utf8 namespace
-
-/**
- * Encode multi-byte Unicode string into utf-8 multiple single-byte characters 
- * (BMP / basic multilingual plane only)
- *
- * Chars in range U+0080 - U+07FF are encoded in 2 chars, U+0800 - U+FFFF in 3 chars
- *
- * @param {String} strUni Unicode string to be encoded as UTF-8
- * @returns {String} encoded string
- */
-Utf8.encode = function(strUni) {
-  // use regular expressions & String.replace callback function for better efficiency 
-  // than procedural approaches
-  var strUtf = strUni.replace(
-      /[\u0080-\u07ff]/g,  // U+0080 - U+07FF => 2 bytes 110yyyyy, 10zzzzzz
-      function(c) { 
-        var cc = c.charCodeAt(0);
-        return String.fromCharCode(0xc0 | cc>>6, 0x80 | cc&0x3f); }
-    );
-  strUtf = strUtf.replace(
-      /[\u0800-\uffff]/g,  // U+0800 - U+FFFF => 3 bytes 1110xxxx, 10yyyyyy, 10zzzzzz
-      function(c) { 
-        var cc = c.charCodeAt(0); 
-        return String.fromCharCode(0xe0 | cc>>12, 0x80 | cc>>6&0x3F, 0x80 | cc&0x3f); }
-    );
-  return strUtf;
-}
-
-/**
- * Decode utf-8 encoded string back into multi-byte Unicode characters
- *
- * @param {String} strUtf UTF-8 string to be decoded back to Unicode
- * @returns {String} decoded string
- */
-Utf8.decode = function(strUtf) {
-  // note: decode 3-byte chars first as decoded 2-byte strings could appear to be 3-byte char!
-  var strUni = strUtf.replace(
-      /[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,  // 3-byte chars
-      function(c) {  // (note parentheses for precence)
-        var cc = ((c.charCodeAt(0)&0x0f)<<12) | ((c.charCodeAt(1)&0x3f)<<6) | ( c.charCodeAt(2)&0x3f); 
-        return String.fromCharCode(cc); }
-    );
-  strUni = strUni.replace(
-      /[\u00c0-\u00df][\u0080-\u00bf]/g,                 // 2-byte chars
-      function(c) {  // (note parentheses for precence)
-        var cc = (c.charCodeAt(0)&0x1f)<<6 | c.charCodeAt(1)&0x3f;
-        return String.fromCharCode(cc); }
-    );
-  return strUni;
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-/*********************************************** 
-     Begin bootstrap-tooltip.js 
-***********************************************/ 
-
-/* ===========================================================
- * bootstrap-tooltip.js v2.0.1
- * http://twitter.github.com/bootstrap/javascript.html#tooltips
- * Inspired by the original jQuery.tipsy by Jason Frame
- * ===========================================================
- * Copyright 2012 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================== */
-
-!function( $ ) {
-
-  "use strict"
-
- /* TOOLTIP PUBLIC CLASS DEFINITION
-  * =============================== */
-
-  var Tooltip = function ( element, options ) {
-    this.init('tooltip', element, options)
-  }
-
-  Tooltip.prototype = {
-
-    constructor: Tooltip
-
-  , init: function ( type, element, options ) {
-      var eventIn
-        , eventOut
-
-      this.type = type
-      this.$element = $(element)
-      this.options = this.getOptions(options)
-      this.enabled = true
-
-      if (this.options.trigger != 'manual') {
-        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
-        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
-        this.$element.on(eventIn, this.options.selector, $.proxy(this.enter, this))
-        this.$element.on(eventOut, this.options.selector, $.proxy(this.leave, this))
-      }
-
-      this.options.selector ?
-        (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
-        this.fixTitle()
-    }
-
-  , getOptions: function ( options ) {
-      options = $.extend({}, $.fn[this.type].defaults, options, this.$element.data())
-
-      if (options.delay && typeof options.delay == 'number') {
-        options.delay = {
-          show: options.delay
-        , hide: options.delay
-        }
-      }
-
-      return options
-    }
-
-  , enter: function ( e ) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
-
-      if (!self.options.delay || !self.options.delay.show) {
-        self.show()
-      } else {
-        self.hoverState = 'in'
-        setTimeout(function() {
-          if (self.hoverState == 'in') {
-            self.show()
-          }
-        }, self.options.delay.show)
-      }
-    }
-
-  , leave: function ( e ) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
-
-      if (!self.options.delay || !self.options.delay.hide) {
-        self.hide()
-      } else {
-        self.hoverState = 'out'
-        setTimeout(function() {
-          if (self.hoverState == 'out') {
-            self.hide()
-          }
-        }, self.options.delay.hide)
-      }
-    }
-
-  , show: function () {
-      var $tip
-        , inside
-        , pos
-        , actualWidth
-        , actualHeight
-        , placement
-        , tp
-
-      if (this.hasContent() && this.enabled) {
-        $tip = this.tip()
-        this.setContent()
-
-        if (this.options.animation) {
-          $tip.addClass('fade')
-        }
-
-        placement = typeof this.options.placement == 'function' ?
-          this.options.placement.call(this, $tip[0], this.$element[0]) :
-          this.options.placement
-
-        inside = /in/.test(placement)
-
-        $tip
-          .remove()
-          .css({ top: 0, left: 0, display: 'block' })
-          .appendTo(inside ? this.$element : document.body)
-
-        pos = this.getPosition(inside)
-
-        actualWidth = $tip[0].offsetWidth
-        actualHeight = $tip[0].offsetHeight
-
-        switch (inside ? placement.split(' ')[1] : placement) {
-          case 'bottom':
-            tp = {top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2}
-            break
-          case 'top':
-            tp = {top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2}
-            break
-          case 'left':
-            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth}
-            break
-          case 'right':
-            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
-            break
-        }
-
-        $tip
-          .css(tp)
-          .addClass(placement)
-          .addClass('in')
-      }
-    }
-
-  , setContent: function () {
-      var $tip = this.tip()
-      $tip.find('.tooltip-inner').html(this.getTitle())
-      $tip.removeClass('fade in top bottom left right')
-    }
-
-  , hide: function () {
-      var that = this
-        , $tip = this.tip()
-
-      $tip.removeClass('in')
-
-      function removeWithAnimation() {
-        var timeout = setTimeout(function () {
-          $tip.off($.support.transition.end).remove()
-        }, 500)
-
-        $tip.one($.support.transition.end, function () {
-          clearTimeout(timeout)
-          $tip.remove()
-        })
-      }
-
-      $.support.transition && this.$tip.hasClass('fade') ?
-        removeWithAnimation() :
-        $tip.remove()
-    }
-
-  , fixTitle: function () {
-      var $e = this.$element
-      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
-        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
-      }
-    }
-
-  , hasContent: function () {
-      return this.getTitle()
-    }
-
-  , getPosition: function (inside) {
-      return $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
-        width: this.$element[0].offsetWidth
-      , height: this.$element[0].offsetHeight
-      })
-    }
-
-  , getTitle: function () {
-      var title
-        , $e = this.$element
-        , o = this.options
-
-      title = $e.attr('data-original-title')
-        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-      title = title.toString().replace(/(^\s*|\s*$)/, "")
-
-      return title
-    }
-
-  , tip: function () {
-      return this.$tip = this.$tip || $(this.options.template)
-    }
-
-  , validate: function () {
-      if (!this.$element[0].parentNode) {
-        this.hide()
-        this.$element = null
-        this.options = null
-      }
-    }
-
-  , enable: function () {
-      this.enabled = true
-    }
-
-  , disable: function () {
-      this.enabled = false
-    }
-
-  , toggleEnabled: function () {
-      this.enabled = !this.enabled
-    }
-
-  , toggle: function () {
-      this[this.tip().hasClass('in') ? 'hide' : 'show']()
-    }
-
-  }
-
-
- /* TOOLTIP PLUGIN DEFINITION
-  * ========================= */
-
-  $.fn.tooltip = function ( option ) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('tooltip')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  $.fn.tooltip.Constructor = Tooltip
-
-  $.fn.tooltip.defaults = {
-    animation: true
-  , delay: 0
-  , selector: false
-  , placement: 'top'
-  , trigger: 'hover'
-  , title: ''
-  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-  }
-
-}( window.jQuery );
-
-/*********************************************** 
-     Begin VMM.Language.js 
-***********************************************/ 
-
-/* DEFAULT LANGUAGE 
-================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
-	VMM.Language = {
-		lang: "en",
-		api: {
-			wikipedia: "en"
-		},
-		date: {
-			month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
-			day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."],
-		}, 
-		dateformats: {
-			year: "yyyy",
-			month_short: "mmm",
-			month: "mmmm yyyy",
-			full_short: "mmm d",
-			full: "mmmm d',' yyyy",
-			time_no_seconds_short: "h:MM TT",
-			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
-			full_long: "mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
-		},
-		messages: {
-			loading_timeline: "Loading Timeline... ",
-			return_to_title: "Return to Title",
-			expand_timeline: "Expand Timeline",
-			contract_timeline: "Contract Timeline",
-			wikipedia: "From Wikipedia, the free encyclopedia",
-			loading_content: "Loading Content",
-			loading: "Loading"
-		}
-	}
-};
 
 /*********************************************** 
      Begin VMM.Library.js 
@@ -3722,124 +943,1275 @@ if( typeof( jQuery ) != 'undefined' ){
 
 
 /*********************************************** 
-     Begin VMM.MediaType.js 
+     Begin VMM.Browser.js 
 ***********************************************/ 
 
-/* MediaType
+/* DEVICE AND BROWSER DETECTION
 ================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
+if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 	
-	//VMM.mediaType.youtube(d); //should return a true or false
-	// VMM.MediaType(url); //returns an object with .type and .id
-	
-	VMM.MediaType = function(d) {
-		var success = false;
-		var media   = {};
-		
-		if (d.match("div class='twitter'")) {
-			media.type = "twitter-ready";
-		    media.id = d;
-		    success = true;
-		} else if (d.match('(www.)?youtube|youtu\.be')) {
-			if (d.match('v=')) {
-				media.id = VMM.Util.getUrlVars(d)["v"];
-			} else if (d.match('\/embed\/')) {
-				media.id = d.split("embed\/")[1].split(/[?&]/)[0];
+	VMM.Browser = {
+		init: function () {
+			this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+			this.version = this.searchVersion(navigator.userAgent)
+				|| this.searchVersion(navigator.appVersion)
+				|| "an unknown version";
+			this.OS = this.searchString(this.dataOS) || "an unknown OS";
+			this.device = this.searchDevice(navigator.userAgent);
+			this.orientation = this.searchOrientation(window.orientation);
+		},
+		searchOrientation: function(orientation) {
+			if ( orientation == 0  || orientation == 180) {  
+				return "portrait";
+			} else if ( orientation == 90 || orientation == -90) {  
+				return "landscape";
 			} else {
-				media.id = d.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+				return "normal";
 			}
-		    media.type = "youtube";
-		    success = true;
-		} else if (d.match('(player.)?vimeo\.com')) {
-		    media.type = "vimeo";
-		    media.id = d.split(/video\/|\/\/vimeo\.com\//)[1].split(/[?&]/)[0];;
-		    success = true;
-	    } else if (d.match('(www.)?dailymotion\.com')) {
-			media.id = d.split(/video\/|\/\/dailymotion\.com\//)[1];
-			media.type = "dailymotion";
-			success = true;
-		} else if (d.match('(player.)?soundcloud\.com')) {
-			media.type = "soundcloud";
-			media.id = d;
-			success = true;
-		} else if (d.match('(www.)?twitter\.com') && d.match('status') ) {
-			if (d.match("status\/")) {
-				media.id = d.split("status\/")[1];
-			} else if (d.match("statuses\/")) {
-				media.id = d.split("statuses\/")[1];
+		},
+		searchDevice: function(d) {
+			if (d.match(/Android/i) || d.match(/iPhone|iPod/i)) {
+				return "mobile";
+			} else if (d.match(/iPad/i)) {
+				return "tablet";
+			} else if (d.match(/BlackBerry/i) || d.match(/IEMobile/i)) {
+				return "other mobile";
 			} else {
-				media.id = "";
+				return "desktop";
 			}
-			media.type = "twitter";
-			success = true;
-		} else if (d.match("maps.google") && !d.match("staticmap")) {
-			media.type = "google-map";
-		    media.id = d.split(/src=['|"][^'|"]*?['|"]/gi);
-			success = true;
-		} else if (d.match("plus.google")) {
-			media.type = "googleplus";
-		    media.id = d.split("/posts/")[1];
-			//https://plus.google.com/u/0/112374836634096795698/posts/bRJSvCb5mUU
-			//https://plus.google.com/107096716333816995401/posts/J5iMpEDHWNL
-			if (d.split("/posts/")[0].match("u/0/")) {
-				media.user = d.split("u/0/")[1].split("/posts")[0];
-			} else {
-				media.user = d.split("google.com/")[1].split("/posts/")[0];
+		},
+		searchString: function (data) {
+			for (var i=0;i<data.length;i++)	{
+				var dataString = data[i].string;
+				var dataProp = data[i].prop;
+				this.versionSearchString = data[i].versionSearch || data[i].identity;
+				if (dataString) {
+					if (dataString.indexOf(data[i].subString) != -1)
+						return data[i].identity;
+				}
+				else if (dataProp)
+					return data[i].identity;
 			}
-			success = true;
-		} else if (d.match("flickr.com/photos")) {
-			media.type = "flickr";
-			media.id = d.split("photos\/")[1].split("/")[1];
-			media.link = d;
-			success = true;
-		} else if (d.match("instagr.am/p/")) {
-			media.type = "instagram";
-			media.link = d;
-			media.id = d.split("\/p\/")[1].split("/")[0];
-			success = true;
-		} else if (d.match(/jpg|jpeg|png|gif/i) || d.match("staticmap") || d.match("yfrog.com") || d.match("twitpic.com")) {
-			media.type = "image";
-			media.id = d;
-			success = true;
-		} else if (VMM.FileExtention.googleDocType(d)) {
-			media.type = "googledoc";
-			media.id = d;
-			success = true;
-		} else if (d.match('(www.)?wikipedia\.org')) {
-			media.type = "wikipedia";
-			//media.id = d.split("wiki\/")[1];
-			var wiki_id = d.split("wiki\/")[1].split("#")[0].replace("_", " ");
-			media.id = wiki_id.replace(" ", "%20");
-			media.lang = d.split("//")[1].split(".wikipedia")[0];
-			success = true;
-		} else if (d.indexOf('http://') == 0) {
-			media.type = "website";
-			media.id = d;
-			success = true;
-		} else if (d.match('storify')) {
-			media.type = "storify";
-			media.id = d;
-			success = true;
-		} else if (d.match('blockquote')) {
-			media.type = "quote";
-			media.id = d;
-			success = true;
-		} else {
-			trace("unknown media");  
-			media.type = "unknown";
-			media.id = d;
-			success = true;
+		},
+		searchVersion: function (dataString) {
+			var index = dataString.indexOf(this.versionSearchString);
+			if (index == -1) return;
+			return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+		},
+		dataBrowser: [
+			{
+				string: navigator.userAgent,
+				subString: "Chrome",
+				identity: "Chrome"
+			},
+			{ 	string: navigator.userAgent,
+				subString: "OmniWeb",
+				versionSearch: "OmniWeb/",
+				identity: "OmniWeb"
+			},
+			{
+				string: navigator.vendor,
+				subString: "Apple",
+				identity: "Safari",
+				versionSearch: "Version"
+			},
+			{
+				prop: window.opera,
+				identity: "Opera",
+				versionSearch: "Version"
+			},
+			{
+				string: navigator.vendor,
+				subString: "iCab",
+				identity: "iCab"
+			},
+			{
+				string: navigator.vendor,
+				subString: "KDE",
+				identity: "Konqueror"
+			},
+			{
+				string: navigator.userAgent,
+				subString: "Firefox",
+				identity: "Firefox"
+			},
+			{
+				string: navigator.vendor,
+				subString: "Camino",
+				identity: "Camino"
+			},
+			{		// for newer Netscapes (6+)
+				string: navigator.userAgent,
+				subString: "Netscape",
+				identity: "Netscape"
+			},
+			{
+				string: navigator.userAgent,
+				subString: "MSIE",
+				identity: "Explorer",
+				versionSearch: "MSIE"
+			},
+			{
+				string: navigator.userAgent,
+				subString: "Gecko",
+				identity: "Mozilla",
+				versionSearch: "rv"
+			},
+			{ 		// for older Netscapes (4-)
+				string: navigator.userAgent,
+				subString: "Mozilla",
+				identity: "Netscape",
+				versionSearch: "Mozilla"
+			}
+		],
+		dataOS : [
+			{
+				string: navigator.platform,
+				subString: "Win",
+				identity: "Windows"
+			},
+			{
+				string: navigator.platform,
+				subString: "Mac",
+				identity: "Mac"
+			},
+			{
+				string: navigator.userAgent,
+				subString: "iPhone",
+				identity: "iPhone/iPod"
+		    },
+			{
+				string: navigator.userAgent,
+				subString: "iPad",
+				identity: "iPad"
+		    },
+			{
+				string: navigator.platform,
+				subString: "Linux",
+				identity: "Linux"
+			}
+		]
+
+	}
+	VMM.Browser.init();
+}
+
+/*********************************************** 
+     Begin VMM.FileExtention.js 
+***********************************************/ 
+
+/* File Extention
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.FileExtention == 'undefined') {
+	//VMM.FileExtention.googleDocType(url);
+	VMM.FileExtention = {
+		googleDocType: function(url) {
+			var fileName = url;
+			var fileExtension = "";
+			//fileExtension = fileName.substr(5);
+			fileExtension = fileName.substr(fileName.length - 5, 5);
+			var validFileExtensions = ["DOC","DOCX","XLS","XLSX","PPT","PPTX","PDF","PAGES","AI","PSD","TIFF","DXF","SVG","EPS","PS","TTF","XPS","ZIP","RAR"];
+			var flag = false;
+			
+			for (var i = 0; i < validFileExtensions.length; i++) {
+
+				
+				if (fileExtension.toLowerCase().match(validFileExtensions[i].toString().toLowerCase()) || fileName.match("docs.google.com") ) {
+					flag = true;
+				}
+				
+			}
+			
+			return flag;
+
 		}
-		
-		if (success) { 
-			return media;
-		} else {
-			trace("No valid media id detected");
-			trace(d);
-		}
-		return false;
 	}
 }
+
+/*********************************************** 
+     Begin VMM.Date.js 
+***********************************************/ 
+
+/* Utilities and Useful Functions
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
+	
+	VMM.Date = ({
+		
+		init: function() {
+			return this;
+		},
+		
+		dateformats: {
+			year: "yyyy",
+			month_short: "mmm",
+			month: "mmmm yyyy",
+			full_short: "mmm d",
+			full: "mmmm d',' yyyy",
+			time_no_seconds_short: "h:MM TT",
+			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
+			full_long: "mmm d',' yyyy 'at' hh:MM TT",
+			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
+		},
+			
+		month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+		month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
+		day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+		day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."],
+		hour: [1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12],
+		hour_suffix: ["am"],
+			
+		//B.C.
+		bc_format: {
+			year: "yyyy",
+			month_short: "mmm",
+			month: "mmmm yyyy",
+			full_short: "mmm d",
+			full: "mmmm d',' yyyy",
+			time_no_seconds_short: "h:MM TT",
+			time_no_seconds_small_date: "dddd', 'h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
+			full_long: "dddd',' mmm d',' yyyy 'at' hh:MM TT",
+			full_long_small_date: "hh:MM TT'<br/><small>'dddd',' mmm d',' yyyy'</small>'",
+		},
+			
+		setLanguage: function(lang) {
+			trace("SET DATE LANGUAGE");
+			VMM.Date.dateformats		=	lang.dateformats;	
+			VMM.Date.month				=	lang.date.month;
+			VMM.Date.month_abbr			=	lang.date.month_abbr;
+			VMM.Date.day				=	lang.date.day;
+			VMM.Date.day_abbr			=	lang.date.day_abbr;
+			dateFormat.i18n.dayNames	=	lang.date.day_abbr.concat(lang.date.day);
+			dateFormat.i18n.monthNames	=	lang.date.month_abbr.concat(lang.date.month);
+		},
+			
+		parse: function(d) {
+			if (type.of(d) == "date") {
+				return d;
+			} else {
+				var _date = new Date(0, 0, 1, 0, 0, 0, 0);
+				var _d_array, _t_array;
+				var _time_parse, _times;
+				
+				if ( d.match(/,/gi) ) {
+					_d_array = d.split(",");
+					for(var i = 0; i < _d_array.length; i++) {
+						_d_array[i] = parseInt(_d_array[i]);
+					}
+					if (	_d_array[0]			) {	_date.setFullYear(		_d_array[0]);			}
+					if (	_d_array[1]	> 1		) {	_date.setMonth(			_d_array[1] - 1);		}
+					if (	_d_array[2]	> 1		) {	_date.setDate(			_d_array[2]);			}
+					if (	_d_array[3]	> 1		) {	_date.setHours(			_d_array[3]);			}
+					if (	_d_array[4]	> 1		) {	_date.setMinutes(		_d_array[4]);			}
+					if (	_d_array[5]	> 1		) {	_date.setSeconds(		_d_array[5]);			}
+					if (	_d_array[6]	> 1		) {	_date.setMilliseconds(	_d_array[6]);			}
+				} else if (d.match("/")) {
+					if (d.match(" ")) {
+						_time_parse = d.split(" ");
+						if (d.match(":")) {
+							_t_array = _time_parse[1].split(":");
+							if (	_t_array[0]	>= 1	) {		_date.setHours(			_t_array[0]);	}
+							if (	_t_array[1]	>= 1	) {		_date.setMinutes(		_t_array[1]);	}
+							if (	_t_array[2]	>= 1	) {		_date.setSeconds(		_t_array[2]);	}
+							if (	_t_array[3]	>= 1	) {		_date.setMilliseconds(	_t_array[3]);	}
+						}
+						_d_array = _time_parse[0].split("/");
+					} else {
+						_d_array = d.split("/");
+					}
+					if (	_d_array[2]			) {	_date.setFullYear(		_d_array[2]);			}
+					if (	_d_array[0]	> 1		) {	_date.setMonth(			_d_array[0] - 1);		}
+					if (	_d_array[1]	> 1		) {	_date.setDate(			_d_array[1]);			}
+				} else if (d.length <= 5) {
+					_date.setFullYear(parseInt(d));
+					_date.setMonth(0);
+					_date.setDate(1);
+					_date.setHours(0);
+					_date.setMinutes(0);
+					_date.setSeconds(0);
+					_date.setMilliseconds(0);
+				} else if (d.match("T")) {
+					if (navigator.userAgent.match(/MSIE\s(?!9.0)/)) {
+					    // IE 8 < Won't accept dates with a "-" in them.
+						_time_parse = d.split("T");
+						if (d.match(":")) {
+							_t_array = _time_parse[1].split(":");
+							if (	_t_array[0]	>= 1	) {		_date.setHours(			_t_array[0]);	}
+							if (	_t_array[1]	>= 1	) {		_date.setMinutes(		_t_array[1]);	}
+							if (	_t_array[2]	>= 1	) {		_date.setSeconds(		_t_array[2]);	}
+							if (	_t_array[3]	>= 1	) {		_date.setMilliseconds(	_t_array[3]);	}
+						}
+						_d_array = _time_parse[0].split("-");
+						if (	_d_array[0]			) {	_date.setFullYear(		_d_array[0]);			}
+						if (	_d_array[1]	> 1		) {	_date.setMonth(			_d_array[1] - 1);		}
+						if (	_d_array[2]	> 1		) {	_date.setDate(			_d_array[2]);			}
+						
+					} else {
+						_date = new Date(Date.parse(d));
+					}
+				} else {
+					_date = new Date(
+						parseInt(d.slice(0,4)), 
+						parseInt(d.slice(4,6)) - 1, 
+						parseInt(d.slice(6,8)), 
+						parseInt(d.slice(8,10)), 
+						parseInt(d.slice(10,12))
+					);
+				}
+				return _date;
+			}
+		},
+			
+		prettyDate: function(d, is_abbr, d2) {
+			var _date;
+			var _date2;
+			var format;
+			var bc_check;
+			var is_pair = false;
+				
+			if (d2 != null) {
+				is_pair = true;
+			}
+				
+			if (type.of(d) == "date") {
+				if (d.getMonth() === 0 && d.getDate() == 1 && d.getHours() === 0 && d.getMinutes() === 0 ) {
+					// YEAR ONLY
+					format = VMM.Date.dateformats.year;
+				} else if (d.getDate() <= 1 && d.getHours() === 0 && d.getMinutes() === 0) {
+					// YEAR MONTH
+					if (is_abbr) {
+						format = VMM.Date.dateformats.month_short;
+					} else {
+						format = VMM.Date.dateformats.month;
+					}
+				} else if (d.getHours() === 0 && d.getMinutes() === 0) {
+					// YEAR MONTH DAY
+					if (is_abbr) {
+						format = VMM.Date.dateformats.full_short;
+					} else {
+						format = VMM.Date.dateformats.full;
+					}
+				} else  if (d.getMinutes() === 0) {
+					// YEAR MONTH DAY HOUR
+					if (is_abbr) {
+						format = VMM.Date.dateformats.time_no_seconds_short;
+					} else {
+						format = VMM.Date.dateformats.time_no_seconds_small_date;
+					}
+				} else {
+					// YEAR MONTH DAY HOUR MINUTE
+					if (is_abbr){
+						format = VMM.Date.dateformats.time_no_seconds_short; 
+					} else {
+						format = VMM.Date.dateformats.full_long; 
+					}
+				}
+					
+				_date = dateFormat(d, format);
+				bc_check = _date.split(" ");
+					
+				// BC TIME SUPPORT
+				for(var i = 0; i < bc_check.length; i++) {
+					if ( parseInt(bc_check[i]) < 0 ) {
+						trace("YEAR IS BC");
+						var bc_original = 	bc_check[i];
+						var bc_number = 	Math.abs( parseInt(bc_check[i]) );
+						var bc_string = 	bc_number.toString() + " B.C.";
+						_date = _date.replace(bc_original, bc_string);
+					}
+				}
+					
+					
+				if (is_pair) {
+					_date2 = dateFormat(d2, format);
+					bc_check = _date2.split(" ");
+					// BC TIME SUPPORT
+					for(var i = 0; i < bc_check.length; i++) {
+						if ( parseInt(bc_check[i]) < 0 ) {
+							trace("YEAR IS BC");
+							var bc_original = 	bc_check[i];
+							var bc_number = 	Math.abs( parseInt(bc_check[i]) );
+							var bc_string = 	bc_number.toString() + " B.C.";
+							_date2 = _date2.replace(bc_original, bc_string);
+						}
+					}
+						
+				}
+			} else {
+				trace("NOT A VALID DATE?");
+				trace(d);
+			}
+				
+			if (is_pair) {
+				return _date + " &mdash; " + _date2;
+			} else {
+				return _date;
+			}
+		}
+		
+	}).init();
+	
+	/*
+	 * Date Format 1.2.3
+	 * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+	 * MIT license
+	 *
+	 * Includes enhancements by Scott Trenda <scott.trenda.net>
+	 * and Kris Kowal <cixar.com/~kris.kowal/>
+	 *
+	 * Accepts a date, a mask, or a date and a mask.
+	 * Returns a formatted version of the given date.
+	 * The date defaults to the current date/time.
+	 * The mask defaults to dateFormat.masks.default.
+	 */
+
+	var dateFormat = function () {
+		var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+			timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+			timezoneClip = /[^-+\dA-Z]/g,
+			pad = function (val, len) {
+				val = String(val);
+				len = len || 2;
+				while (val.length < len) val = "0" + val;
+				return val;
+			};
+
+		// Regexes and supporting functions are cached through closure
+		return function (date, mask, utc) {
+			var dF = dateFormat;
+
+			// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+			if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+				mask = date;
+				date = undefined;
+			}
+
+			// Passing date through Date applies Date.parse, if necessary
+			// Caused problems in IE
+			// date = date ? new Date(date) : new Date;
+			if (isNaN(date)) {
+				trace("invalid date " + date);
+				//return "";
+			} 
+
+			mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+
+			// Allow setting the utc argument via the mask
+			if (mask.slice(0, 4) == "UTC:") {
+				mask = mask.slice(4);
+				utc = true;
+			}
+
+			var	_ = utc ? "getUTC" : "get",
+				d = date[_ + "Date"](),
+				D = date[_ + "Day"](),
+				m = date[_ + "Month"](),
+				y = date[_ + "FullYear"](),
+				H = date[_ + "Hours"](),
+				M = date[_ + "Minutes"](),
+				s = date[_ + "Seconds"](),
+				L = date[_ + "Milliseconds"](),
+				o = utc ? 0 : date.getTimezoneOffset(),
+				flags = {
+					d:    d,
+					dd:   pad(d),
+					ddd:  dF.i18n.dayNames[D],
+					dddd: dF.i18n.dayNames[D + 7],
+					m:    m + 1,
+					mm:   pad(m + 1),
+					mmm:  dF.i18n.monthNames[m],
+					mmmm: dF.i18n.monthNames[m + 12],
+					yy:   String(y).slice(2),
+					yyyy: y,
+					h:    H % 12 || 12,
+					hh:   pad(H % 12 || 12),
+					H:    H,
+					HH:   pad(H),
+					M:    M,
+					MM:   pad(M),
+					s:    s,
+					ss:   pad(s),
+					l:    pad(L, 3),
+					L:    pad(L > 99 ? Math.round(L / 10) : L),
+					t:    H < 12 ? "a"  : "p",
+					tt:   H < 12 ? "am" : "pm",
+					T:    H < 12 ? "A"  : "P",
+					TT:   H < 12 ? "AM" : "PM",
+					Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
+					o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+					S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+				};
+
+			return mask.replace(token, function ($0) {
+				return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+			});
+		};
+	}();
+
+	// Some common format strings
+	dateFormat.masks = {
+		"default":      "ddd mmm dd yyyy HH:MM:ss",
+		shortDate:      "m/d/yy",
+		mediumDate:     "mmm d, yyyy",
+		longDate:       "mmmm d, yyyy",
+		fullDate:       "dddd, mmmm d, yyyy",
+		shortTime:      "h:MM TT",
+		mediumTime:     "h:MM:ss TT",
+		longTime:       "h:MM:ss TT Z",
+		isoDate:        "yyyy-mm-dd",
+		isoTime:        "HH:MM:ss",
+		isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+		isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+	};
+
+	// Internationalization strings
+	dateFormat.i18n = {
+		dayNames: [
+			"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+			"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+		],
+		monthNames: [
+			"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+			"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+		]
+	};
+
+	// For convenience...
+	Date.prototype.format = function (mask, utc) {
+		return dateFormat(this, mask, utc);
+	};
+	
+}
+
+/*********************************************** 
+     Begin VMM.Util.js 
+***********************************************/ 
+
+/* Utilities and Useful Functions
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.Util == 'undefined') {
+	
+	VMM.Util = ({
+		
+		init: function() {
+			return this;
+		},
+		
+		/* CORRECT PROTOCOL (DOES NOT WORK)
+		================================================== */
+		correctProtocol: function(url) {
+			var loc = (window.parent.location.protocol).toString();
+			var prefix = "";
+			var _url = url.split("://", 2);
+			
+			if (loc.match("http")) {
+				prefix = loc;
+			} else {
+				prefix = "https";
+			}
+			
+			return prefix + "://" + _url[1];
+			
+		},
+		
+		/* GET OBJECT ATTRIBUTE BY INDEX
+		================================================== */
+		getObjectAttributeByIndex: function(obj, index) {
+			if(typeof obj != 'undefined') {
+				var i = 0;
+				for (var attr in obj){
+					if (index === i){
+						return obj[attr];
+					}
+					i++;
+				}
+				return "";
+			} else {
+				return "";
+			}
+			
+		},
+		/* RANDOM BETWEEN
+		================================================== */
+		//VMM.Util.randomBetween(1, 3)
+		randomBetween: function(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		},
+		
+		/* AVERAGE
+			http://jsfromhell.com/array/average
+			var x = VMM.Util.average([2, 3, 4]);
+			VMM.Util.average([2, 3, 4]).mean
+		================================================== */
+		average: function(a) {
+		    var r = {mean: 0, variance: 0, deviation: 0}, t = a.length;
+		    for(var m, s = 0, l = t; l--; s += a[l]);
+		    for(m = r.mean = s / t, l = t, s = 0; l--; s += Math.pow(a[l] - m, 2));
+		    return r.deviation = Math.sqrt(r.variance = s / t), r;
+		},
+		
+		/* CUSTOM SORT
+		================================================== */
+		customSort: function(a, b) {
+			var a1= a, b1= b;
+			if(a1== b1) return 0;
+			return a1> b1? 1: -1;
+		},
+		
+		/* Remove Duplicates from Array
+		================================================== */
+		deDupeArray: function(arr) {
+			var i,
+				len=arr.length,
+				out=[],
+				obj={};
+
+			for (i=0;i<len;i++) {
+				obj[arr[i]]=0;
+			}
+			for (i in obj) {
+				out.push(i);
+			}
+			return out;
+		},
+		
+		/* Given an int or decimal, turn that into string in $xxx,xxx.xx format.
+		================================================== */
+		number2money: function(n, symbol, padding) {
+			var symbol = (symbol !== null) ? symbol : true; // add $
+			var padding = (padding !== null) ? padding : false; //pad with .00
+			var number = VMM.Math2.floatPrecision(n,2); // rounded correctly to two digits, if decimals passed
+			var formatted = this.niceNumber(number);
+			// no decimal and padding is enabled
+			if (!formatted.split(/\./g)[1] && padding) formatted = formatted + ".00";
+			// add money sign
+			if (symbol) formatted = "$"+formatted;
+			return formatted;
+		},
+		
+		/* Returns a word count number
+		================================================== */
+		wordCount: function(s) {
+			var fullStr = s + " ";
+			var initial_whitespace_rExp = /^[^A-Za-z0-9\'\-]+/gi;
+			var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
+			var non_alphanumerics_rExp = /[^A-Za-z0-9\'\-]+/gi;
+			var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
+			var splitString = cleanedStr.split(" ");
+			var word_count = splitString.length -1;
+			if (fullStr.length <2) {
+				word_count = 0;
+			}
+			return word_count;
+		},
+		
+		ratio: {
+			fit: function(w, h, ratio_w, ratio_h) {
+				//VMM.Util.ratio.fit(w, h, ratio_w, ratio_h).width;
+				var _fit = {width:0,height:0};
+				// TRY WIDTH FIRST
+				_fit.width = w;
+				//_fit.height = Math.round((h / ratio_h) * ratio_w);
+				_fit.height = Math.round((w / ratio_w) * ratio_h);
+				if (_fit.height > h) {
+					_fit.height = h;
+					//_fit.width = Math.round((w / ratio_w) * ratio_h);
+					_fit.width = Math.round((h / ratio_h) * ratio_w);
+					
+					if (_fit.width > w) {
+						trace("FIT: DIDN'T FIT!!! ")
+					}
+				}
+				
+				return _fit;
+				
+			},
+			r16_9: function(w,h) {
+				//VMM.Util.ratio.r16_9(w, h) // Returns corresponding number
+				if (w !== null && w !== "") {
+					return Math.round((h / 16) * 9);
+				} else if (h !== null && h !== "") {
+					return Math.round((w / 9) * 16);
+				}
+			},
+			r4_3: function(w,h) {
+				if (w !== null && w !== "") {
+					return Math.round((h / 4) * 3);
+				} else if (h !== null && h !== "") {
+					return Math.round((w / 3) * 4);
+				}
+			}
+		},
+		
+		doubledigit: function(n) {
+			return (n < 10 ? '0' : '') + n;
+		},
+		
+		/* Returns a truncated segement of a long string of between min and max words. If possible, ends on a period (otherwise goes to max).
+		================================================== */
+		truncateWords: function(s, min, max) {
+			
+			if (!min) min = 30;
+			if (!max) max = min;
+			
+			var initial_whitespace_rExp = /^[^A-Za-z0-9\'\-]+/gi;
+			var left_trimmedStr = s.replace(initial_whitespace_rExp, "");
+			var words = left_trimmedStr.split(" ");
+			
+			var result = [];
+			
+			min = Math.min(words.length, min);
+			max = Math.min(words.length, max);
+			
+			for (var i = 0; i<min; i++) {
+				result.push(words[i]);
+			}		
+			
+			for (var j = min; i<max; i++) {
+				var word = words[i];
+				
+				result.push(word);
+				
+				if (word.charAt(word.length-1) == '.') {
+					break;
+				}
+			}		
+			
+			return (result.join(' '));
+		},
+		
+		/* Turns plain text links into real links
+		================================================== */
+		linkify: function(text,targets,is_touch) {
+			
+			// http://, https://, ftp://
+			var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+
+			// www. sans http:// or https://
+			var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+			// Email addresses
+			var emailAddressPattern = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
+			
+
+			return text
+				.replace(urlPattern, "<a target='_blank' href='$&' onclick='void(0)'>$&</a>")
+				.replace(pseudoUrlPattern, "$1<a target='_blank' onclick='void(0)' href='http://$2'>$2</a>")
+				.replace(emailAddressPattern, "<a target='_blank' onclick='void(0)' href='mailto:$1'>$1</a>");
+		},
+		
+		linkify_with_twitter: function(text,targets,is_touch) {
+			
+			// http://, https://, ftp://
+			var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+			var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
+			var url_replace = '$1$4$7$10$13<a href="$2$5$8$11$14" class="hyphenate">$2$5$8$11$14</a>$3$6$9$12';
+			
+			// www. sans http:// or https://
+			var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+			function replaceURLWithHTMLLinks(text) {
+			    var exp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
+			    return text.replace(exp, "<a href='$1' target='_blank'>$3</a>");
+			}
+			// Email addresses
+			var emailAddressPattern = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
+			
+			//var twitterHandlePattern = /(@([\w]+))/g;
+			var twitterHandlePattern = /\B@([\w-]+)/gm;
+			var twitterSearchPattern = /(#([\w]+))/g;
+
+			return text
+				//.replace(urlPattern, "<a target='_blank' href='$&' onclick='void(0)'>$&</a>")
+				.replace(url_pattern, url_replace)
+				.replace(pseudoUrlPattern, "$1<a target='_blank' class='hyphenate' onclick='void(0)' href='http://$2'>$2</a>")
+				.replace(emailAddressPattern, "<a target='_blank' onclick='void(0)' href='mailto:$1'>$1</a>")
+				.replace(twitterHandlePattern, "<a href='http://twitter.com/$1' target='_blank' onclick='void(0)'>@$1</a>")
+				.replace(twitterSearchPattern, "<a href='http://twitter.com/#search?q=%23$2' target='_blank' 'void(0)'>$1</a>");
+		},
+		
+		linkify_wikipedia: function(text) {
+			
+			var urlPattern = /<i[^>]*>(.*?)<\/i>/gim;
+			return text
+				.replace(urlPattern, "<a target='_blank' href='http://en.wikipedia.org/wiki/$&' onclick='void(0)'>$&</a>")
+				.replace(/<i\b[^>]*>/gim, "")
+				.replace(/<\/i>/gim, "")
+				.replace(/<b\b[^>]*>/gim, "")
+				.replace(/<\/b>/gim, "");
+		},
+		
+		/* Turns plain text links into real links
+		================================================== */
+		// VMM.Util.unlinkify();
+		unlinkify: function(text) {
+			if(!text) return text;
+			text = text.replace(/<a\b[^>]*>/i,"");
+			text = text.replace(/<\/a>/i, "");
+			return text;
+		},
+		
+		untagify: function(text) {
+			if (!text) {
+				return text;
+			}
+			text = text.replace(/<\s*\w.*?>/g,"");
+			return text;
+		},
+		
+		/* TK
+		================================================== */
+		nl2br: function(text) {
+			return text.replace(/(\r\n|[\r\n]|\\n|\\r)/g,"<br/>");
+		},
+		
+		/* Generate a Unique ID
+		================================================== */
+		// VMM.Util.unique_ID(size);
+		unique_ID: function(size) {
+			
+			var getRandomNumber = function(range) {
+				return Math.floor(Math.random() * range);
+			};
+
+			var getRandomChar = function() {
+				var chars = "abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ";
+				return chars.substr( getRandomNumber(62), 1 );
+			};
+
+			var randomID = function(size) {
+				var str = "";
+				for(var i = 0; i < size; i++) {
+					str += getRandomChar();
+				}
+				return str;
+			};
+			
+			return randomID(size);
+		},
+		/* Tells you if a number is even or not
+		================================================== */
+		// VMM.Util.isEven(n)
+		isEven: function(n){
+			return (n%2 === 0) ? true : false;
+		},
+		/* Get URL Variables
+		================================================== */
+		//	var somestring = VMM.Util.getUrlVars(str_url)["varname"];
+		getUrlVars: function(string) {
+			
+			var str = string.toString();
+			
+			if (str.match('&#038;')) { 
+				str = str.replace("&#038;", "&");
+			} else if (str.match('&#38;')) {
+				str = str.replace("&#38;", "&");
+			} else if (str.match('&amp;')) {
+				str = str.replace("&amp;", "&");
+			}
+			
+			var vars = [], hash;
+			var hashes = str.slice(str.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++) {
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = hash[1];
+			}
+			
+			
+			return vars;
+		},
+
+		/* Cleans up strings to become real HTML
+		================================================== */
+		toHTML: function(text) {
+			
+			text = this.nl2br(text);
+			text = this.linkify(text);
+			
+			return text.replace(/\s\s/g,"&nbsp;&nbsp;");
+		},
+		
+		/* Returns text strings as CamelCase
+		================================================== */
+		toCamelCase: function(s,forceLowerCase) {
+			
+			if(forceLowerCase !== false) forceLowerCase = true;
+			
+			var sps = ((forceLowerCase) ? s.toLowerCase() : s).split(" ");
+			
+			for(var i=0; i<sps.length; i++) {
+				
+				sps[i] = sps[i].substr(0,1).toUpperCase() + sps[i].substr(1);
+			}
+			
+			return sps.join(" ");
+		},
+		
+		/* Replaces dumb quote marks with smart ones
+		================================================== */
+		properQuotes: function(str) {
+			return str.replace(/\"([^\"]*)\"/gi,"&#8220;$1&#8221;");
+		},
+		/* Given an int or decimal, return a string with pretty commas in the correct spot.
+		================================================== */
+		niceNumber: function(n){
+		
+			var amount = String( Math.abs(Number(n) ) );
+		    
+			var leftOfDecimal = amount.split(/\./g)[0];
+			var rightOfDecimal = amount.split(/\./g)[1];
+		    
+			var formatted_text = '';
+		    
+			var num_a = leftOfDecimal.toArray();
+			num_a.reverse();
+		    
+			for (var i=1; i <= num_a.length; i++) {
+				if ( (i%3 == 0) && (i < num_a.length ) ) {
+					formatted_text = "," + num_a[i-1] + formatted_text;
+				} else {
+					formatted_text = num_a[i-1] + formatted_text;
+				}
+		    }
+			if (rightOfDecimal != null && rightOfDecimal != '' && rightOfDecimal != undefined) {
+				return formatted_text + "." + rightOfDecimal;
+			} else {
+				return formatted_text;
+			}
+		},
+		
+		/* Transform text to Title Case
+		================================================== */
+		toTitleCase: function(t){
+			if ( VMM.Browser.browser == "Explorer" && parseInt(VMM.Browser.version, 10) >= 7) {
+				return t.replace("_", "%20");
+			} else {
+				var __TitleCase = {
+					__smallWords: ['a', 'an', 'and', 'as', 'at', 'but','by', 'en', 'for', 'if', 'in', 'of', 'on', 'or','the', 'to', 'v[.]?', 'via', 'vs[.]?'],
+
+					init: function() {
+						this.__smallRE = this.__smallWords.join('|');
+						this.__lowerCaseWordsRE = new RegExp('\\b(' + this.__smallRE + ')\\b', 'gi');
+						this.__firstWordRE = new RegExp('^([^a-zA-Z0-9 \\r\\n\\t]*)(' + this.__smallRE + ')\\b', 'gi');
+						this.__lastWordRE = new RegExp('\\b(' + this.__smallRE + ')([^a-zA-Z0-9 \\r\\n\\t]*)$', 'gi');
+					},
+
+					toTitleCase: function(string) {
+						var line = '';
+
+						var split = string.split(/([:.;?!][ ]|(?:[ ]|^)["“])/);
+
+						for (var i = 0; i < split.length; ++i) {
+							var s = split[i];
+
+							s = s.replace(/\b([a-zA-Z][a-z.'’]*)\b/g,this.__titleCaseDottedWordReplacer);
+
+			 				// lowercase the list of small words
+							s = s.replace(this.__lowerCaseWordsRE, this.__lowerReplacer);
+
+							// if the first word in the title is a small word then capitalize it
+							s = s.replace(this.__firstWordRE, this.__firstToUpperCase);
+
+							// if the last word in the title is a small word, then capitalize it
+							s = s.replace(this.__lastWordRE, this.__firstToUpperCase);
+
+							line += s;
+						}
+
+						// special cases
+						line = line.replace(/ V(s?)\. /g, ' v$1. ');
+						line = line.replace(/(['’])S\b/g, '$1s');
+						line = line.replace(/\b(AT&T|Q&A)\b/ig, this.__upperReplacer);
+
+						return line;
+					},
+
+					__titleCaseDottedWordReplacer: function (w) {
+						return (w.match(/[a-zA-Z][.][a-zA-Z]/)) ? w : __TitleCase.__firstToUpperCase(w);
+					},
+
+					__lowerReplacer: function (w) { return w.toLowerCase() },
+
+					__upperReplacer: function (w) { return w.toUpperCase() },
+
+					__firstToUpperCase: function (w) {
+						var split = w.split(/(^[^a-zA-Z0-9]*[a-zA-Z0-9])(.*)$/);
+						if (split[1]) {
+							split[1] = split[1].toUpperCase();
+						}
+					
+						return split.join('');
+					
+					
+					},
+				};
+
+				__TitleCase.init();
+			
+				t = t.replace(/_/g," ");
+				t = __TitleCase.toTitleCase(t);
+			
+				return t;
+				
+			}
+			
+		},
+		
+	}).init();
+}
+
+/*********************************************** 
+     Begin VMM.LoadLib.js 
+***********************************************/ 
+
+/*
+	LoadLib
+	Based on LazyLoad by Ryan Grove
+	https://github.com/rgrove/lazyload/ 
+	Copyright (c) 2011 Ryan Grove <ryan@wonko.com>
+	All rights reserved.
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of
+	this software and associated documentation files (the 'Software'), to deal in
+	the Software without restriction, including without limitation the rights to
+	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+	the Software, and to permit persons to whom the Software is furnished to do so,
+	subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+================================================== */
+window.loadedJS = [];
+
+
+if(typeof VMM != 'undefined' && typeof VMM.LoadLib == 'undefined') {
+	//VMM.LoadLib.js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', onJQueryLoaded);
+	//VMM.LoadLib.css('http://someurl.css', onCSSLoaded);
+	
+	
+	
+	VMM.LoadLib = (function (doc) {
+		var env,
+		head,
+		pending = {},
+		pollCount = 0,
+		queue = {css: [], js: []},
+		styleSheets = doc.styleSheets;
+	
+		var loaded_Array = [];
+	
+		function isLoaded(url) {
+			var has_been_loaded = false;
+			for(var i=0; i<loaded_Array.length; i++) {
+				if (loaded_Array[i] == url) {
+					has_been_loaded = true;
+				}
+			}
+			if (!has_been_loaded) {
+				loaded_Array.push(url);
+			}
+			return has_been_loaded;
+		}
+
+		function createNode(name, attrs) {
+			var node = doc.createElement(name), attr;
+
+			for (attr in attrs) {
+				if (attrs.hasOwnProperty(attr)) {
+					node.setAttribute(attr, attrs[attr]);
+				}
+			}
+
+			return node;
+		}
+
+	  function finish(type) {
+	    var p = pending[type],
+	        callback,
+	        urls;
+
+	    if (p) {
+	      callback = p.callback;
+	      urls     = p.urls;
+	      urls.shift();
+	      pollCount = 0;
+	      if (!urls.length) {
+	        callback && callback.call(p.context, p.obj);
+	        pending[type] = null;
+	        queue[type].length && load(type);
+	      }
+	    }
+	  }
+
+	  function getEnv() {
+	    var ua = navigator.userAgent;
+
+	    env = {
+
+	      async: doc.createElement('script').async === true
+	    };
+
+	    (env.webkit = /AppleWebKit\//.test(ua))
+	      || (env.ie = /MSIE/.test(ua))
+	      || (env.opera = /Opera/.test(ua))
+	      || (env.gecko = /Gecko\//.test(ua))
+	      || (env.unknown = true);
+	  }
+
+	  function load(type, urls, callback, obj, context) {
+	    var _finish = function () { finish(type); },
+	        isCSS   = type === 'css',
+	        nodes   = [],
+	        i, len, node, p, pendingUrls, url;
+
+	    env || getEnv();
+
+	    if (urls) {
+
+	      urls = typeof urls === 'string' ? [urls] : urls.concat();
+
+	      if (isCSS || env.async || env.gecko || env.opera) {
+
+	        queue[type].push({
+	          urls    : urls,
+	          callback: callback,
+	          obj     : obj,
+	          context : context
+	        });
+	      } else {
+	        for (i = 0, len = urls.length; i < len; ++i) {
+	          queue[type].push({
+	            urls    : [urls[i]],
+	            callback: i === len - 1 ? callback : null,
+	            obj     : obj,
+	            context : context
+	          });
+	        }
+	      }
+	    }
+
+	    if (pending[type] || !(p = pending[type] = queue[type].shift())) {
+	      return;
+	    }
+
+	    head || (head = doc.head || doc.getElementsByTagName('head')[0]);
+	    pendingUrls = p.urls;
+
+	    for (i = 0, len = pendingUrls.length; i < len; ++i) {
+	      url = pendingUrls[i];
+
+	      if (isCSS) {
+	          node = env.gecko ? createNode('style') : createNode('link', {
+	            href: url,
+	            rel : 'stylesheet'
+	          });
+	      } else {
+	        node = createNode('script', {src: url});
+	        node.async = false;
+	      }
+
+	      node.className = 'lazyload';
+	      node.setAttribute('charset', 'utf-8');
+
+	      if (env.ie && !isCSS) {
+	        node.onreadystatechange = function () {
+	          if (/loaded|complete/.test(node.readyState)) {
+	            node.onreadystatechange = null;
+	            _finish();
+	          }
+	        };
+	      } else if (isCSS && (env.gecko || env.webkit)) {
+	        if (env.webkit) {
+	          p.urls[i] = node.href; 
+	          pollWebKit();
+	        } else {
+	          node.innerHTML = '@import "' + url + '";';
+	          pollGecko(node);
+	        }
+	      } else {
+	        node.onload = node.onerror = _finish;
+	      }
+
+	      nodes.push(node);
+	    }
+
+	    for (i = 0, len = nodes.length; i < len; ++i) {
+	      head.appendChild(nodes[i]);
+	    }
+	  }
+
+	  function pollGecko(node) {
+	    var hasRules;
+
+	    try {
+
+	      hasRules = !!node.sheet.cssRules;
+	    } catch (ex) {
+	      pollCount += 1;
+
+	      if (pollCount < 200) {
+	        setTimeout(function () { pollGecko(node); }, 50);
+	      } else {
+
+	        hasRules && finish('css');
+	      }
+
+	      return;
+	    }
+
+	    finish('css');
+	  }
+
+	  function pollWebKit() {
+	    var css = pending.css, i;
+
+	    if (css) {
+	      i = styleSheets.length;
+
+	      while (--i >= 0) {
+	        if (styleSheets[i].href === css.urls[0]) {
+	          finish('css');
+	          break;
+	        }
+	      }
+
+	      pollCount += 1;
+
+	      if (css) {
+	        if (pollCount < 200) {
+	          setTimeout(pollWebKit, 50);
+	        } else {
+
+	          finish('css');
+	        }
+	      }
+	    }
+	  }
+
+	  return {
+
+		css: function (urls, callback, obj, context) {
+			if (isLoaded(urls)) {
+				return callback;
+			} else {
+				load('css', urls, callback, obj, context);
+			}
+		},
+
+		js: function (urls, callback, obj, context) {
+			if (isLoaded(urls)) {
+				return callback;
+			} else {
+				load('js', urls, callback, obj, context);
+			}
+		}
+
+	  };
+	})(this.document);
+}
+
+
 
 /*********************************************** 
      Begin VMM.ExternalAPI.js 
@@ -4786,478 +3158,619 @@ function onYouTubePlayerAPIReady() {
 }
 
 /*********************************************** 
-     Begin VMM.Util.js 
+     Begin VMM.MediaElement.js 
 ***********************************************/ 
 
-/* Utilities and Useful Functions
+/* MediaElement
 ================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.Util == 'undefined') {
+if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 	
-	VMM.Util = ({
+	VMM.MediaElement = ({
 		
 		init: function() {
 			return this;
 		},
 		
-		/* CORRECT PROTOCOL (DOES NOT WORK)
-		================================================== */
-		correctProtocol: function(url) {
-			var loc = (window.parent.location.protocol).toString();
-			var prefix = "";
-			var _url = url.split("://", 2);
+		thumbnail: function(data, w, h, uid) {
+			var _w		= 16,
+				_h		= 24,
+				_uid	= "";
+				
+			if (w != null && w != "") {_w = w};
+			if (h != null && h != "") {_h = h};
+			if (uid != null && uid != "") {_uid = uid};
 			
-			if (loc.match("http")) {
-				prefix = loc;
-			} else {
-				prefix = "https";
-			}
-			
-			return prefix + "://" + _url[1];
-			
-		},
-		
-		/* GET OBJECT ATTRIBUTE BY INDEX
-		================================================== */
-		getObjectAttributeByIndex: function(obj, index) {
-			if(typeof obj != 'undefined') {
-				var i = 0;
-				for (var attr in obj){
-					if (index === i){
-						return obj[attr];
+			if (data.media != null && data.media != "") {
+				var _valid		= true,
+					mediaElem	= "",
+					m			= VMM.MediaType(data.media); //returns an object with .type and .id
+						
+				// CREATE MEDIA CODE 
+				if (m.type == "image") {
+					mediaElem		=	"<div class='thumbnail thumb-photo'></div>";
+					return mediaElem;
+				} else if (m.type	==	"flickr") {
+					mediaElem		=	"<div class='thumbnail thumb-photo' id='flickr_" + m.id + "_thumb'></div>";
+					return mediaElem;
+				} else if (m.type	==	"instagram") {
+					mediaElem		=	"<div class='thumbnail thumb-instagram' id='instagram_" + m.id + "_thumb'><img src='" + VMM.ExternalAPI.instagram.get(m.id, true) + "'></div>";
+					return mediaElem;
+				} else if (m.type	==	"youtube") {
+					mediaElem		=	"<div class='thumbnail thumb-youtube' id='youtube_" + m.id + "_thumb'></div>";
+					return mediaElem;
+				} else if (m.type	==	"googledoc") {
+					mediaElem		=	"<div class='thumbnail thumb-document'></div>";
+					return mediaElem;
+				} else if (m.type	==	"vimeo") {
+					mediaElem		=	"<div class='thumbnail thumb-vimeo' id='vimeo_" + m.id + "_thumb'></div>";
+					return mediaElem;
+				} else if (m.type  ==  "dailymotion") {
+					mediaElem		=  "<div class='thumbnail thumb-video'></div>";
+					return mediaElem;
+				} else if (m.type	==	"twitter"){
+					mediaElem		=	"<div class='thumbnail thumb-twitter'></div>";
+					return mediaElem;
+				} else if (m.type	==	"twitter-ready") {
+					mediaElem		=	"<div class='thumbnail thumb-twitter'></div>";
+					return mediaElem;
+				} else if (m.type	==	"soundcloud") {
+					mediaElem		=	"<div class='thumbnail thumb-audio'></div>";
+					return mediaElem;
+				} else if (m.type	==	"google-map") {
+					mediaElem		=	"<div class='thumbnail thumb-map'></div>";
+					return mediaElem;
+				} else if (m.type		==	"googleplus") {
+					mediaElem		=	"<div class='thumbnail thumb-googleplus'></div>";
+					return mediaElem;
+				} else if (m.type	==	"wikipedia") {
+					mediaElem		=	"<div class='thumbnail thumb-wikipedia'></div>";
+					return mediaElem;
+				} else if (m.type	==	"storify") {
+					mediaElem		=	"<div class='thumbnail thumb-storify'></div>";
+					return mediaElem;
+				} else if (m.type	==	"quote") {
+					mediaElem		=	"<div class='thumbnail thumb-quote'></div>";
+					return mediaElem;
+				} else if (m.type	==	"unknown") {
+					if (m.id.match("blockquote")) {
+						mediaElem	=	"<div class='thumbnail thumb-quote'></div>";
+					} else {
+						mediaElem	=	"<div class='thumbnail thumb-plaintext'></div>";
 					}
-					i++;
-				}
-				return "";
-			} else {
-				return "";
-			}
-			
-		},
-		/* RANDOM BETWEEN
-		================================================== */
-		//VMM.Util.randomBetween(1, 3)
-		randomBetween: function(min, max) {
-			return Math.floor(Math.random() * (max - min + 1) + min);
-		},
-		
-		/* AVERAGE
-			http://jsfromhell.com/array/average
-			var x = VMM.Util.average([2, 3, 4]);
-			VMM.Util.average([2, 3, 4]).mean
-		================================================== */
-		average: function(a) {
-		    var r = {mean: 0, variance: 0, deviation: 0}, t = a.length;
-		    for(var m, s = 0, l = t; l--; s += a[l]);
-		    for(m = r.mean = s / t, l = t, s = 0; l--; s += Math.pow(a[l] - m, 2));
-		    return r.deviation = Math.sqrt(r.variance = s / t), r;
-		},
-		
-		/* CUSTOM SORT
-		================================================== */
-		customSort: function(a, b) {
-			var a1= a, b1= b;
-			if(a1== b1) return 0;
-			return a1> b1? 1: -1;
-		},
-		
-		/* Remove Duplicates from Array
-		================================================== */
-		deDupeArray: function(arr) {
-			var i,
-				len=arr.length,
-				out=[],
-				obj={};
-
-			for (i=0;i<len;i++) {
-				obj[arr[i]]=0;
-			}
-			for (i in obj) {
-				out.push(i);
-			}
-			return out;
-		},
-		
-		/* Given an int or decimal, turn that into string in $xxx,xxx.xx format.
-		================================================== */
-		number2money: function(n, symbol, padding) {
-			var symbol = (symbol !== null) ? symbol : true; // add $
-			var padding = (padding !== null) ? padding : false; //pad with .00
-			var number = VMM.Math2.floatPrecision(n,2); // rounded correctly to two digits, if decimals passed
-			var formatted = this.niceNumber(number);
-			// no decimal and padding is enabled
-			if (!formatted.split(/\./g)[1] && padding) formatted = formatted + ".00";
-			// add money sign
-			if (symbol) formatted = "$"+formatted;
-			return formatted;
-		},
-		
-		/* Returns a word count number
-		================================================== */
-		wordCount: function(s) {
-			var fullStr = s + " ";
-			var initial_whitespace_rExp = /^[^A-Za-z0-9\'\-]+/gi;
-			var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
-			var non_alphanumerics_rExp = /[^A-Za-z0-9\'\-]+/gi;
-			var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
-			var splitString = cleanedStr.split(" ");
-			var word_count = splitString.length -1;
-			if (fullStr.length <2) {
-				word_count = 0;
-			}
-			return word_count;
-		},
-		
-		ratio: {
-			fit: function(w, h, ratio_w, ratio_h) {
-				//VMM.Util.ratio.fit(w, h, ratio_w, ratio_h).width;
-				var _fit = {width:0,height:0};
-				// TRY WIDTH FIRST
-				_fit.width = w;
-				//_fit.height = Math.round((h / ratio_h) * ratio_w);
-				_fit.height = Math.round((w / ratio_w) * ratio_h);
-				if (_fit.height > h) {
-					_fit.height = h;
-					//_fit.width = Math.round((w / ratio_w) * ratio_h);
-					_fit.width = Math.round((h / ratio_h) * ratio_w);
-					
-					if (_fit.width > w) {
-						trace("FIT: DIDN'T FIT!!! ")
-					}
-				}
-				
-				return _fit;
-				
-			},
-			r16_9: function(w,h) {
-				//VMM.Util.ratio.r16_9(w, h) // Returns corresponding number
-				if (w !== null && w !== "") {
-					return Math.round((h / 16) * 9);
-				} else if (h !== null && h !== "") {
-					return Math.round((w / 9) * 16);
-				}
-			},
-			r4_3: function(w,h) {
-				if (w !== null && w !== "") {
-					return Math.round((h / 4) * 3);
-				} else if (h !== null && h !== "") {
-					return Math.round((w / 3) * 4);
-				}
-			}
-		},
-		
-		doubledigit: function(n) {
-			return (n < 10 ? '0' : '') + n;
-		},
-		
-		/* Returns a truncated segement of a long string of between min and max words. If possible, ends on a period (otherwise goes to max).
-		================================================== */
-		truncateWords: function(s, min, max) {
-			
-			if (!min) min = 30;
-			if (!max) max = min;
-			
-			var initial_whitespace_rExp = /^[^A-Za-z0-9\'\-]+/gi;
-			var left_trimmedStr = s.replace(initial_whitespace_rExp, "");
-			var words = left_trimmedStr.split(" ");
-			
-			var result = [];
-			
-			min = Math.min(words.length, min);
-			max = Math.min(words.length, max);
-			
-			for (var i = 0; i<min; i++) {
-				result.push(words[i]);
-			}		
-			
-			for (var j = min; i<max; i++) {
-				var word = words[i];
-				
-				result.push(word);
-				
-				if (word.charAt(word.length-1) == '.') {
-					break;
-				}
-			}		
-			
-			return (result.join(' '));
-		},
-		
-		/* Turns plain text links into real links
-		================================================== */
-		linkify: function(text,targets,is_touch) {
-			
-			// http://, https://, ftp://
-			var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
-
-			// www. sans http:// or https://
-			var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-
-			// Email addresses
-			var emailAddressPattern = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
-			
-
-			return text
-				.replace(urlPattern, "<a target='_blank' href='$&' onclick='void(0)'>$&</a>")
-				.replace(pseudoUrlPattern, "$1<a target='_blank' onclick='void(0)' href='http://$2'>$2</a>")
-				.replace(emailAddressPattern, "<a target='_blank' onclick='void(0)' href='mailto:$1'>$1</a>");
-		},
-		
-		linkify_with_twitter: function(text,targets,is_touch) {
-			
-			// http://, https://, ftp://
-			var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
-			var url_pattern = /(\()((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\))|(\[)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\])|(\{)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(\})|(<|&(?:lt|#60|#x3c);)((?:ht|f)tps?:\/\/[a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]+)(>|&(?:gt|#62|#x3e);)|((?:^|[^=\s'"\]])\s*['"]?|[^=\s]\s+)(\b(?:ht|f)tps?:\/\/[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]+(?:(?!&(?:gt|#0*62|#x0*3e);|&(?:amp|apos|quot|#0*3[49]|#x0*2[27]);[.!&',:?;]?(?:[^a-z0-9\-._~!$&'()*+,;=:\/?#[\]@%]|$))&[a-z0-9\-._~!$'()*+,;=:\/?#[\]@%]*)*[a-z0-9\-_~$()*+=\/#[\]@%])/img;
-			var url_replace = '$1$4$7$10$13<a href="$2$5$8$11$14" class="hyphenate">$2$5$8$11$14</a>$3$6$9$12';
-			
-			// www. sans http:// or https://
-			var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-			function replaceURLWithHTMLLinks(text) {
-			    var exp = /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/ig;
-			    return text.replace(exp, "<a href='$1' target='_blank'>$3</a>");
-			}
-			// Email addresses
-			var emailAddressPattern = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
-			
-			//var twitterHandlePattern = /(@([\w]+))/g;
-			var twitterHandlePattern = /\B@([\w-]+)/gm;
-			var twitterSearchPattern = /(#([\w]+))/g;
-
-			return text
-				//.replace(urlPattern, "<a target='_blank' href='$&' onclick='void(0)'>$&</a>")
-				.replace(url_pattern, url_replace)
-				.replace(pseudoUrlPattern, "$1<a target='_blank' class='hyphenate' onclick='void(0)' href='http://$2'>$2</a>")
-				.replace(emailAddressPattern, "<a target='_blank' onclick='void(0)' href='mailto:$1'>$1</a>")
-				.replace(twitterHandlePattern, "<a href='http://twitter.com/$1' target='_blank' onclick='void(0)'>@$1</a>")
-				.replace(twitterSearchPattern, "<a href='http://twitter.com/#search?q=%23$2' target='_blank' 'void(0)'>$1</a>");
-		},
-		
-		linkify_wikipedia: function(text) {
-			
-			var urlPattern = /<i[^>]*>(.*?)<\/i>/gim;
-			return text
-				.replace(urlPattern, "<a target='_blank' href='http://en.wikipedia.org/wiki/$&' onclick='void(0)'>$&</a>")
-				.replace(/<i\b[^>]*>/gim, "")
-				.replace(/<\/i>/gim, "")
-				.replace(/<b\b[^>]*>/gim, "")
-				.replace(/<\/b>/gim, "");
-		},
-		
-		/* Turns plain text links into real links
-		================================================== */
-		// VMM.Util.unlinkify();
-		unlinkify: function(text) {
-			if(!text) return text;
-			text = text.replace(/<a\b[^>]*>/i,"");
-			text = text.replace(/<\/a>/i, "");
-			return text;
-		},
-		
-		untagify: function(text) {
-			if (!text) {
-				return text;
-			}
-			text = text.replace(/<\s*\w.*?>/g,"");
-			return text;
-		},
-		
-		/* TK
-		================================================== */
-		nl2br: function(text) {
-			return text.replace(/(\r\n|[\r\n]|\\n|\\r)/g,"<br/>");
-		},
-		
-		/* Generate a Unique ID
-		================================================== */
-		// VMM.Util.unique_ID(size);
-		unique_ID: function(size) {
-			
-			var getRandomNumber = function(range) {
-				return Math.floor(Math.random() * range);
-			};
-
-			var getRandomChar = function() {
-				var chars = "abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ";
-				return chars.substr( getRandomNumber(62), 1 );
-			};
-
-			var randomID = function(size) {
-				var str = "";
-				for(var i = 0; i < size; i++) {
-					str += getRandomChar();
-				}
-				return str;
-			};
-			
-			return randomID(size);
-		},
-		/* Tells you if a number is even or not
-		================================================== */
-		// VMM.Util.isEven(n)
-		isEven: function(n){
-			return (n%2 === 0) ? true : false;
-		},
-		/* Get URL Variables
-		================================================== */
-		//	var somestring = VMM.Util.getUrlVars(str_url)["varname"];
-		getUrlVars: function(string) {
-			
-			var str = string.toString();
-			
-			if (str.match('&#038;')) { 
-				str = str.replace("&#038;", "&");
-			} else if (str.match('&#38;')) {
-				str = str.replace("&#38;", "&");
-			} else if (str.match('&amp;')) {
-				str = str.replace("&amp;", "&");
-			}
-			
-			var vars = [], hash;
-			var hashes = str.slice(str.indexOf('?') + 1).split('&');
-			for(var i = 0; i < hashes.length; i++) {
-				hash = hashes[i].split('=');
-				vars.push(hash[0]);
-				vars[hash[0]] = hash[1];
-			}
-			
-			
-			return vars;
-		},
-
-		/* Cleans up strings to become real HTML
-		================================================== */
-		toHTML: function(text) {
-			
-			text = this.nl2br(text);
-			text = this.linkify(text);
-			
-			return text.replace(/\s\s/g,"&nbsp;&nbsp;");
-		},
-		
-		/* Returns text strings as CamelCase
-		================================================== */
-		toCamelCase: function(s,forceLowerCase) {
-			
-			if(forceLowerCase !== false) forceLowerCase = true;
-			
-			var sps = ((forceLowerCase) ? s.toLowerCase() : s).split(" ");
-			
-			for(var i=0; i<sps.length; i++) {
-				
-				sps[i] = sps[i].substr(0,1).toUpperCase() + sps[i].substr(1);
-			}
-			
-			return sps.join(" ");
-		},
-		
-		/* Replaces dumb quote marks with smart ones
-		================================================== */
-		properQuotes: function(str) {
-			return str.replace(/\"([^\"]*)\"/gi,"&#8220;$1&#8221;");
-		},
-		/* Given an int or decimal, return a string with pretty commas in the correct spot.
-		================================================== */
-		niceNumber: function(n){
-		
-			var amount = String( Math.abs(Number(n) ) );
-		    
-			var leftOfDecimal = amount.split(/\./g)[0];
-			var rightOfDecimal = amount.split(/\./g)[1];
-		    
-			var formatted_text = '';
-		    
-			var num_a = leftOfDecimal.toArray();
-			num_a.reverse();
-		    
-			for (var i=1; i <= num_a.length; i++) {
-				if ( (i%3 == 0) && (i < num_a.length ) ) {
-					formatted_text = "," + num_a[i-1] + formatted_text;
+					return mediaElem;
+				} else if (m.type	==	"website") {
+					mediaElem		=	"<div class='thumbnail thumb-website'></div>";
+					return mediaElem;
 				} else {
-					formatted_text = num_a[i-1] + formatted_text;
+					mediaElem = "<div class='thumbnail thumb-plaintext'></div>";
+					return mediaElem;
 				}
-		    }
-			if (rightOfDecimal != null && rightOfDecimal != '' && rightOfDecimal != undefined) {
-				return formatted_text + "." + rightOfDecimal;
-			} else {
-				return formatted_text;
-			}
+			} 
 		},
 		
-		/* Transform text to Title Case
-		================================================== */
-		toTitleCase: function(t){
-			if ( VMM.Browser.browser == "Explorer" && parseInt(VMM.Browser.version, 10) >= 7) {
-				return t.replace("_", "%20");
-			} else {
-				var __TitleCase = {
-					__smallWords: ['a', 'an', 'and', 'as', 'at', 'but','by', 'en', 'for', 'if', 'in', 'of', 'on', 'or','the', 'to', 'v[.]?', 'via', 'vs[.]?'],
-
-					init: function() {
-						this.__smallRE = this.__smallWords.join('|');
-						this.__lowerCaseWordsRE = new RegExp('\\b(' + this.__smallRE + ')\\b', 'gi');
-						this.__firstWordRE = new RegExp('^([^a-zA-Z0-9 \\r\\n\\t]*)(' + this.__smallRE + ')\\b', 'gi');
-						this.__lastWordRE = new RegExp('\\b(' + this.__smallRE + ')([^a-zA-Z0-9 \\r\\n\\t]*)$', 'gi');
-					},
-
-					toTitleCase: function(string) {
-						var line = '';
-
-						var split = string.split(/([:.;?!][ ]|(?:[ ]|^)["“])/);
-
-						for (var i = 0; i < split.length; ++i) {
-							var s = split[i];
-
-							s = s.replace(/\b([a-zA-Z][a-z.'’]*)\b/g,this.__titleCaseDottedWordReplacer);
-
-			 				// lowercase the list of small words
-							s = s.replace(this.__lowerCaseWordsRE, this.__lowerReplacer);
-
-							// if the first word in the title is a small word then capitalize it
-							s = s.replace(this.__firstWordRE, this.__firstToUpperCase);
-
-							// if the last word in the title is a small word, then capitalize it
-							s = s.replace(this.__lastWordRE, this.__firstToUpperCase);
-
-							line += s;
-						}
-
-						// special cases
-						line = line.replace(/ V(s?)\. /g, ' v$1. ');
-						line = line.replace(/(['’])S\b/g, '$1s');
-						line = line.replace(/\b(AT&T|Q&A)\b/ig, this.__upperReplacer);
-
-						return line;
-					},
-
-					__titleCaseDottedWordReplacer: function (w) {
-						return (w.match(/[a-zA-Z][.][a-zA-Z]/)) ? w : __TitleCase.__firstToUpperCase(w);
-					},
-
-					__lowerReplacer: function (w) { return w.toLowerCase() },
-
-					__upperReplacer: function (w) { return w.toUpperCase() },
-
-					__firstToUpperCase: function (w) {
-						var split = w.split(/(^[^a-zA-Z0-9]*[a-zA-Z0-9])(.*)$/);
-						if (split[1]) {
-							split[1] = split[1].toUpperCase();
-						}
-					
-						return split.join('');
-					
-					
-					},
-				};
-
-				__TitleCase.init();
+		create: function(data, secondary) {
+			var _valid = false,
+				loading_messege			=	"<span class='messege'><p>" + VMM.master_config.language.messages.loading + "</p></span>";
 			
-				t = t.replace(/_/g," ");
-				t = __TitleCase.toTitleCase(t);
-			
-				return t;
+			if (data.media != null && data.media != "") {
+				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false, m;
 				
-			}
+				m = VMM.MediaType(data.media); //returns an object with .type and .id
+				_valid = true;
+				
+			// CREDIT
+				if (data.credit != null && data.credit != "") {
+					creditElem			=	"<div class='credit'>" + VMM.Util.linkify_with_twitter(data.credit, "_blank") + "</div>";
+				}
+			// CAPTION
+				if (data.caption != null && data.caption != "") {
+					captionElem			=	"<div class='caption'>" + VMM.Util.linkify_with_twitter(data.caption, "_blank") + "</div>";
+				}
+			// IMAGE
+				if (m.type				==	"image") {
+					mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
+			// FLICKR
+				} else if (m.type		==	"flickr") {
+					_id					=	"flickr_" + m.id;
+					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img id='" + _id + "_large" + "'></a></div>";
+					VMM.ExternalAPI.flickr.get(m.id, "#" + _id);
+			// INSTAGRAM
+				} else if (m.type		==	"instagram") {
+					_id					=	"flickr_" + m.id;
+					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img src='" + VMM.ExternalAPI.instagram.get(m.id) + "'></a></div>";
+			// GOOGLE DOCS
+				} else if (m.type		==	"googledoc") {
+					_id					=	"googledoc_" + VMM.Util.unique_ID(5);
+					mediaElem			=	"<div class='media-frame media-shadow doc' id='" + _id + "'>" + loading_messege + "</div>";
+					VMM.ExternalAPI.googledocs.get(m.id, _id);
+			// YOUTUBE
+				} else if (m.type		==	"youtube") {
+					mediaElem			=	"<div class='media-shadow'><div class='media-frame video youtube' id='youtube_" + m.id + "'>" + loading_messege + "</div></div>";
+					VMM.ExternalAPI.youtube.get(m.id);
+			// VIMEO
+				} else if (m.type		==	"vimeo") {
+					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video vimeo' autostart='false' frameborder='0' width='100%' height='100%' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'></iframe></div>";
+					VMM.ExternalAPI.vimeo.get(m.id);
+			// DAILYMOTION
+				} else if (m.type		==	"dailymotion") {
+					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video dailymotion' autostart='false' frameborder='0' width='100%' height='100%' src='http://www.dailymotion.com/embed/video/" + m.id + "'></iframe></div>";
+			// TWITTER
+				} else if (m.type		==	"twitter"){
+					mediaElem			=	"<div class='twitter' id='" + "twitter_" + m.id + "'>" + loading_messege + "</div>";
+					isTextMedia			=	true;
+					VMM.ExternalAPI.twitter.prettyHTML(m.id, secondary);
+			// TWITTER
+				} else if (m.type		==	"twitter-ready") {
+					isTextMedia			=	true;
+					mediaElem			=	m.id;
+			// SOUNDCLOUD
+				} else if (m.type		==	"soundcloud") {
+					_id					=	"soundcloud_" + VMM.Util.unique_ID(5);
+					mediaElem			=	"<div class='media-frame media-shadow soundcloud' id='" + _id + "'>" + loading_messege + "</div>";
+					VMM.ExternalAPI.soundcloud.get(m.id, _id);
+			// GOOGLE MAPS
+				} else if (m.type		==	"google-map") {
+					_id					=	"googlemap_" + VMM.Util.unique_ID(7);
+					mediaElem			=	"<div class='media-frame media-shadow map' id='" + _id + "'>" + loading_messege + "</div>";
+					VMM.ExternalAPI.googlemaps.get(m.id, _id);
+			// GOOGLE PLUS
+				} else if (m.type		==	"googleplus") {
+					_id					=	"googleplus_" + m.id;
+					mediaElem			=	"<div class='googleplus' id='" + _id + "'>" + loading_messege + "</div>";
+					isTextMedia			=	true;
+					VMM.ExternalAPI.googleplus.get(m.user, m.id);
+			// WIKIPEDIA
+				} else if (m.type		==	"wikipedia") {
+					_id					=	"wikipedia_" + VMM.Util.unique_ID(7);
+					mediaElem			=	"<div class='wikipedia' id='" + _id + "'>" + loading_messege + "</div>";
+					isTextMedia			=	true;
+					VMM.ExternalAPI.wikipedia.get(m.id, _id, m.lang);
+			// STORIFY
+				} else if (m.type		==	"storify") { 
+					isTextMedia			=	true;
+					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
+			// QUOTE
+				} else if (m.type		==	"quote") { 
+					isTextMedia			=	true;
+					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
+			// UNKNOWN
+				} else if (m.type		==	"unknown") { 
+					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML"); 
+					isTextMedia			=	true;
+					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
+			// WEBSITE
+				} else if (m.type		==	"website") { 
+					//mediaElem			=	"<div class='media-shadow'><iframe class='media-frame website' frameborder='0' autostart='false' width='100%' height='100%' scrolling='yes' marginheight='0' marginwidth='0' src='" + m.id + "'></iframe></div>";
+					//mediaElem			=	"<a href='" + m.id + "' target='_blank'>" + "<img src='http://api.snapito.com/free/lc?url=" + m.id + "'></a>";
+					
+					mediaElem			=	"<div class='media-shadow website'><a href='" + m.id + "' target='_blank'>" + "<img src='http://api1.thumbalizr.com/?url=" + m.id.replace(/[\./]$/g, "") + "&width=300' class='media-image'></a></div>";
+					
+			// NO MATCH
+				} else {
+					trace("NO KNOWN MEDIA TYPE FOUND");
+					trace(m.type);
+				}
+				
+			// WRAP THE MEDIA ELEMENT
+				mediaElem				=	"<div class='media-container' >" + mediaElem + creditElem + captionElem + "</div>";
+			// RETURN
+				if (isTextMedia) {
+					return "<div class='text-media'><div class='media-wrapper'>" + mediaElem + "</div></div>";
+				} else {
+					return "<div class='media-wrapper'>" + mediaElem + "</div>";
+				}
+				
+			};
 			
+		}
+		
+	}).init();
+}
+
+/*********************************************** 
+     Begin VMM.MediaType.js 
+***********************************************/ 
+
+/* MediaType
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
+	
+	//VMM.mediaType.youtube(d); //should return a true or false
+	// VMM.MediaType(url); //returns an object with .type and .id
+	
+	VMM.MediaType = function(d) {
+		var success = false;
+		var media   = {};
+		
+		if (d.match("div class='twitter'")) {
+			media.type = "twitter-ready";
+		    media.id = d;
+		    success = true;
+		} else if (d.match('(www.)?youtube|youtu\.be')) {
+			if (d.match('v=')) {
+				media.id = VMM.Util.getUrlVars(d)["v"];
+			} else if (d.match('\/embed\/')) {
+				media.id = d.split("embed\/")[1].split(/[?&]/)[0];
+			} else {
+				media.id = d.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
+			}
+		    media.type = "youtube";
+		    success = true;
+		} else if (d.match('(player.)?vimeo\.com')) {
+		    media.type = "vimeo";
+		    media.id = d.split(/video\/|\/\/vimeo\.com\//)[1].split(/[?&]/)[0];;
+		    success = true;
+	    } else if (d.match('(www.)?dailymotion\.com')) {
+			media.id = d.split(/video\/|\/\/dailymotion\.com\//)[1];
+			media.type = "dailymotion";
+			success = true;
+		} else if (d.match('(player.)?soundcloud\.com')) {
+			media.type = "soundcloud";
+			media.id = d;
+			success = true;
+		} else if (d.match('(www.)?twitter\.com') && d.match('status') ) {
+			if (d.match("status\/")) {
+				media.id = d.split("status\/")[1];
+			} else if (d.match("statuses\/")) {
+				media.id = d.split("statuses\/")[1];
+			} else {
+				media.id = "";
+			}
+			media.type = "twitter";
+			success = true;
+		} else if (d.match("maps.google") && !d.match("staticmap")) {
+			media.type = "google-map";
+		    media.id = d.split(/src=['|"][^'|"]*?['|"]/gi);
+			success = true;
+		} else if (d.match("plus.google")) {
+			media.type = "googleplus";
+		    media.id = d.split("/posts/")[1];
+			//https://plus.google.com/u/0/112374836634096795698/posts/bRJSvCb5mUU
+			//https://plus.google.com/107096716333816995401/posts/J5iMpEDHWNL
+			if (d.split("/posts/")[0].match("u/0/")) {
+				media.user = d.split("u/0/")[1].split("/posts")[0];
+			} else {
+				media.user = d.split("google.com/")[1].split("/posts/")[0];
+			}
+			success = true;
+		} else if (d.match("flickr.com/photos")) {
+			media.type = "flickr";
+			media.id = d.split("photos\/")[1].split("/")[1];
+			media.link = d;
+			success = true;
+		} else if (d.match("instagr.am/p/")) {
+			media.type = "instagram";
+			media.link = d;
+			media.id = d.split("\/p\/")[1].split("/")[0];
+			success = true;
+		} else if (d.match(/jpg|jpeg|png|gif/i) || d.match("staticmap") || d.match("yfrog.com") || d.match("twitpic.com")) {
+			media.type = "image";
+			media.id = d;
+			success = true;
+		} else if (VMM.FileExtention.googleDocType(d)) {
+			media.type = "googledoc";
+			media.id = d;
+			success = true;
+		} else if (d.match('(www.)?wikipedia\.org')) {
+			media.type = "wikipedia";
+			//media.id = d.split("wiki\/")[1];
+			var wiki_id = d.split("wiki\/")[1].split("#")[0].replace("_", " ");
+			media.id = wiki_id.replace(" ", "%20");
+			media.lang = d.split("//")[1].split(".wikipedia")[0];
+			success = true;
+		} else if (d.indexOf('http://') == 0) {
+			media.type = "website";
+			media.id = d;
+			success = true;
+		} else if (d.match('storify')) {
+			media.type = "storify";
+			media.id = d;
+			success = true;
+		} else if (d.match('blockquote')) {
+			media.type = "quote";
+			media.id = d;
+			success = true;
+		} else {
+			trace("unknown media");  
+			media.type = "unknown";
+			media.id = d;
+			success = true;
+		}
+		
+		if (success) { 
+			return media;
+		} else {
+			trace("No valid media id detected");
+			trace(d);
+		}
+		return false;
+	}
+}
+
+/*********************************************** 
+     Begin VMM.Media.js 
+***********************************************/ 
+
+/* Media
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.Media == 'undefined') {
+	
+	// something = new VMM.Media(parent, w, h, {thedata});
+	VMM.Media = function(parent, w, h, thedata) {  
+		
+		/* PRIVATE VARS
+		================================================== */
+		var data = {}; // HOLDS DATA
+		
+		var _valid = false;
+		
+		var config = {
+			width: 720,
+			height: 400,
+			content_width: 720,
+			content_height: 400,
+			ease: "easeInOutExpo",
+			duration: 1000,
+			spacing: 15
+		};
+		/* ELEMENTS
+		================================================== */
+		var $media = "";
+		var $container = "";
+		var $mediacontainer  = "";
+		var $mediaelement = "";
+		var layout = parent; // expecting media div
+		
+		if (w != null && w != "") {config.width = w};
+		if (h != null && h != "") {config.height = h};
+		/*
+		if (typeof thedata != "undefined") {
+			data = thedata;
+			this.init(data);
+		}
+		*/
+		/* PUBLIC FUNCTIONS
+		================================================== */
+		this.init = function(d) {
+			if(typeof d != 'undefined') {
+				this.setData(d);
+			} else {
+				trace("WAITING ON DATA");
+			}
+		};
+		
+		var build = function(media, caption, credit) {
+			
+			$media = VMM.appendAndGetElement(layout, "<div>", "media");
+			$container = VMM.appendAndGetElement($media, "<div>", "container");
+			$mediacontainer = VMM.appendAndGetElement($container, "<div>", "media-container");
+			
+
+			if (data.media != null && data.media != "") {
+
+				_valid = true;
+				var m = {};
+				
+				m = VMM.MediaType(data.media); //returns an object with .type and .id
+				
+				if (m.type == "image") {
+					VMM.appendElement($mediacontainer, "<img src='" + m.id + "'>");  
+				} else if (m.type == "youtube") {
+					VMM.appendElement($mediacontainer, "<iframe frameborder='0' src='http://www.youtube.com/embed/" + m.id + "?&rel=0&theme=light&showinfo=0&hd=1&autohide=0&color=white' allowfullscreen>");
+				} else if (m.type == "vimeo") {
+					VMM.appendElement($mediacontainer, "<iframe frameborder='0' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'>");
+				} else {
+					
+				}
+				
+				// CREDIT
+				if (data.credit != null && data.credit != "") {
+					VMM.appendElement($container, VMM.createElement("div", data.credit, "credit"));
+				}
+
+				// CAPTION
+				if (data.caption != null && data.caption != "") {
+					VMM.appendElement($container, VMM.createElement("div", data.caption, "caption"));
+				}
+
+			}
+	    };
+	
+		
+	
+		/* GETTERS AND SETTERS
+		================================================== */
+		
+		this.setData = function(d) {
+			if(typeof d != 'undefined') {
+				data = d;
+				build();
+			} else{
+				trace("NO DATA");
+			}
+		};
+		
+		/* RESIZE
+		================================================== */
+		
+		function reSize() {
+
+		}
+		
+
+
+	}
+	
+	// Less expensive to use prototype
+	
+	VMM.Media.prototype.height = function(h) {
+		if (h != null && h != "") {
+			config.height = h;
+			reSize();
+		} else {
+			return config.height;
+		}
+	};
+	
+	VMM.Media.prototype.width = function(w) {
+		if (w != null && w != "") {
+			config.width = w;
+			reSize();
+		} else {
+			return config.width;
+		}
+	};
+	
+	/* GETTERS AND SETTERS
+	================================================== */
+	
+	VMM.Media.prototype.getData = function() {
+		return data;
+	};
+	
+	VMM.Media.prototype.setConfig = function(d) {
+		if(typeof d != 'undefined') {
+			config = d;
+		} else{
+			trace("NO CONFIG DATA");
+		}
+	};
+	
+	VMM.Media.prototype.getConfig = function() {
+		return config;
+	};
+	
+	VMM.Media.prototype.setSize = function(w, h) {
+		if (w != null) {config.width = w};
+		if (h != null) {config.height = h};
+		if (_active) {
+			reSize();
+		}
+		
+	}
+	
+	VMM.Media.prototype.active = function() {
+		return _active;
+	};
+	
+}
+
+/*********************************************** 
+     Begin VMM.TextElement.js 
+***********************************************/ 
+
+/* TextElement
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.TextElement == 'undefined') {
+	
+	VMM.TextElement = ({
+		
+		init: function() {
+			return this;
 		},
+		
+		create: function(data) {
+			
+			return data;
+			
+			//$mediacontainer				=	element;
+			/*
+			var _valid					=	false;
+			
+			if (data.media != null && data.media != "") {
+				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false;
+				var m					=	VMM.MediaType(data.media); //returns an object with .type and .id
+				_valid					=	true;
+				
+			// CREDIT
+				if (data.credit != null && data.credit != "") {
+					creditElem			=	"<div class='credit'>" + VMM.Util.linkify_with_twitter(data.credit, "_blank") + "</div>";
+				}
+			// CAPTION
+				if (data.caption != null && data.caption != "") {
+					captionElem			=	"<div class='caption'>" + VMM.Util.linkify_with_twitter(data.caption, "_blank") + "</div>";
+				}
+			// IMAGE
+				if (m.type				==	"image") {
+					mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
+			// FLICKR
+				} else if (m.type		==	"flickr") {
+					_id					=	"flickr_" + m.id;
+					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img id='" + _id + "_large" + "'></a></div>";
+					VMM.ExternalAPI.flickr.get(m.id, "#" + _id);
+			// GOOGLE DOCS
+				} else if (m.type		==	"googledoc") {
+					_id					=	"googledoc_" + VMM.Util.unique_ID(5);
+					mediaElem			=	"<div class='media-frame media-shadow doc' id='" + _id + "'><span class='messege'><p>Loading Document</p></span></div>";
+					VMM.ExternalAPI.googledocs.get(m.id, _id);
+			// YOUTUBE
+				} else if (m.type		==	"youtube") {
+					mediaElem			=	"<div class='media-shadow'><div class='media-frame video youtube' id='youtube_" + m.id + "'><span class='messege'><p>Loading YouTube video</p></span></div></div>";
+					VMM.ExternalAPI.youtube.get(m.id);
+			// VIMEO
+				} else if (m.type		==	"vimeo") {
+					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video vimeo' autostart='false' frameborder='0' width='100%' height='100%' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'></iframe></div>";
+					VMM.ExternalAPI.vimeo.get(m.id);
+			// DAILYMOTION
+				} else if (m.type		==	"dailymotion") {
+					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video dailymotion' autostart='false' frameborder='0' width='100%' height='100%' src='http://www.dailymotion.com/embed/video/" + m.id + "'></iframe></div>";
+			// TWITTER
+				} else if (m.type		==	"twitter"){
+					mediaElem			=	"<div class='twitter' id='" + "twitter_" + m.id + "'><span class='messege'><p>Loading Tweet</p></span></div>";
+					isTextMedia			=	true;
+					VMM.ExternalAPI.twitter.prettyHTML(m.id, secondary);
+			// TWITTER
+				} else if (m.type		==	"twitter-ready") {
+					isTextMedia			=	true;
+					mediaElem			=	m.id;
+			// SOUNDCLOUD
+				} else if (m.type		==	"soundcloud") {
+					_id					=	"soundcloud_" + VMM.Util.unique_ID(5);
+					mediaElem			=	"<div class='media-frame media-shadow soundcloud' id='" + _id + "'><span class='messege'><p>Loading Sound</p></span></div>";
+					VMM.ExternalAPI.soundcloud.get(m.id, _id);
+			// GOOGLE MAPS
+				} else if (m.type		==	"google-map") {
+					_id					=	"googlemap_" + VMM.Util.unique_ID(7);
+					mediaElem			=	"<div class='media-frame media-shadow map' id='" + _id + "'><span class='messege'><p>Loading Map</p></span></div>";
+					VMM.ExternalAPI.googlemaps.get(m.id, _id);
+			// WIKIPEDIA
+				} else if (m.type		==	"wikipedia") {
+					_id					=	"wikipedia_" + VMM.Util.unique_ID(7);
+					mediaElem			=	"<div class='wikipedia' id='" + _id + "'><span class='messege'><p>Loading Wikipedia</p></span></div>";
+					isTextMedia			=	true;
+					VMM.ExternalAPI.wikipedia.get(m.id, _id);
+			// UNKNOWN
+				} else if (m.type		==	"quote") { 
+					isTextMedia			=	true;
+					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
+			// UNKNOWN
+				} else if (m.type		==	"unknown") { 
+					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML"); 
+					isTextMedia			=	true;
+					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
+			// WEBSITE
+				} else if (m.type		==	"website") { 
+					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame website' frameborder='0' autostart='false' width='100%' height='100%' scrolling='yes' marginheight='0' marginwidth='0' src='" + m.id + "'></iframe></div>";
+					//mediaElem			=	"<a href='" + m.id + "' target='_blank'>" + "<img src='http://api.snapito.com/free/lc?url=" + m.id + "'></a>";
+			// NO MATCH
+				} else {
+					trace("NO KNOWN MEDIA TYPE FOUND");
+					trace(m.type);
+				}
+				
+			// WRAP THE MEDIA ELEMENT
+				mediaElem				=	"<div class='media-container' >" + mediaElem + creditElem + captionElem + "</div>";
+			// RETURN
+				if (isTextMedia) {
+					return "<div class='text-media'><div class='media-wrapper'>" + mediaElem + "</div></div>";
+				} else {
+					return "<div class='media-wrapper'>" + mediaElem + "</div>";
+				}
+				
+				
+			};
+			*/
+		}
 		
 	}).init();
 }
@@ -5456,6 +3969,829 @@ if(typeof VMM != 'undefined' && typeof VMM.TouchSlider == 'undefined') {
 		}
 	}
 }
+
+/*********************************************** 
+     Begin VMM.DragSlider.js 
+***********************************************/ 
+
+/* DRAG SLIDER
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
+	// VMM.DragSlider.createSlidePanel(drag_object, move_object, w, padding, sticky);
+	// VMM.DragSlider.cancelSlide();
+	VMM.DragSlider = {
+		createPanel: function(drag_object, move_object, w, padding, sticky) {
+			
+
+			
+			var x = padding;
+			VMM.DragSlider.width = w;
+			VMM.DragSlider.makeDraggable(drag_object, move_object);
+			VMM.DragSlider.drag_elem = drag_object;
+			/*
+			if (sticky != null && sticky != "") {
+				VMM.TouchSlider.sticky = sticky;
+			} else {
+				VMM.TouchSlider.sticky = false;
+			}
+			*/
+			VMM.DragSlider.sticky = sticky;
+		},
+		makeDraggable: function(drag_object, move_object) {
+			VMM.bindEvent(drag_object, VMM.DragSlider.onDragStart, "mousedown", {element: move_object, delement: drag_object});
+			//VMM.bindEvent(drag_object, VMM.DragSlider.onDragMove, "mousemove", {element: move_object});
+			VMM.bindEvent(drag_object, VMM.DragSlider.onDragEnd, "mouseup", {element: move_object, delement: drag_object});
+			VMM.bindEvent(drag_object, VMM.DragSlider.onDragLeave, "mouseleave", {element: move_object, delement: drag_object});
+	    },
+		cancelSlide: function(e) {
+			VMM.unbindEvent(VMM.DragSlider.drag_elem, VMM.DragSlider.onDragMove, "mousemove");
+			//VMM.DragSlider.drag_elem.preventDefault();
+			//VMM.DragSlider.drag_elem.stopPropagation();
+			return true;
+		},
+		onDragLeave: function(e) {
+
+			VMM.unbindEvent(e.data.delement, VMM.DragSlider.onDragMove, "mousemove");
+			e.preventDefault();
+			e.stopPropagation();
+			return true;
+		},
+		onDragStart: function(e) {
+			VMM.DragSlider.dragStart(e.data.element, e.data.delement, e);
+			
+			e.preventDefault();
+			e.stopPropagation();
+			return true;
+		},
+		onDragEnd: function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			
+			if (VMM.DragSlider.sliding) {
+				VMM.DragSlider.sliding = false;
+				VMM.DragSlider.dragEnd(e.data.element, e.data.delement, e);
+				return false;
+			} else {
+				return true;
+			}
+			
+		},
+		onDragMove: function(e) {
+			VMM.DragSlider.dragMove(e.data.element, e);
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		},
+		dragStart: function(elem, delem, e) {
+			
+			VMM.DragSlider.startX = e.pageX;
+			
+			VMM.DragSlider.startLeft = VMM.DragSlider.getLeft(elem);
+			VMM.DragSlider.dragStartTime = new Date().getTime();
+			VMM.DragSlider.dragWidth = VMM.Lib.width(delem);
+			
+			// CANCEL CURRENT ANIMATION IF ANIMATING
+			var _newx = Math.round(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft);
+			
+			VMM.Lib.stop(elem);
+			VMM.bindEvent(delem, VMM.DragSlider.onDragMove, "mousemove", {element: elem});
+
+	    },
+		dragEnd: function(elem, delem, e) {
+			VMM.unbindEvent(delem, VMM.DragSlider.onDragMove, "mousemove");
+			//VMM.DragSlider.dragMomentum(elem, e);
+			if (VMM.DragSlider.getLeft(elem) > 0) {
+				//(VMM.DragSlider.dragWidth/2)
+				//This means they dragged to the right past the first item
+				//VMM.Lib.animate(elem, 1000, "linear", {"left": 0});
+				
+				//VMM.fireEvent(elem, "DRAGUPDATE", [0]);
+			} else {
+				//This means they were just dragging within the bounds of the grid and we just need to handle the momentum and snap to the grid.
+				VMM.DragSlider.dragMomentum(elem, e);
+	         }
+		},
+		dragMove: function(elem, e) {
+			if (!VMM.DragSlider.sliding) {
+				//elem.parent().addClass('sliding');
+			}
+			
+			VMM.DragSlider.sliding = true;
+			if (VMM.DragSlider.startX > e.pageX) {
+				//Sliding to the left
+				VMM.Lib.css(elem, 'left', -(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft));
+				VMM.DragSlider.slidingLeft = true;
+			} else {
+				//Sliding to the right
+				var left = (e.pageX - VMM.DragSlider.startX + VMM.DragSlider.startLeft);
+				VMM.Lib.css(elem, 'left', -(VMM.DragSlider.startX - e.pageX - VMM.DragSlider.startLeft));
+				VMM.DragSlider.slidingLeft = false;
+			}
+		},
+		dragMomentum: function(elem, e) {
+			var slideAdjust = (new Date().getTime() - VMM.DragSlider.dragStartTime) * 10;
+			var timeAdjust = slideAdjust;
+			var left = VMM.DragSlider.getLeft(elem);
+
+			var changeX = 6000 * (Math.abs(VMM.DragSlider.startLeft) - Math.abs(left));
+			//var changeX = 6000 * (VMM.DragSlider.startLeft - left);
+			slideAdjust = Math.round(changeX / slideAdjust);
+			
+			var newLeft = left + slideAdjust;
+			
+			var t = newLeft % VMM.DragSlider.width;
+			//left: Math.min(0, newLeft),
+			var _r_object = {
+				left: Math.min(newLeft),
+				time: timeAdjust
+			}
+			
+			VMM.fireEvent(elem, "DRAGUPDATE", [_r_object]);
+			var _ease = "easeOutExpo";
+			if (_r_object.time > 0) {
+				VMM.Lib.animate(elem, _r_object.time, _ease, {"left": _r_object.left});
+			};
+			
+			
+			//VMM.DragSlider.startX = null;
+		},
+		getLeft: function(elem) {
+			return parseInt(VMM.Lib.css(elem, 'left').substring(0, VMM.Lib.css(elem, 'left').length - 2), 10);
+		}
+	
+	}
+}
+
+/*********************************************** 
+     Begin VMM.Slider.js 
+***********************************************/ 
+
+/* Slider
+================================================== */
+if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
+	
+	VMM.Slider = function(parent, parent_config) {
+		
+		var events = {}, config;
+		var $slider, $slider_mask, $slider_container, $slides_items;
+		var data = [], slides = [], slide_positions = [];
+		
+		var slides_content		=	"";
+		var current_slide		=	0;
+		var current_width		=	960;
+		var touch				=	{move: false, x: 10, y:0, off: 0, dampen: 48};
+		var content				=	"";
+		var _active				=	false;
+		var layout				=	parent;
+		var navigation			=	{nextBtn:"", prevBtn:"", nextDate:"", prevDate:"", nextTitle:"", prevTitle:""};
+		var timer;
+		
+		// CONFIG
+		if(typeof VMM.Timeline != 'undefined') {
+			config	= 	VMM.Timeline.Config;
+		} else {
+			config = {
+				preload: 4,
+				current_slide: 0,
+				interval: 10, 
+				something: 0, 
+				width: 720, 
+				height: 400, 
+				ease: "easeInOutExpo", 
+				duration: 1000, 
+				timeline: false, 
+				spacing: 15,
+				slider: {
+					width: 720, 
+					height: 400, 
+					content: {
+						width: 720, 
+						height: 400, 
+						padding: 130
+					}, 
+					nav: {
+						width: 100, 
+						height: 200
+					} 
+				} 
+			};
+		}
+		
+		/* PUBLIC VARS
+		================================================== */
+		this.ver = "0.6";
+		
+		config.slider.width		=	config.width;
+		config.slider.height	=	config.height;
+		
+		/* PUBLIC FUNCTIONS
+		================================================== */
+		this.init = function(d) {
+			slides = [];
+			slide_positions = [];
+			
+			if(typeof d != 'undefined') {
+				this.setData(d);
+			} else {
+				trace("WAITING ON DATA");
+			}
+		};
+		
+		this.width = function(w) {
+			if (w != null && w != "") {
+				config.slider.width = w;
+				reSize();
+			} else {
+				return config.slider.width;
+			}
+		}
+		
+		this.height = function(h) {
+			if (h != null && h != "") {
+				config.slider.height = h;
+				reSize();
+			} else {
+				return config.slider.height;
+			}
+		}
+		
+		/* GETTERS AND SETTERS
+		================================================== */
+		this.setData = function(d) {
+			if(typeof d != 'undefined') {
+				data = d;
+				build();
+			} else{
+				trace("NO DATA");
+			}
+		};
+		
+		this.getData = function() {
+			return data;
+		};
+		
+		this.setConfig = function(d) {
+			if(typeof d != 'undefined') {
+				config = d;
+			} else{
+				trace("NO CONFIG DATA");
+			}
+		}
+		
+		this.getConfig = function() {
+			return config;
+		};
+		
+		this.setSize = function(w, h) {
+			if (w != null) {config.slider.width = w};
+			if (h != null) {config.slider.height = h};
+			if (_active) {
+				reSize();
+			}
+			
+		}
+		
+		this.active = function() {
+			return _active;
+		};
+		
+		this.getCurrentNumber = function() {
+			return current_slide;
+		};
+		
+		this.setSlide = function(n) {
+			goToSlide(n);
+		};
+		
+		/* ON EVENT
+		================================================== */
+		function onConfigSet() {
+			trace("onConfigSet");
+		};
+		
+		function reSize(go_to_slide, from_start) {
+			
+			var _go_to_slide = true;
+			var _from_start = false;
+			
+			if (go_to_slide != null) {_go_to_slide = go_to_slide};
+			if (from_start != null) {_from_start = from_start};
+			
+			current_width = config.slider.width;
+			
+			config.slider.nav.height = VMM.Lib.height(navigation.prevBtnContainer);
+			
+			config.slider.content.width = current_width - (config.slider.content.padding *2);
+			
+			VMM.Lib.width($slides_items, (slides.length * config.slider.content.width));
+			
+			if (_from_start) {
+				var _pos = slides[current_slide].leftpos();
+				VMM.Lib.css($slider_container, "left", _pos);
+			}
+			
+			// RESIZE SLIDES
+			sizeSlides();
+			
+			// POSITION SLIDES
+			positionSlides();
+			
+			// POSITION NAV
+			VMM.Lib.css(navigation.nextBtn, "left", (current_width - config.slider.nav.width));
+			VMM.Lib.height(navigation.prevBtn, config.slider.height);
+			VMM.Lib.height(navigation.nextBtn, config.slider.height);
+			VMM.Lib.css(navigation.nextBtnContainer, "top", ( (config.slider.height/2) - (config.slider.nav.height/2) ) + 10 );
+			VMM.Lib.css(navigation.prevBtnContainer, "top", ( (config.slider.height/2) - (config.slider.nav.height/2) ) + 10 );
+			
+			// Animate Changes
+			VMM.Lib.height($slider_mask, config.slider.height);
+			VMM.Lib.width($slider_mask, current_width);
+			
+			if (_go_to_slide) {
+				goToSlide(current_slide, "linear", 1);
+			};
+			
+			if (current_slide == 0) {
+				VMM.Lib.visible(navigation.prevBtn, false);
+			}
+			
+		}
+		
+		/* NAVIGATION
+		================================================== */
+		function onNextClick(e) {
+			if (current_slide == slides.length - 1) {
+				VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": -(slides[current_slide].leftpos()) } );
+			} else {
+				goToSlide(current_slide+1);
+				upDate();
+			}
+		}
+		
+		function onPrevClick(e) {
+			if (current_slide == 0) {
+				goToSlide(current_slide);
+			} else {
+				goToSlide(current_slide-1);
+				upDate();
+			}
+		}
+
+		function onKeypressNav(e) {
+			switch(e.keyCode) {
+				case 39:
+					// RIGHT ARROW
+					onNextClick(e);
+					break;
+				case 37:
+					// LEFT ARROW
+					onPrevClick(e);
+					break;
+			}
+		}
+		
+		function onTouchUpdate(e, b) {
+			if (slide_positions.length == 0) {
+				for(var i = 0; i < slides.length; i++) {
+					slide_positions.push( slides[i].leftpos() );
+				}
+			}
+			if (typeof b.left == "number") {
+				var _pos = b.left;
+				var _slide_pos = -(slides[current_slide].leftpos());
+				if (_pos < _slide_pos - (config.slider_width/3)) {
+					onNextClick();
+				} else if (_pos > _slide_pos + (config.slider_width/3)) {
+					onPrevClick();
+				} else {
+					VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": _slide_pos });
+				}
+			} else {
+				VMM.Lib.animate($slider_container, config.duration, config.ease, {"left": _slide_pos });
+			}
+			
+			if (typeof b.top == "number") {
+				VMM.Lib.animate($slider_container, config.duration, config.ease, {"top": -b.top});
+			} else {
+				
+			}
+		};
+		
+		/* UPDATE
+		================================================== */
+		function upDate() {
+			config.current_slide = current_slide;
+			VMM.fireEvent(layout, "UPDATE");
+		};
+		
+		/* GET DATA
+		================================================== */
+		var getData = function(d) {
+			data = d;
+		};
+		
+		/* BUILD SLIDES
+		================================================== */
+		var buildSlides = function(d) {
+			VMM.attachElement($slides_items, "");
+			slides = [];
+			
+			for(var i = 0; i < d.length; i++) {
+				var _slide = new VMM.Slider.Slide(d[i], $slides_items);
+				//_slide.show();
+				slides.push(_slide);
+			}
+		}
+		
+		var preloadSlides = function(skip) {
+			if (skip) {
+				preloadTimeOutSlides();
+			} else {
+				for(var k = 0; k < slides.length; k++) {
+					slides[k].clearTimers();
+				}
+				timer = setTimeout(preloadTimeOutSlides, config.duration);
+				
+			}
+		}
+		
+		var preloadTimeOutSlides = function() {
+			for(var k = 0; k < slides.length; k++) {
+				slides[k].enqueue = true;
+			}
+			
+			for(var j = 0; j < config.preload; j++) {
+				if ( !((current_slide + j) > slides.length - 1)) {
+					slides[current_slide + j].show();
+					slides[current_slide + j].enqueue = false;
+				}
+				if ( !( (current_slide - j) < 0 ) ) {
+					slides[current_slide - j].show();
+					slides[current_slide - j].enqueue = false;
+				}
+			}
+			
+			if (slides.length > 50) {
+				for(var i = 0; i < slides.length; i++) {
+					if (slides[i].enqueue) {
+						slides[i].hide();
+					}
+				}
+			}
+			
+			sizeSlides();
+		}
+		
+		var sizeSlide = function(slide_id) {
+			
+		}
+		/* SIZE SLIDES
+		================================================== */
+		var sizeSlides = function() {
+			var layout_text_media = 		".slider-item .layout-text-media .media .media-container ";
+			var layout_media = 				".slider-item .layout-media .media .media-container ";
+			var layout_both	= 				".slider-item .media .media-container";
+			var mediasize = {
+				text_media: {
+					width: 		(config.slider.content.width/100) * 60,
+					height: 	config.slider.height - 60,
+					video: {
+						width: 	0,
+						height: 0
+					},
+					text: {
+						width:	((config.slider.content.width/100) * 40) - 30,
+						height:	config.slider.height
+					}
+				},
+				media: {
+					width: 		config.slider.content.width,
+					height: 	config.slider.height - 110,
+					video: {
+						width: 	0,
+						height: 0
+					}
+				}
+			}
+			
+			VMM.master_config.sizes.api.width = mediasize.media.width;
+			VMM.master_config.sizes.api.height = mediasize.media.height;
+			
+			mediasize.text_media.video = 	VMM.Util.ratio.fit(mediasize.text_media.width, mediasize.text_media.height, 16, 9);
+			mediasize.media.video = 		VMM.Util.ratio.fit(mediasize.media.width, mediasize.media.height, 16, 9);
+			
+			VMM.Lib.css(".slider-item", "width", config.slider.content.width );
+			VMM.Lib.height(".slider-item", config.slider.height);
+			
+			// HANDLE SMALLER SIZES
+			var is_skinny = false;
+			
+			if (current_width <= 640) {
+				is_skinny = true;
+			} else if (VMM.Browser.device == "mobile" && VMM.Browser.orientation == "portrait") {
+				is_skinny = true;
+			} else if (VMM.Browser.device == "tablet" && VMM.Browser.orientation == "portrait") {
+				//is_skinny = true;
+			}
+			
+			if (is_skinny) {
+				
+				mediasize.text_media.width = 	config.slider.content.width;
+				mediasize.text_media.height = 	((config.slider.height/100) * 50 ) - 50;
+				mediasize.media.height = 		((config.slider.height/100) * 70 ) - 40;
+				
+				mediasize.text_media.video = 	VMM.Util.ratio.fit(mediasize.text_media.width, mediasize.text_media.height, 16, 9);
+				mediasize.media.video = 		VMM.Util.ratio.fit(mediasize.media.width, mediasize.media.height, 16, 9);
+				
+				VMM.Lib.css(".slider-item .layout-text-media .text", "width", "100%" );
+				VMM.Lib.css(".slider-item .layout-text-media .text", "display", "block" );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container", "display", "block" );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", config.slider.content.width );
+				
+				VMM.Lib.css(".slider-item .layout-text-media .media", "float", "none" );
+				VMM.Lib.addClass(".slider-item .content-container", "pad-top");
+				
+				VMM.Lib.css(".slider-item .media blockquote p", "line-height", "18px" );
+				VMM.Lib.css(".slider-item .media blockquote p", "font-size", "16px" );
+				
+				VMM.Lib.css(".slider-item", "overflow-y", "auto" );
+				
+				
+			} else {
+				
+				VMM.Lib.css(".slider-item .layout-text-media .text", "width", "40%" );
+				VMM.Lib.css(".slider-item .layout-text-media .text", "display", "table-cell" );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container", "display", "table-cell" );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container", "width", "auto" );
+				VMM.Lib.css(".slider-item .layout-text-media .text .container .start", "width", mediasize.text_media.text.width );
+				//VMM.Lib.addClass(".slider-item .content-container", "pad-left");
+				VMM.Lib.removeClass(".slider-item .content-container", "pad-top");
+				
+				VMM.Lib.css(".slider-item .layout-text-media .media", "float", "left" );
+				VMM.Lib.css(".slider-item .layout-text-media", "display", "table" );
+				
+				VMM.Lib.css(".slider-item .media blockquote p", "line-height", "36px" );
+				VMM.Lib.css(".slider-item .media blockquote p", "font-size", "28px" );
+				
+				VMM.Lib.css(".slider-item", "display", "table" );
+				VMM.Lib.css(".slider-item", "overflow-y", "auto" );
+			}
+			
+			// MEDIA FRAME
+			VMM.Lib.css(	layout_text_media + ".media-frame", 		"max-width", 	mediasize.text_media.width);
+			VMM.Lib.height(	layout_text_media + ".media-frame", 						mediasize.text_media.height);
+			VMM.Lib.width(	layout_text_media + ".media-frame", 						mediasize.text_media.width);
+			
+			// WEBSITES
+			//VMM.Lib.css(	layout_both + 		".website", 			"max-width", 	300 );
+			
+			// IMAGES
+			VMM.Lib.css(	layout_text_media + "img", 					"max-height", 	mediasize.text_media.height );
+			VMM.Lib.css(	layout_media + 		"img", 					"max-height", 	mediasize.media.height );
+			
+			// FIX FOR NON-WEBKIT BROWSERS
+			VMM.Lib.css(	layout_text_media + "img", 					"max-width", 	mediasize.text_media.width );
+			VMM.Lib.css(	layout_text_media + ".avatar img", "max-width", 			32 );
+			VMM.Lib.css(	layout_text_media + ".avatar img", "max-height", 			32 );
+			VMM.Lib.css(	layout_media + 		".avatar img", "max-width", 			32 );
+			VMM.Lib.css(	layout_media + 		".avatar img", "max-height", 			32 );
+			
+			VMM.Lib.css(	layout_text_media + ".article-thumb", "max-width", 			"50%" );
+			//VMM.Lib.css(	layout_text_media + ".article-thumb", "max-height", 		100 );
+			VMM.Lib.css(	layout_media + 		".article-thumb", "max-width", 			200 );
+			//VMM.Lib.css(	layout_media + 		".article-thumb", "max-height", 		100 );
+			
+			
+			// IFRAME FULL SIZE VIDEO
+			VMM.Lib.width(	layout_text_media + ".media-frame", 						mediasize.text_media.video.width);
+			VMM.Lib.height(	layout_text_media + ".media-frame", 						mediasize.text_media.video.height);
+			VMM.Lib.width(	layout_media + 		".media-frame", 						mediasize.media.video.width);
+			VMM.Lib.height(	layout_media + 		".media-frame", 						mediasize.media.video.height);
+			VMM.Lib.css(	layout_media + 		".media-frame", 		"max-height", 	mediasize.media.video.height);
+			VMM.Lib.css(	layout_media + 		".media-frame", 		"max-width", 	mediasize.media.video.width);
+			
+			// SOUNDCLOUD
+			VMM.Lib.height(	layout_media + 		".soundcloud", 							168);
+			VMM.Lib.height(	layout_text_media + ".soundcloud", 							168);
+			VMM.Lib.width(	layout_media + 		".soundcloud", 							mediasize.media.width);
+			VMM.Lib.width(	layout_text_media + ".soundcloud", 							mediasize.text_media.width);
+			VMM.Lib.css(	layout_both + 		".soundcloud", 			"max-height", 	168 );
+			
+			// MAPS
+			VMM.Lib.height(	layout_text_media + ".map", 								mediasize.text_media.height);
+			VMM.Lib.css(	layout_media + 		".map", 				"max-height", 	mediasize.media.height);
+			VMM.Lib.width(	layout_media + 		".map", 								mediasize.media.width);
+
+			// DOCS
+			VMM.Lib.height(	layout_text_media + ".doc", 								mediasize.text_media.height);
+			VMM.Lib.height(	layout_media + 		".doc", 								mediasize.media.height);
+			
+			// IE8 NEEDS THIS
+			VMM.Lib.width(	layout_media + 		".wikipedia", 							mediasize.media.width);
+			VMM.Lib.width(	layout_media + 		".twitter", 							mediasize.media.width);
+			VMM.Lib.width(	layout_media + 		".plain-text-quote", 					mediasize.media.width);
+			VMM.Lib.width(	layout_media + 		".plain-text", 							mediasize.media.width);
+			
+			// MAINTAINS VERTICAL CENTER IF IT CAN
+			for(var i = 0; i < slides.length; i++) {
+				
+				slides[i].layout(is_skinny);
+				
+				if (slides[i].content_height() > config.slider.height + 20) {
+					slides[i].css("display", "block");
+				} else {
+					slides[i].css("display", "table");
+				}
+			}
+			
+		}
+		
+		/* POSITION SLIDES
+		================================================== */
+		var positionSlides = function() {
+			var pos = 0;
+			for(var i = 0; i < slides.length; i++) {
+				pos = i * (config.slider.width+config.spacing);
+				slides[i].leftpos(pos);
+			}
+		}
+		
+		/* OPACITY SLIDES
+		================================================== */
+		var opacitySlides = function(n) {
+			var _ease = "linear";
+			for(var i = 0; i < slides.length; i++) {
+				if (i == current_slide) {
+					slides[i].animate(config.duration, _ease, {"opacity": 1});
+				} else if (i == current_slide - 1 || i == current_slide + 1) {
+					slides[i].animate(config.duration, _ease, {"opacity": 0.1});
+				} else {
+					slides[i].opacity(n);
+				}
+			}
+		}
+		
+		/* GO TO SLIDE
+			goToSlide(n, ease, duration);
+		================================================== */
+		var goToSlide = function(n, ease, duration, fast, firstrun) {
+			
+			/* STOP ANY VIDEO PLAYERS ACTIVE
+			================================================== */
+			VMM.ExternalAPI.youtube.stopPlayers();
+			
+			// Set current slide
+			current_slide = n;
+			
+			var _ease = config.ease;
+			var _duration = config.duration;
+			var is_last = false;
+			var is_first = false;
+			var _pos = slides[current_slide].leftpos();
+			var _title = "";
+			
+			if (current_slide == 0) {is_first = true};
+			if (current_slide +1 >= slides.length) {is_last = true};
+			if (ease != null && ease != "") {_ease = ease};
+			if (duration != null && duration != "") {_duration = duration};
+			
+			/* set proper nav titles and dates etc.
+			================================================== */
+			if (is_first) {
+				VMM.Lib.visible(navigation.prevBtn, false);
+			} else {
+				VMM.Lib.visible(navigation.prevBtn, true);
+				_title = VMM.Util.unlinkify(data[current_slide - 1].title)
+				if (config.type == "timeline") {
+					if(typeof data[current_slide - 1].date === "undefined") {
+						VMM.attachElement(navigation.prevDate, _title);
+						VMM.attachElement(navigation.prevTitle, "");
+					} else {
+						VMM.attachElement(navigation.prevDate, VMM.Date.prettyDate(data[current_slide - 1].startdate));
+						VMM.attachElement(navigation.prevTitle, _title);
+					}
+				} else {
+					VMM.attachElement(navigation.prevTitle, _title);
+				}
+				
+			}
+			if (is_last) {
+				VMM.Lib.visible(navigation.nextBtn, false);
+			} else {
+				VMM.Lib.visible(navigation.nextBtn, true);
+				_title = VMM.Util.unlinkify(data[current_slide + 1].title);
+				if (config.type == "timeline") {
+					if(typeof data[current_slide + 1].date === "undefined") {
+						VMM.attachElement(navigation.nextDate, _title);
+						VMM.attachElement(navigation.nextTitle, "");
+					} else {
+						VMM.attachElement(navigation.nextDate, VMM.Date.prettyDate(data[current_slide + 1].startdate) );
+						VMM.attachElement(navigation.nextTitle, _title);
+					}
+				} else {
+					VMM.attachElement(navigation.nextTitle,  _title);
+				}
+				
+			}
+			
+			/* ANIMATE SLIDE
+			================================================== */
+			if (fast) {
+				VMM.Lib.css($slider_container, "left", -(_pos - config.slider.content.padding));	
+			} else{
+				VMM.Lib.stop($slider_container);
+				VMM.Lib.animate($slider_container, _duration, _ease, {"left": -(_pos - config.slider.content.padding)});
+			}
+			
+			if (firstrun) {
+				VMM.fireEvent(layout, "LOADED");
+			}
+			
+			/* SET Vertical Scoll
+			================================================== */
+			if (slides[current_slide].height() > config.slider_height) {
+				VMM.Lib.css(".slider", "overflow-y", "scroll" );
+			} else {
+				VMM.Lib.css(layout, "overflow-y", "hidden" );
+				VMM.Lib.animate(layout, _duration, _ease, {scrollTop: VMM.Lib.prop(layout, "scrollHeight") - VMM.Lib.height(layout) });
+			}
+			
+			preloadSlides();
+		}
+
+		/* BUILD NAVIGATION
+		================================================== */
+		var buildNavigation = function() {
+			
+			var temp_icon = "<div class='icon'>&nbsp;</div>";
+			
+			navigation.nextBtn = VMM.appendAndGetElement($slider, "<div>", "nav-next");
+			navigation.prevBtn = VMM.appendAndGetElement($slider, "<div>", "nav-previous");
+			navigation.nextBtnContainer = VMM.appendAndGetElement(navigation.nextBtn, "<div>", "nav-container", temp_icon);
+			navigation.prevBtnContainer = VMM.appendAndGetElement(navigation.prevBtn, "<div>", "nav-container", temp_icon);
+			if (config.type == "timeline") {
+				navigation.nextDate = VMM.appendAndGetElement(navigation.nextBtnContainer, "<div>", "date", "");
+				navigation.prevDate = VMM.appendAndGetElement(navigation.prevBtnContainer, "<div>", "date", "");
+			}
+			navigation.nextTitle = VMM.appendAndGetElement(navigation.nextBtnContainer, "<div>", "title", "Title Goes Here");
+			navigation.prevTitle = VMM.appendAndGetElement(navigation.prevBtnContainer, "<div>", "title", "Title Goes Here");
+			
+			VMM.bindEvent(".nav-next", onNextClick);
+			VMM.bindEvent(".nav-previous", onPrevClick);
+			VMM.bindEvent(window, onKeypressNav, 'keydown');
+		}
+		
+		/* BUILD
+		================================================== */
+		var build = function() {
+			
+			// Clear out existing content
+			VMM.attachElement(layout, "");
+			
+			// Get DOM Objects to local objects
+			$slider = VMM.getElement("div.slider");
+			$slider_mask = VMM.appendAndGetElement($slider, "<div>", "slider-container-mask");
+			$slider_container = VMM.appendAndGetElement($slider_mask, "<div>", "slider-container");
+			$slides_items = VMM.appendAndGetElement($slider_container, "<div>", "slider-item-container");
+			
+			// BUILD NAVIGATION
+			buildNavigation();
+
+			// ATTACH SLIDES
+			buildSlides(data);
+			
+			/* MAKE SLIDER TOUCHABLE
+			================================================== */
+			
+			var __duration = 3000;
+			
+			if (VMM.Browser.device == "tablet" || VMM.Browser.device == "mobile") {
+				config.duration = 500;
+				__duration = 1000;
+				//VMM.TouchSlider.createPanel($slider_container, $slider_container, VMM.Lib.width(slides[0]), config.spacing, true);
+				//VMM.TouchSlider.createPanel($slider_container, $slider_container, slides[0].width(), config.spacing, true);
+				//VMM.bindEvent($slider_container, onTouchUpdate, "TOUCHUPDATE");
+			} else if (VMM.Browser.device == "mobile") {
+				
+			} else {
+				//VMM.DragSlider.createPanel($slider_container, $slider_container, VMM.Lib.width(slides[0]), config.spacing, true);
+			}
+			
+			reSize(false, true);
+			VMM.Lib.visible(navigation.prevBtn, false);
+			goToSlide(config.current_slide, "easeOutExpo", __duration, true, true);
+			
+			_active = true;
+		};
+		
+	};
+	
+}
+
+
+
+
+
 
 /*********************************************** 
      Begin VMM.Slider.Slide.js 
@@ -5726,124 +5062,1063 @@ if (typeof VMM.Slider != 'undefined') {
 
 
 /*********************************************** 
-     Begin VMM.TextElement.js 
+     Begin VMM.Language.js 
 ***********************************************/ 
 
-/* TextElement
+/* DEFAULT LANGUAGE 
 ================================================== */
-if(typeof VMM != 'undefined' && typeof VMM.TextElement == 'undefined') {
-	
-	VMM.TextElement = ({
-		
-		init: function() {
-			return this;
+if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
+	VMM.Language = {
+		lang: "en",
+		api: {
+			wikipedia: "en"
 		},
-		
-		create: function(data) {
-			
-			return data;
-			
-			//$mediacontainer				=	element;
-			/*
-			var _valid					=	false;
-			
-			if (data.media != null && data.media != "") {
-				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false;
-				var m					=	VMM.MediaType(data.media); //returns an object with .type and .id
-				_valid					=	true;
-				
-			// CREDIT
-				if (data.credit != null && data.credit != "") {
-					creditElem			=	"<div class='credit'>" + VMM.Util.linkify_with_twitter(data.credit, "_blank") + "</div>";
-				}
-			// CAPTION
-				if (data.caption != null && data.caption != "") {
-					captionElem			=	"<div class='caption'>" + VMM.Util.linkify_with_twitter(data.caption, "_blank") + "</div>";
-				}
-			// IMAGE
-				if (m.type				==	"image") {
-					mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
-			// FLICKR
-				} else if (m.type		==	"flickr") {
-					_id					=	"flickr_" + m.id;
-					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.link + "' target='_blank'><img id='" + _id + "_large" + "'></a></div>";
-					VMM.ExternalAPI.flickr.get(m.id, "#" + _id);
-			// GOOGLE DOCS
-				} else if (m.type		==	"googledoc") {
-					_id					=	"googledoc_" + VMM.Util.unique_ID(5);
-					mediaElem			=	"<div class='media-frame media-shadow doc' id='" + _id + "'><span class='messege'><p>Loading Document</p></span></div>";
-					VMM.ExternalAPI.googledocs.get(m.id, _id);
-			// YOUTUBE
-				} else if (m.type		==	"youtube") {
-					mediaElem			=	"<div class='media-shadow'><div class='media-frame video youtube' id='youtube_" + m.id + "'><span class='messege'><p>Loading YouTube video</p></span></div></div>";
-					VMM.ExternalAPI.youtube.get(m.id);
-			// VIMEO
-				} else if (m.type		==	"vimeo") {
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video vimeo' autostart='false' frameborder='0' width='100%' height='100%' src='http://player.vimeo.com/video/" + m.id + "?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff'></iframe></div>";
-					VMM.ExternalAPI.vimeo.get(m.id);
-			// DAILYMOTION
-				} else if (m.type		==	"dailymotion") {
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame video dailymotion' autostart='false' frameborder='0' width='100%' height='100%' src='http://www.dailymotion.com/embed/video/" + m.id + "'></iframe></div>";
-			// TWITTER
-				} else if (m.type		==	"twitter"){
-					mediaElem			=	"<div class='twitter' id='" + "twitter_" + m.id + "'><span class='messege'><p>Loading Tweet</p></span></div>";
-					isTextMedia			=	true;
-					VMM.ExternalAPI.twitter.prettyHTML(m.id, secondary);
-			// TWITTER
-				} else if (m.type		==	"twitter-ready") {
-					isTextMedia			=	true;
-					mediaElem			=	m.id;
-			// SOUNDCLOUD
-				} else if (m.type		==	"soundcloud") {
-					_id					=	"soundcloud_" + VMM.Util.unique_ID(5);
-					mediaElem			=	"<div class='media-frame media-shadow soundcloud' id='" + _id + "'><span class='messege'><p>Loading Sound</p></span></div>";
-					VMM.ExternalAPI.soundcloud.get(m.id, _id);
-			// GOOGLE MAPS
-				} else if (m.type		==	"google-map") {
-					_id					=	"googlemap_" + VMM.Util.unique_ID(7);
-					mediaElem			=	"<div class='media-frame media-shadow map' id='" + _id + "'><span class='messege'><p>Loading Map</p></span></div>";
-					VMM.ExternalAPI.googlemaps.get(m.id, _id);
-			// WIKIPEDIA
-				} else if (m.type		==	"wikipedia") {
-					_id					=	"wikipedia_" + VMM.Util.unique_ID(7);
-					mediaElem			=	"<div class='wikipedia' id='" + _id + "'><span class='messege'><p>Loading Wikipedia</p></span></div>";
-					isTextMedia			=	true;
-					VMM.ExternalAPI.wikipedia.get(m.id, _id);
-			// UNKNOWN
-				} else if (m.type		==	"quote") { 
-					isTextMedia			=	true;
-					mediaElem			=	"<div class='plain-text-quote'>" + m.id + "</div>";
-			// UNKNOWN
-				} else if (m.type		==	"unknown") { 
-					trace("NO KNOWN MEDIA TYPE FOUND TRYING TO JUST PLACE THE HTML"); 
-					isTextMedia			=	true;
-					mediaElem			=	"<div class='plain-text'><div class='container'>" + VMM.Util.properQuotes(m.id) + "</div></div>";
-			// WEBSITE
-				} else if (m.type		==	"website") { 
-					mediaElem			=	"<div class='media-shadow'><iframe class='media-frame website' frameborder='0' autostart='false' width='100%' height='100%' scrolling='yes' marginheight='0' marginwidth='0' src='" + m.id + "'></iframe></div>";
-					//mediaElem			=	"<a href='" + m.id + "' target='_blank'>" + "<img src='http://api.snapito.com/free/lc?url=" + m.id + "'></a>";
-			// NO MATCH
-				} else {
-					trace("NO KNOWN MEDIA TYPE FOUND");
-					trace(m.type);
-				}
-				
-			// WRAP THE MEDIA ELEMENT
-				mediaElem				=	"<div class='media-container' >" + mediaElem + creditElem + captionElem + "</div>";
-			// RETURN
-				if (isTextMedia) {
-					return "<div class='text-media'><div class='media-wrapper'>" + mediaElem + "</div></div>";
-				} else {
-					return "<div class='media-wrapper'>" + mediaElem + "</div>";
-				}
-				
-				
-			};
-			*/
+		date: {
+			month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
+			day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."],
+		}, 
+		dateformats: {
+			year: "yyyy",
+			month_short: "mmm",
+			month: "mmmm yyyy",
+			full_short: "mmm d",
+			full: "mmmm d',' yyyy",
+			time_no_seconds_short: "h:MM TT",
+			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
+			full_long: "mmm d',' yyyy 'at' hh:MM TT",
+			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
+		},
+		messages: {
+			loading_timeline: "Loading Timeline... ",
+			return_to_title: "Return to Title",
+			expand_timeline: "Expand Timeline",
+			contract_timeline: "Contract Timeline",
+			wikipedia: "From Wikipedia, the free encyclopedia",
+			loading_content: "Loading Content",
+			loading: "Loading"
 		}
-		
-	}).init();
+	}
+};
+
+/*********************************************** 
+     Begin AES.js 
+***********************************************/ 
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/*  AES implementation in JavaScript (c) Chris Veness 2005-2011                                   */
+/*   - see http://csrc.nist.gov/publications/PubsFIPS.html#197                                    */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+var Aes = {};  // Aes namespace
+
+/**
+ * AES Cipher function: encrypt 'input' state with Rijndael algorithm
+ *   applies Nr rounds (10/12/14) using key schedule w for 'add round key' stage
+ *
+ * @param {Number[]} input 16-byte (128-bit) input state array
+ * @param {Number[][]} w   Key schedule as 2D byte-array (Nr+1 x Nb bytes)
+ * @returns {Number[]}     Encrypted output state array
+ */
+Aes.cipher = function(input, w) {    // main Cipher function [§5.1]
+  var Nb = 4;               // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nr = w.length/Nb - 1; // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var state = [[],[],[],[]];  // initialise 4xNb byte-array 'state' with input [§3.4]
+  for (var i=0; i<4*Nb; i++) state[i%4][Math.floor(i/4)] = input[i];
+
+  state = Aes.addRoundKey(state, w, 0, Nb);
+
+  for (var round=1; round<Nr; round++) {
+    state = Aes.subBytes(state, Nb);
+    state = Aes.shiftRows(state, Nb);
+    state = Aes.mixColumns(state, Nb);
+    state = Aes.addRoundKey(state, w, round, Nb);
+  }
+
+  state = Aes.subBytes(state, Nb);
+  state = Aes.shiftRows(state, Nb);
+  state = Aes.addRoundKey(state, w, Nr, Nb);
+
+  var output = new Array(4*Nb);  // convert state to 1-d array before returning [§3.4]
+  for (var i=0; i<4*Nb; i++) output[i] = state[i%4][Math.floor(i/4)];
+  return output;
 }
+
+/**
+ * Perform Key Expansion to generate a Key Schedule
+ *
+ * @param {Number[]} key Key as 16/24/32-byte array
+ * @returns {Number[][]} Expanded key schedule as 2D byte-array (Nr+1 x Nb bytes)
+ */
+Aes.keyExpansion = function(key) {  // generate Key Schedule (byte-array Nr+1 x Nb) from Key [§5.2]
+  var Nb = 4;            // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nk = key.length/4  // key length (in words): 4/6/8 for 128/192/256-bit keys
+  var Nr = Nk + 6;       // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var w = new Array(Nb*(Nr+1));
+  var temp = new Array(4);
+
+  for (var i=0; i<Nk; i++) {
+    var r = [key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]];
+    w[i] = r;
+  }
+
+  for (var i=Nk; i<(Nb*(Nr+1)); i++) {
+    w[i] = new Array(4);
+    for (var t=0; t<4; t++) temp[t] = w[i-1][t];
+    if (i % Nk == 0) {
+      temp = Aes.subWord(Aes.rotWord(temp));
+      for (var t=0; t<4; t++) temp[t] ^= Aes.rCon[i/Nk][t];
+    } else if (Nk > 6 && i%Nk == 4) {
+      temp = Aes.subWord(temp);
+    }
+    for (var t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t];
+  }
+
+  return w;
+}
+
+/*
+ * ---- remaining routines are private, not called externally ----
+ */
+ 
+Aes.subBytes = function(s, Nb) {    // apply SBox to state S [§5.1.1]
+  for (var r=0; r<4; r++) {
+    for (var c=0; c<Nb; c++) s[r][c] = Aes.sBox[s[r][c]];
+  }
+  return s;
+}
+
+Aes.shiftRows = function(s, Nb) {    // shift row r of state S left by r bytes [§5.1.2]
+  var t = new Array(4);
+  for (var r=1; r<4; r++) {
+    for (var c=0; c<4; c++) t[c] = s[r][(c+r)%Nb];  // shift into temp copy
+    for (var c=0; c<4; c++) s[r][c] = t[c];         // and copy back
+  }          // note that this will work for Nb=4,5,6, but not 7,8 (always 4 for AES):
+  return s;  // see asmaes.sourceforge.net/rijndael/rijndaelImplementation.pdf
+}
+
+Aes.mixColumns = function(s, Nb) {   // combine bytes of each col of state S [§5.1.3]
+  for (var c=0; c<4; c++) {
+    var a = new Array(4);  // 'a' is a copy of the current column from 's'
+    var b = new Array(4);  // 'b' is a•{02} in GF(2^8)
+    for (var i=0; i<4; i++) {
+      a[i] = s[i][c];
+      b[i] = s[i][c]&0x80 ? s[i][c]<<1 ^ 0x011b : s[i][c]<<1;
+
+    }
+    // a[n] ^ b[n] is a•{03} in GF(2^8)
+    s[0][c] = b[0] ^ a[1] ^ b[1] ^ a[2] ^ a[3]; // 2*a0 + 3*a1 + a2 + a3
+    s[1][c] = a[0] ^ b[1] ^ a[2] ^ b[2] ^ a[3]; // a0 * 2*a1 + 3*a2 + a3
+    s[2][c] = a[0] ^ a[1] ^ b[2] ^ a[3] ^ b[3]; // a0 + a1 + 2*a2 + 3*a3
+    s[3][c] = a[0] ^ b[0] ^ a[1] ^ a[2] ^ b[3]; // 3*a0 + a1 + a2 + 2*a3
+  }
+  return s;
+}
+
+Aes.addRoundKey = function(state, w, rnd, Nb) {  // xor Round Key into state S [§5.1.4]
+  for (var r=0; r<4; r++) {
+    for (var c=0; c<Nb; c++) state[r][c] ^= w[rnd*4+c][r];
+  }
+  return state;
+}
+
+Aes.subWord = function(w) {    // apply SBox to 4-byte word w
+  for (var i=0; i<4; i++) w[i] = Aes.sBox[w[i]];
+  return w;
+}
+
+Aes.rotWord = function(w) {    // rotate 4-byte word w left by one byte
+  var tmp = w[0];
+  for (var i=0; i<3; i++) w[i] = w[i+1];
+  w[3] = tmp;
+  return w;
+}
+
+// sBox is pre-computed multiplicative inverse in GF(2^8) used in subBytes and keyExpansion [§5.1.1]
+Aes.sBox =  [0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+             0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+             0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+             0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+             0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+             0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+             0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+             0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+             0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+             0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+             0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+             0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+             0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+             0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+             0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+             0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16];
+
+// rCon is Round Constant used for the Key Expansion [1st col is 2^(r-1) in GF(2^8)] [§5.2]
+Aes.rCon = [ [0x00, 0x00, 0x00, 0x00],
+             [0x01, 0x00, 0x00, 0x00],
+             [0x02, 0x00, 0x00, 0x00],
+             [0x04, 0x00, 0x00, 0x00],
+             [0x08, 0x00, 0x00, 0x00],
+             [0x10, 0x00, 0x00, 0x00],
+             [0x20, 0x00, 0x00, 0x00],
+             [0x40, 0x00, 0x00, 0x00],
+             [0x80, 0x00, 0x00, 0x00],
+             [0x1b, 0x00, 0x00, 0x00],
+             [0x36, 0x00, 0x00, 0x00] ]; 
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/*  AES Counter-mode implementation in JavaScript (c) Chris Veness 2005-2011                      */
+/*   - see http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf                       */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+Aes.Ctr = {};  // Aes.Ctr namespace: a subclass or extension of Aes
+
+/** 
+ * Encrypt a text using AES encryption in Counter mode of operation
+ *
+ * Unicode multi-byte character safe
+ *
+ * @param {String} plaintext Source text to be encrypted
+ * @param {String} password  The password to use to generate a key
+ * @param {Number} nBits     Number of bits to be used in the key (128, 192, or 256)
+ * @returns {string}         Encrypted text
+ */
+Aes.Ctr.encrypt = function(plaintext, password, nBits) {
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+  plaintext = Utf8.encode(plaintext);
+  password = Utf8.encode(password);
+  //var t = new Date();  // timer
+	
+  // use AES itself to encrypt password to get cipher key (using plain password as source for key 
+  // expansion) - gives us well encrypted key (though hashed key might be preferred for prod'n use)
+  var nBytes = nBits/8;  // no bytes in key (16/24/32)
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i<nBytes; i++) {  // use 1st 16/24/32 chars of password for key
+    pwBytes[i] = isNaN(password.charCodeAt(i)) ? 0 : password.charCodeAt(i);
+  }
+  var key = Aes.cipher(pwBytes, Aes.keyExpansion(pwBytes));  // gives us 16-byte key
+  key = key.concat(key.slice(0, nBytes-16));  // expand key to 16/24/32 bytes long
+
+  // initialise 1st 8 bytes of counter block with nonce (NIST SP800-38A §B.2): [0-1] = millisec, 
+  // [2-3] = random, [4-7] = seconds, together giving full sub-millisec uniqueness up to Feb 2106
+  var counterBlock = new Array(blockSize);
+  
+  var nonce = (new Date()).getTime();  // timestamp: milliseconds since 1-Jan-1970
+  var nonceMs = nonce%1000;
+  var nonceSec = Math.floor(nonce/1000);
+  var nonceRnd = Math.floor(Math.random()*0xffff);
+  
+  for (var i=0; i<2; i++) counterBlock[i]   = (nonceMs  >>> i*8) & 0xff;
+  for (var i=0; i<2; i++) counterBlock[i+2] = (nonceRnd >>> i*8) & 0xff;
+  for (var i=0; i<4; i++) counterBlock[i+4] = (nonceSec >>> i*8) & 0xff;
+  
+  // and convert it to a string to go on the front of the ciphertext
+  var ctrTxt = '';
+  for (var i=0; i<8; i++) ctrTxt += String.fromCharCode(counterBlock[i]);
+
+  // generate key schedule - an expansion of the key into distinct Key Rounds for each round
+  var keySchedule = Aes.keyExpansion(key);
+  
+  var blockCount = Math.ceil(plaintext.length/blockSize);
+  var ciphertxt = new Array(blockCount);  // ciphertext as array of strings
+  
+  for (var b=0; b<blockCount; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    // done in two stages for 32-bit ops: using two words allows us to go past 2^32 blocks (68GB)
+    for (var c=0; c<4; c++) counterBlock[15-c] = (b >>> c*8) & 0xff;
+    for (var c=0; c<4; c++) counterBlock[15-c-4] = (b/0x100000000 >>> c*8)
+
+    var cipherCntr = Aes.cipher(counterBlock, keySchedule);  // -- encrypt counter block --
+    
+    // block size is reduced on final block
+    var blockLength = b<blockCount-1 ? blockSize : (plaintext.length-1)%blockSize+1;
+    var cipherChar = new Array(blockLength);
+    
+    for (var i=0; i<blockLength; i++) {  // -- xor plaintext with ciphered counter char-by-char --
+      cipherChar[i] = cipherCntr[i] ^ plaintext.charCodeAt(b*blockSize+i);
+      cipherChar[i] = String.fromCharCode(cipherChar[i]);
+    }
+    ciphertxt[b] = cipherChar.join(''); 
+  }
+
+  // Array.join is more efficient than repeated string concatenation in IE
+  var ciphertext = ctrTxt + ciphertxt.join('');
+  ciphertext = Base64.encode(ciphertext);  // encode in base64
+  
+  //alert((new Date()) - t);
+  return ciphertext;
+}
+
+/** 
+ * Decrypt a text encrypted by AES in counter mode of operation
+ *
+ * @param {String} ciphertext Source text to be encrypted
+ * @param {String} password   The password to use to generate a key
+ * @param {Number} nBits      Number of bits to be used in the key (128, 192, or 256)
+ * @returns {String}          Decrypted text
+ */
+Aes.Ctr.decrypt = function(ciphertext, password, nBits) {
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+  ciphertext = Base64.decode(ciphertext);
+  password = Utf8.encode(password);
+  //var t = new Date();  // timer
+  
+  // use AES to encrypt password (mirroring encrypt routine)
+  var nBytes = nBits/8;  // no bytes in key
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i<nBytes; i++) {
+    pwBytes[i] = isNaN(password.charCodeAt(i)) ? 0 : password.charCodeAt(i);
+  }
+  var key = Aes.cipher(pwBytes, Aes.keyExpansion(pwBytes));
+  key = key.concat(key.slice(0, nBytes-16));  // expand key to 16/24/32 bytes long
+
+  // recover nonce from 1st 8 bytes of ciphertext
+  var counterBlock = new Array(8);
+  ctrTxt = ciphertext.slice(0, 8);
+  for (var i=0; i<8; i++) counterBlock[i] = ctrTxt.charCodeAt(i);
+  
+  // generate key schedule
+  var keySchedule = Aes.keyExpansion(key);
+
+  // separate ciphertext into blocks (skipping past initial 8 bytes)
+  var nBlocks = Math.ceil((ciphertext.length-8) / blockSize);
+  var ct = new Array(nBlocks);
+  for (var b=0; b<nBlocks; b++) ct[b] = ciphertext.slice(8+b*blockSize, 8+b*blockSize+blockSize);
+  ciphertext = ct;  // ciphertext is now array of block-length strings
+
+  // plaintext will get generated block-by-block into array of block-length strings
+  var plaintxt = new Array(ciphertext.length);
+
+  for (var b=0; b<nBlocks; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    for (var c=0; c<4; c++) counterBlock[15-c] = ((b) >>> c*8) & 0xff;
+    for (var c=0; c<4; c++) counterBlock[15-c-4] = (((b+1)/0x100000000-1) >>> c*8) & 0xff;
+
+    var cipherCntr = Aes.cipher(counterBlock, keySchedule);  // encrypt counter block
+
+    var plaintxtByte = new Array(ciphertext[b].length);
+    for (var i=0; i<ciphertext[b].length; i++) {
+      // -- xor plaintxt with ciphered counter byte-by-byte --
+      plaintxtByte[i] = cipherCntr[i] ^ ciphertext[b].charCodeAt(i);
+      plaintxtByte[i] = String.fromCharCode(plaintxtByte[i]);
+    }
+    plaintxt[b] = plaintxtByte.join('');
+  }
+
+  // join array of blocks into single plaintext string
+  var plaintext = plaintxt.join('');
+  plaintext = Utf8.decode(plaintext);  // decode from UTF8 back to Unicode multi-byte chars
+  
+  //alert((new Date()) - t);
+  return plaintext;
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/*  Base64 class: Base 64 encoding / decoding (c) Chris Veness 2002-2011                          */
+/*    note: depends on Utf8 class                                                                 */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+var Base64 = {};  // Base64 namespace
+
+Base64.code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+/**
+ * Encode string into Base64, as defined by RFC 4648 [http://tools.ietf.org/html/rfc4648]
+ * (instance method extending String object). As per RFC 4648, no newlines are added.
+ *
+ * @param {String} str The string to be encoded as base-64
+ * @param {Boolean} [utf8encode=false] Flag to indicate whether str is Unicode string to be encoded 
+ *   to UTF8 before conversion to base64; otherwise string is assumed to be 8-bit characters
+ * @returns {String} Base64-encoded string
+ */ 
+Base64.encode = function(str, utf8encode) {  // http://tools.ietf.org/html/rfc4648
+  utf8encode =  (typeof utf8encode == 'undefined') ? false : utf8encode;
+  var o1, o2, o3, bits, h1, h2, h3, h4, e=[], pad = '', c, plain, coded;
+  var b64 = Base64.code;
+   
+  plain = utf8encode ? str.encodeUTF8() : str;
+  
+  c = plain.length % 3;  // pad string to length of multiple of 3
+  if (c > 0) { while (c++ < 3) { pad += '='; plain += '\0'; } }
+  // note: doing padding here saves us doing special-case packing for trailing 1 or 2 chars
+   
+  for (c=0; c<plain.length; c+=3) {  // pack three octets into four hexets
+    o1 = plain.charCodeAt(c);
+    o2 = plain.charCodeAt(c+1);
+    o3 = plain.charCodeAt(c+2);
+      
+    bits = o1<<16 | o2<<8 | o3;
+      
+    h1 = bits>>18 & 0x3f;
+    h2 = bits>>12 & 0x3f;
+    h3 = bits>>6 & 0x3f;
+    h4 = bits & 0x3f;
+
+    // use hextets to index into code string
+    e[c/3] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+  }
+  coded = e.join('');  // join() is far faster than repeated string concatenation in IE
+  
+  // replace 'A's from padded nulls with '='s
+  coded = coded.slice(0, coded.length-pad.length) + pad;
+   
+  return coded;
+}
+
+/**
+ * Decode string from Base64, as defined by RFC 4648 [http://tools.ietf.org/html/rfc4648]
+ * (instance method extending String object). As per RFC 4648, newlines are not catered for.
+ *
+ * @param {String} str The string to be decoded from base-64
+ * @param {Boolean} [utf8decode=false] Flag to indicate whether str is Unicode string to be decoded 
+ *   from UTF8 after conversion from base64
+ * @returns {String} decoded string
+ */ 
+Base64.decode = function(str, utf8decode) {
+  utf8decode =  (typeof utf8decode == 'undefined') ? false : utf8decode;
+  var o1, o2, o3, h1, h2, h3, h4, bits, d=[], plain, coded;
+  var b64 = Base64.code;
+
+  coded = utf8decode ? str.decodeUTF8() : str;
+  
+  
+  for (var c=0; c<coded.length; c+=4) {  // unpack four hexets into three octets
+    h1 = b64.indexOf(coded.charAt(c));
+    h2 = b64.indexOf(coded.charAt(c+1));
+    h3 = b64.indexOf(coded.charAt(c+2));
+    h4 = b64.indexOf(coded.charAt(c+3));
+      
+    bits = h1<<18 | h2<<12 | h3<<6 | h4;
+      
+    o1 = bits>>>16 & 0xff;
+    o2 = bits>>>8 & 0xff;
+    o3 = bits & 0xff;
+    
+    d[c/4] = String.fromCharCode(o1, o2, o3);
+    // check for padding
+    if (h4 == 0x40) d[c/4] = String.fromCharCode(o1, o2);
+    if (h3 == 0x40) d[c/4] = String.fromCharCode(o1);
+  }
+  plain = d.join('');  // join() is far faster than repeated string concatenation in IE
+   
+  return utf8decode ? plain.decodeUTF8() : plain; 
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/*  Utf8 class: encode / decode between multi-byte Unicode characters and UTF-8 multiple          */
+/*              single-byte character encoding (c) Chris Veness 2002-2011                         */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+var Utf8 = {};  // Utf8 namespace
+
+/**
+ * Encode multi-byte Unicode string into utf-8 multiple single-byte characters 
+ * (BMP / basic multilingual plane only)
+ *
+ * Chars in range U+0080 - U+07FF are encoded in 2 chars, U+0800 - U+FFFF in 3 chars
+ *
+ * @param {String} strUni Unicode string to be encoded as UTF-8
+ * @returns {String} encoded string
+ */
+Utf8.encode = function(strUni) {
+  // use regular expressions & String.replace callback function for better efficiency 
+  // than procedural approaches
+  var strUtf = strUni.replace(
+      /[\u0080-\u07ff]/g,  // U+0080 - U+07FF => 2 bytes 110yyyyy, 10zzzzzz
+      function(c) { 
+        var cc = c.charCodeAt(0);
+        return String.fromCharCode(0xc0 | cc>>6, 0x80 | cc&0x3f); }
+    );
+  strUtf = strUtf.replace(
+      /[\u0800-\uffff]/g,  // U+0800 - U+FFFF => 3 bytes 1110xxxx, 10yyyyyy, 10zzzzzz
+      function(c) { 
+        var cc = c.charCodeAt(0); 
+        return String.fromCharCode(0xe0 | cc>>12, 0x80 | cc>>6&0x3F, 0x80 | cc&0x3f); }
+    );
+  return strUtf;
+}
+
+/**
+ * Decode utf-8 encoded string back into multi-byte Unicode characters
+ *
+ * @param {String} strUtf UTF-8 string to be decoded back to Unicode
+ * @returns {String} decoded string
+ */
+Utf8.decode = function(strUtf) {
+  // note: decode 3-byte chars first as decoded 2-byte strings could appear to be 3-byte char!
+  var strUni = strUtf.replace(
+      /[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,  // 3-byte chars
+      function(c) {  // (note parentheses for precence)
+        var cc = ((c.charCodeAt(0)&0x0f)<<12) | ((c.charCodeAt(1)&0x3f)<<6) | ( c.charCodeAt(2)&0x3f); 
+        return String.fromCharCode(cc); }
+    );
+  strUni = strUni.replace(
+      /[\u00c0-\u00df][\u0080-\u00bf]/g,                 // 2-byte chars
+      function(c) {  // (note parentheses for precence)
+        var cc = (c.charCodeAt(0)&0x1f)<<6 | c.charCodeAt(1)&0x3f;
+        return String.fromCharCode(cc); }
+    );
+  return strUni;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/*********************************************** 
+     Begin bootstrap-tooltip.js 
+***********************************************/ 
+
+/* ===========================================================
+ * bootstrap-tooltip.js v2.0.1
+ * http://twitter.github.com/bootstrap/javascript.html#tooltips
+ * Inspired by the original jQuery.tipsy by Jason Frame
+ * ===========================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
+!function( $ ) {
+
+  "use strict"
+
+ /* TOOLTIP PUBLIC CLASS DEFINITION
+  * =============================== */
+
+  var Tooltip = function ( element, options ) {
+    this.init('tooltip', element, options)
+  }
+
+  Tooltip.prototype = {
+
+    constructor: Tooltip
+
+  , init: function ( type, element, options ) {
+      var eventIn
+        , eventOut
+
+      this.type = type
+      this.$element = $(element)
+      this.options = this.getOptions(options)
+      this.enabled = true
+
+      if (this.options.trigger != 'manual') {
+        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
+        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
+        this.$element.on(eventIn, this.options.selector, $.proxy(this.enter, this))
+        this.$element.on(eventOut, this.options.selector, $.proxy(this.leave, this))
+      }
+
+      this.options.selector ?
+        (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+        this.fixTitle()
+    }
+
+  , getOptions: function ( options ) {
+      options = $.extend({}, $.fn[this.type].defaults, options, this.$element.data())
+
+      if (options.delay && typeof options.delay == 'number') {
+        options.delay = {
+          show: options.delay
+        , hide: options.delay
+        }
+      }
+
+      return options
+    }
+
+  , enter: function ( e ) {
+      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+
+      if (!self.options.delay || !self.options.delay.show) {
+        self.show()
+      } else {
+        self.hoverState = 'in'
+        setTimeout(function() {
+          if (self.hoverState == 'in') {
+            self.show()
+          }
+        }, self.options.delay.show)
+      }
+    }
+
+  , leave: function ( e ) {
+      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+
+      if (!self.options.delay || !self.options.delay.hide) {
+        self.hide()
+      } else {
+        self.hoverState = 'out'
+        setTimeout(function() {
+          if (self.hoverState == 'out') {
+            self.hide()
+          }
+        }, self.options.delay.hide)
+      }
+    }
+
+  , show: function () {
+      var $tip
+        , inside
+        , pos
+        , actualWidth
+        , actualHeight
+        , placement
+        , tp
+
+      if (this.hasContent() && this.enabled) {
+        $tip = this.tip()
+        this.setContent()
+
+        if (this.options.animation) {
+          $tip.addClass('fade')
+        }
+
+        placement = typeof this.options.placement == 'function' ?
+          this.options.placement.call(this, $tip[0], this.$element[0]) :
+          this.options.placement
+
+        inside = /in/.test(placement)
+
+        $tip
+          .remove()
+          .css({ top: 0, left: 0, display: 'block' })
+          .appendTo(inside ? this.$element : document.body)
+
+        pos = this.getPosition(inside)
+
+        actualWidth = $tip[0].offsetWidth
+        actualHeight = $tip[0].offsetHeight
+
+        switch (inside ? placement.split(' ')[1] : placement) {
+          case 'bottom':
+            tp = {top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'top':
+            tp = {top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'left':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth}
+            break
+          case 'right':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
+            break
+        }
+
+        $tip
+          .css(tp)
+          .addClass(placement)
+          .addClass('in')
+      }
+    }
+
+  , setContent: function () {
+      var $tip = this.tip()
+      $tip.find('.tooltip-inner').html(this.getTitle())
+      $tip.removeClass('fade in top bottom left right')
+    }
+
+  , hide: function () {
+      var that = this
+        , $tip = this.tip()
+
+      $tip.removeClass('in')
+
+      function removeWithAnimation() {
+        var timeout = setTimeout(function () {
+          $tip.off($.support.transition.end).remove()
+        }, 500)
+
+        $tip.one($.support.transition.end, function () {
+          clearTimeout(timeout)
+          $tip.remove()
+        })
+      }
+
+      $.support.transition && this.$tip.hasClass('fade') ?
+        removeWithAnimation() :
+        $tip.remove()
+    }
+
+  , fixTitle: function () {
+      var $e = this.$element
+      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
+        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
+      }
+    }
+
+  , hasContent: function () {
+      return this.getTitle()
+    }
+
+  , getPosition: function (inside) {
+      return $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
+        width: this.$element[0].offsetWidth
+      , height: this.$element[0].offsetHeight
+      })
+    }
+
+  , getTitle: function () {
+      var title
+        , $e = this.$element
+        , o = this.options
+
+      title = $e.attr('data-original-title')
+        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+
+      title = title.toString().replace(/(^\s*|\s*$)/, "")
+
+      return title
+    }
+
+  , tip: function () {
+      return this.$tip = this.$tip || $(this.options.template)
+    }
+
+  , validate: function () {
+      if (!this.$element[0].parentNode) {
+        this.hide()
+        this.$element = null
+        this.options = null
+      }
+    }
+
+  , enable: function () {
+      this.enabled = true
+    }
+
+  , disable: function () {
+      this.enabled = false
+    }
+
+  , toggleEnabled: function () {
+      this.enabled = !this.enabled
+    }
+
+  , toggle: function () {
+      this[this.tip().hasClass('in') ? 'hide' : 'show']()
+    }
+
+  }
+
+
+ /* TOOLTIP PLUGIN DEFINITION
+  * ========================= */
+
+  $.fn.tooltip = function ( option ) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('tooltip')
+        , options = typeof option == 'object' && option
+      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.tooltip.Constructor = Tooltip
+
+  $.fn.tooltip.defaults = {
+    animation: true
+  , delay: 0
+  , selector: false
+  , placement: 'top'
+  , trigger: 'hover'
+  , title: ''
+  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+  }
+
+}( window.jQuery );
+
+/*********************************************** 
+     Begin bootstrap-tooltip.js 
+***********************************************/ 
+
+/* ===========================================================
+ * bootstrap-tooltip.js v2.0.1
+ * http://twitter.github.com/bootstrap/javascript.html#tooltips
+ * Inspired by the original jQuery.tipsy by Jason Frame
+ * ===========================================================
+ * Copyright 2012 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
+!function( $ ) {
+
+  "use strict"
+
+ /* TOOLTIP PUBLIC CLASS DEFINITION
+  * =============================== */
+
+  var Tooltip = function ( element, options ) {
+    this.init('tooltip', element, options)
+  }
+
+  Tooltip.prototype = {
+
+    constructor: Tooltip
+
+  , init: function ( type, element, options ) {
+      var eventIn
+        , eventOut
+
+      this.type = type
+      this.$element = $(element)
+      this.options = this.getOptions(options)
+      this.enabled = true
+
+      if (this.options.trigger != 'manual') {
+        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
+        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
+        this.$element.on(eventIn, this.options.selector, $.proxy(this.enter, this))
+        this.$element.on(eventOut, this.options.selector, $.proxy(this.leave, this))
+      }
+
+      this.options.selector ?
+        (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+        this.fixTitle()
+    }
+
+  , getOptions: function ( options ) {
+      options = $.extend({}, $.fn[this.type].defaults, options, this.$element.data())
+
+      if (options.delay && typeof options.delay == 'number') {
+        options.delay = {
+          show: options.delay
+        , hide: options.delay
+        }
+      }
+
+      return options
+    }
+
+  , enter: function ( e ) {
+      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+
+      if (!self.options.delay || !self.options.delay.show) {
+        self.show()
+      } else {
+        self.hoverState = 'in'
+        setTimeout(function() {
+          if (self.hoverState == 'in') {
+            self.show()
+          }
+        }, self.options.delay.show)
+      }
+    }
+
+  , leave: function ( e ) {
+      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+
+      if (!self.options.delay || !self.options.delay.hide) {
+        self.hide()
+      } else {
+        self.hoverState = 'out'
+        setTimeout(function() {
+          if (self.hoverState == 'out') {
+            self.hide()
+          }
+        }, self.options.delay.hide)
+      }
+    }
+
+  , show: function () {
+      var $tip
+        , inside
+        , pos
+        , actualWidth
+        , actualHeight
+        , placement
+        , tp
+
+      if (this.hasContent() && this.enabled) {
+        $tip = this.tip()
+        this.setContent()
+
+        if (this.options.animation) {
+          $tip.addClass('fade')
+        }
+
+        placement = typeof this.options.placement == 'function' ?
+          this.options.placement.call(this, $tip[0], this.$element[0]) :
+          this.options.placement
+
+        inside = /in/.test(placement)
+
+        $tip
+          .remove()
+          .css({ top: 0, left: 0, display: 'block' })
+          .appendTo(inside ? this.$element : document.body)
+
+        pos = this.getPosition(inside)
+
+        actualWidth = $tip[0].offsetWidth
+        actualHeight = $tip[0].offsetHeight
+
+        switch (inside ? placement.split(' ')[1] : placement) {
+          case 'bottom':
+            tp = {top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'top':
+            tp = {top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2}
+            break
+          case 'left':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth}
+            break
+          case 'right':
+            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
+            break
+        }
+
+        $tip
+          .css(tp)
+          .addClass(placement)
+          .addClass('in')
+      }
+    }
+
+  , setContent: function () {
+      var $tip = this.tip()
+      $tip.find('.tooltip-inner').html(this.getTitle())
+      $tip.removeClass('fade in top bottom left right')
+    }
+
+  , hide: function () {
+      var that = this
+        , $tip = this.tip()
+
+      $tip.removeClass('in')
+
+      function removeWithAnimation() {
+        var timeout = setTimeout(function () {
+          $tip.off($.support.transition.end).remove()
+        }, 500)
+
+        $tip.one($.support.transition.end, function () {
+          clearTimeout(timeout)
+          $tip.remove()
+        })
+      }
+
+      $.support.transition && this.$tip.hasClass('fade') ?
+        removeWithAnimation() :
+        $tip.remove()
+    }
+
+  , fixTitle: function () {
+      var $e = this.$element
+      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
+        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
+      }
+    }
+
+  , hasContent: function () {
+      return this.getTitle()
+    }
+
+  , getPosition: function (inside) {
+      return $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
+        width: this.$element[0].offsetWidth
+      , height: this.$element[0].offsetHeight
+      })
+    }
+
+  , getTitle: function () {
+      var title
+        , $e = this.$element
+        , o = this.options
+
+      title = $e.attr('data-original-title')
+        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+
+      title = title.toString().replace(/(^\s*|\s*$)/, "")
+
+      return title
+    }
+
+  , tip: function () {
+      return this.$tip = this.$tip || $(this.options.template)
+    }
+
+  , validate: function () {
+      if (!this.$element[0].parentNode) {
+        this.hide()
+        this.$element = null
+        this.options = null
+      }
+    }
+
+  , enable: function () {
+      this.enabled = true
+    }
+
+  , disable: function () {
+      this.enabled = false
+    }
+
+  , toggleEnabled: function () {
+      this.enabled = !this.enabled
+    }
+
+  , toggle: function () {
+      this[this.tip().hasClass('in') ? 'hide' : 'show']()
+    }
+
+  }
+
+
+ /* TOOLTIP PLUGIN DEFINITION
+  * ========================= */
+
+  $.fn.tooltip = function ( option ) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('tooltip')
+        , options = typeof option == 'object' && option
+      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.tooltip.Constructor = Tooltip
+
+  $.fn.tooltip.defaults = {
+    animation: true
+  , delay: 0
+  , selector: false
+  , placement: 'top'
+  , trigger: 'hover'
+  , title: ''
+  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+  }
+
+}( window.jQuery );
 
 /*********************************************** 
      Begin VMM.Timeline.js 
