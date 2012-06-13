@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" afterPath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/Variables.less" afterPath="$PROJECT_DIR$/source/less/Variables.less" />
-    </list>
+    <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="" />
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />

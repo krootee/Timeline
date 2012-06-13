@@ -13,3 +13,4 @@ compiled/css/timeline-generator.css
 *.tmproject
 tmtags
 source/gfx/Sprites/
+.idea
