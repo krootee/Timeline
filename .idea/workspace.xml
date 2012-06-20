@@ -43,7 +43,7 @@
       <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1052" column="47" selection-start="35607" selection-end="35607" vertical-scroll-proportion="0.3623446">
+            <state line="1079" column="72" selection-start="36520" selection-end="36520" vertical-scroll-proportion="0.5547786">
               <folding />
             </state>
           </provider>
@@ -183,6 +183,7 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="" />
       <created>1339588255988</created>
       <updated>1339588255988</updated>
     </task>
@@ -192,23 +193,23 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24986821" sideWeight="0.6707589" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -268,112 +269,82 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="573" column="20" selection-start="12108" selection-end="12108" vertical-scroll-proportion="0.6486797">
-          <folding />
-        </state>
+        <state line="573" column="20" selection-start="12108" selection-end="12108" vertical-scroll-proportion="0.6486797" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Slider.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="616" column="31" selection-start="13207" selection-end="13207" vertical-scroll-proportion="0.74626863">
-          <folding />
-        </state>
+        <state line="616" column="31" selection-start="13207" selection-end="13207" vertical-scroll-proportion="0.74626863" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.Core.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="5" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-4.1136622">
-          <folding />
-        </state>
+        <state line="71" column="5" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-4.1136622" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.6934558">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.6934558" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.Tooltip.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="21" selection-start="406" selection-end="406" vertical-scroll-proportion="-0.40528128">
-          <folding />
-        </state>
+        <state line="20" column="21" selection-start="406" selection-end="406" vertical-scroll-proportion="-0.40528128" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Typography.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.7669346">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.7669346" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Reset.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1469575">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1469575" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Mixins.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.2995338">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.2995338" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/GFX.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="61" selection-start="460" selection-end="460" vertical-scroll-proportion="-2.1993008">
-          <folding />
-        </state>
+        <state line="18" column="61" selection-start="460" selection-end="460" vertical-scroll-proportion="-2.1993008" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Font.Default.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Theme/Dark.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.5373135">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.5373135" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Font/AbrilFatface-Average.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="14" selection-start="3448" selection-end="3448" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Slider/VMM.Slider.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="578" column="16" selection-start="18071" selection-end="18071" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
+        <state line="578" column="16" selection-start="18071" selection-end="18071" vertical-scroll-proportion="0.33333334" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="14" selection-start="3448" selection-end="3448" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1052" column="47" selection-start="35607" selection-end="35607" vertical-scroll-proportion="0.3623446">
+        <state line="1079" column="72" selection-start="36520" selection-end="36520" vertical-scroll-proportion="0.5547786">
           <folding />
         </state>
       </provider>
