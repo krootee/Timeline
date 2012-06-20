@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="" />
+    <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,17 +36,32 @@
       <file leaf-file-name="VMM.Timeline.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="130" column="14" selection-start="3448" selection-end="3448" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="67" column="38" selection-start="2218" selection-end="2218" vertical-scroll-proportion="-7.32">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VMM.Timeline.DataObj.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.DataObj.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="501" column="1" selection-start="18766" selection-end="18766" vertical-scroll-proportion="4.742451">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1079" column="72" selection-start="36520" selection-end="36520" vertical-scroll-proportion="0.5547786">
-              <folding />
+            <state line="65" column="35" selection-start="3174" selection-end="3174" vertical-scroll-proportion="18.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,8 +81,8 @@
       <list>
         <option value="$PROJECT_DIR$/source/less/Variables.less" />
         <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
-        <option value="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
+        <option value="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
       </list>
     </option>
   </component>
@@ -101,6 +118,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -171,7 +198,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -195,6 +221,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24986821" sideWeight="0.6707589" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -206,7 +233,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -267,11 +293,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="573" column="20" selection-start="12108" selection-end="12108" vertical-scroll-proportion="0.6486797" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Slider.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="616" column="31" selection-start="13207" selection-end="13207" vertical-scroll-proportion="0.74626863" />
@@ -280,11 +301,6 @@
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.Core.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="5" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-4.1136622" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.6934558" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.Tooltip.less">
@@ -337,15 +353,37 @@
         <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
+    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="14" selection-start="3448" selection-end="3448" vertical-scroll-proportion="0.0" />
+        <state line="10" column="34" selection-start="355" selection-end="357" vertical-scroll-proportion="0.2631579">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1079" column="72" selection-start="36520" selection-end="36520" vertical-scroll-proportion="0.5547786">
-          <folding />
+        <state line="65" column="35" selection-start="3174" selection-end="3174" vertical-scroll-proportion="18.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="38" selection-start="2218" selection-end="2218" vertical-scroll-proportion="-7.32">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.DataObj.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="501" column="1" selection-start="18766" selection-end="18766" vertical-scroll-proportion="4.742451">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
