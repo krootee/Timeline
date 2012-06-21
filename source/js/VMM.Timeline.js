@@ -109,11 +109,11 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			nav: {
 				start_page: 		false,
 				interval_width: 	200,
-				density: 			4,
+				density: 			2,
 				minor_width: 		0,
 				minor_left:			0,
 				multiplier: {
-					current: 		6,
+					current: 		14,
 					min: 			.1,
 					max: 			50
 				},
