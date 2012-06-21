@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" afterPath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/Variables.less" afterPath="$PROJECT_DIR$/source/less/Variables.less" />
     </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,11 +26,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VMM.Timeline.TimeNav.less" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
+      <file leaf-file-name="Variables.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="34" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.64638346">
+            <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="44" column="50" selection-start="2728" selection-end="2728" vertical-scroll-proportion="0.57459205">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,10 +59,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
         <option value="$PROJECT_DIR$/source/less/Variables.less" />
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
-        <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
       </list>
     </option>
   </component>
@@ -315,33 +328,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="39" selection-start="2839" selection-end="2839" vertical-scroll-proportion="0.019813519">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="525" column="54" selection-start="14489" selection-end="14489" vertical-scroll-proportion="0.23880596">
+        <state line="42" column="25" selection-start="947" selection-end="947" vertical-scroll-proportion="0.8197474">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.23880596">
+        <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="34" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.64638346">
+        <state line="119" column="44" selection-start="3262" selection-end="3262" vertical-scroll-proportion="0.11825488">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="50" selection-start="2728" selection-end="2728" vertical-scroll-proportion="0.57459205">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
