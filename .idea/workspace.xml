@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/example_courses.json" afterPath="$PROJECT_DIR$/examples/example_courses.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" afterPath="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
     </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,31 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Variables.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
+      <file leaf-file-name="VMM.Timeline.TimeNav.less" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.0">
+            <state line="49" column="34" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.64638346">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VMM.Timeline.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="525" column="54" selection-start="14489" selection-end="14489" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="39" selection-start="2839" selection-end="2839" vertical-scroll-proportion="0.019813519">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -67,9 +47,9 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/source/less/Variables.less" />
-        <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
+        <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
       </list>
     </option>
   </component>
@@ -116,6 +96,66 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="less" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -137,7 +177,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -213,11 +253,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/less/VMM.Slider.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="616" column="31" selection-start="13207" selection-end="13207" vertical-scroll-proportion="0.74626863" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.Core.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="5" selection-start="1855" selection-end="1855" vertical-scroll-proportion="-4.1136622" />
@@ -268,24 +303,14 @@
         <state line="578" column="16" selection-start="18071" selection-end="18071" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="34" selection-start="355" selection-end="357" vertical-scroll-proportion="0.2631579" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.DataObj.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="484" column="20" selection-start="18255" selection-end="18255" vertical-scroll-proportion="0.54428905" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
+    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="525" column="54" selection-start="14489" selection-end="14489" vertical-scroll-proportion="0.0">
+        <state line="43" column="0" selection-start="1197" selection-end="1197" vertical-scroll-proportion="-0.8541906">
           <folding />
         </state>
       </provider>
@@ -296,6 +321,27 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="525" column="54" selection-start="14489" selection-end="14489" vertical-scroll-proportion="0.23880596">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="0" selection-start="2257" selection-end="2283" vertical-scroll-proportion="0.23880596">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="34" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.64638346">
+          <folding />
         </state>
       </provider>
     </entry>
