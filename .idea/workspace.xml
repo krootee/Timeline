@@ -4,7 +4,7 @@
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline.js" afterPath="$PROJECT_DIR$/compiled/js/timeline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/example_courses.html" afterPath="$PROJECT_DIR$/examples/example_courses.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
     </list>
     <ignored path="Timeline.iws" />
@@ -27,28 +27,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1053" column="0" selection-start="35626" selection-end="35626" vertical-scroll-proportion="0.78507996">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="timeline.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiled/js/timeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6241" column="38" selection-start="192385" selection-end="192385" vertical-scroll-proportion="0.0">
+            <state line="6516" column="23" selection-start="199272" selection-end="199272" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VMM.Timeline.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="VMM.Timeline.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="38" selection-start="3199" selection-end="3199" vertical-scroll-proportion="0.0">
+            <state line="404" column="40" selection-start="10636" selection-end="10636" vertical-scroll-proportion="0.7048611">
               <folding />
             </state>
           </provider>
@@ -354,23 +345,23 @@
         <state line="304" column="16" selection-start="9634" selection-end="9634" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1055" column="25" selection-start="35665" selection-end="35665" vertical-scroll-proportion="0.019813519">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/compiled/js/timeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6241" column="38" selection-start="192385" selection-end="192385" vertical-scroll-proportion="0.0">
+        <state line="6516" column="23" selection-start="199272" selection-end="199272" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="38" selection-start="3199" selection-end="3199" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1053" column="0" selection-start="35626" selection-end="35626" vertical-scroll-proportion="0.78507996">
+        <state line="404" column="40" selection-start="10636" selection-end="10636" vertical-scroll-proportion="0.7048611">
           <folding />
         </state>
       </provider>
