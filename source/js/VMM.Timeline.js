@@ -117,7 +117,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 					min: 			.1,
 					max: 			50
 				},
-				rows: 				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				rows: 				[1, 1, 1, 1, 1, 1, 1, 1, 1],
 				width: 				960,
 				height: 			500,
 				marker: {
