@@ -216,7 +216,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				VMM.attachElement("#twitter_"+id.toString(), twit );
 				VMM.attachElement("#text_thumb_"+id.toString(), d.text );
 				
-			},
+			}
 			
 			
 		},
@@ -729,7 +729,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					VMM.ExternalAPI.soundcloud.create(VMM.master_config.soundcloud.que[i]);
 				}
 				VMM.master_config.soundcloud.que = [];
-			},
+			}
 			
 		},
 		
@@ -796,7 +796,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					VMM.ExternalAPI.wikipedia.create(VMM.master_config.wikipedia.que[i]);
 				}
 				VMM.master_config.wikipedia.que = [];
-			},
+			}
 			
 		},
 		

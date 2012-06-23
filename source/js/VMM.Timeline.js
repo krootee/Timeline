@@ -135,7 +135,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				content: {
 					width: 			720,
 					height: 		400,
-					padding: 		130,
+					padding: 		130
 				},
 				nav: {
 					width: 			100,

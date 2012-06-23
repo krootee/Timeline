@@ -14,13 +14,7 @@
 
 	http://www.gnu.org/licenses/
 	
-*/
-
-/*********************************************** 
-     Begin VMM.js 
-***********************************************/ 
-
-/* Verite
+*//* Verite
  * Verite JS Master
  * Version: 0.6
  * Date: April 26, 2012
@@ -359,12 +353,6 @@ var type={
 };
 
 
-
-
-
-/*********************************************** 
-     Begin VMM.Library.js 
-***********************************************/ 
 
 /* LIBRARY ABSTRACTION
 ================================================== */
@@ -851,7 +839,7 @@ if(typeof VMM != 'undefined') {
 				}
 			}
 			
-		},
+		}
 		
 	}
 }
@@ -937,15 +925,9 @@ if( typeof( jQuery ) != 'undefined' ){
 		easeInOutQuad: function (x, t, b, c, d) {
 			if ((t/=d/2) < 1) return c/2*t*t + b;
 			return -c/2 * ((--t)*(t-2) - 1) + b;
-		},
+		}
 	});
 }
-
-
-/*********************************************** 
-     Begin VMM.Browser.js 
-***********************************************/ 
-
 /* DEVICE AND BROWSER DETECTION
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
@@ -1094,13 +1076,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Browser == 'undefined') {
 
 	}
 	VMM.Browser.init();
-}
-
-/*********************************************** 
-     Begin VMM.FileExtention.js 
-***********************************************/ 
-
-/* File Extention
+}/* File Extention
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.FileExtention == 'undefined') {
 	//VMM.FileExtention.googleDocType(url);
@@ -1126,13 +1102,7 @@ if(typeof VMM != 'undefined' && typeof VMM.FileExtention == 'undefined') {
 
 		}
 	}
-}
-
-/*********************************************** 
-     Begin VMM.Date.js 
-***********************************************/ 
-
-/* Utilities and Useful Functions
+}/* Utilities and Useful Functions
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 	
@@ -1151,7 +1121,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 			time_no_seconds_short: "h:MM TT",
 			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
 			full_long: "mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
+			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'"
 		},
 			
 		month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -1171,7 +1141,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 			time_no_seconds_short: "h:MM TT",
 			time_no_seconds_small_date: "dddd', 'h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
 			full_long: "dddd',' mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>'dddd',' mmm d',' yyyy'</small>'",
+			full_long_small_date: "hh:MM TT'<br/><small>'dddd',' mmm d',' yyyy'</small>'"
 		},
 			
 		setLanguage: function(lang) {
@@ -1481,13 +1451,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Date == 'undefined') {
 		return dateFormat(this, mask, utc);
 	};
 	
-}
-
-/*********************************************** 
-     Begin VMM.Util.js 
-***********************************************/ 
-
-/* Utilities and Useful Functions
+}/* Utilities and Useful Functions
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Util == 'undefined') {
 	
@@ -1943,7 +1907,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Util == 'undefined') {
 						return split.join('');
 					
 					
-					},
+					}
 				};
 
 				__TitleCase.init();
@@ -1955,16 +1919,10 @@ if(typeof VMM != 'undefined' && typeof VMM.Util == 'undefined') {
 				
 			}
 			
-		},
+		}
 		
 	}).init();
-}
-
-/*********************************************** 
-     Begin VMM.LoadLib.js 
-***********************************************/ 
-
-/*
+}/*
 	LoadLib
 	Based on LazyLoad by Ryan Grove
 	https://github.com/rgrove/lazyload/ 
@@ -2211,12 +2169,6 @@ if(typeof VMM != 'undefined' && typeof VMM.LoadLib == 'undefined') {
 	})(this.document);
 }
 
-
-
-/*********************************************** 
-     Begin VMM.ExternalAPI.js 
-***********************************************/ 
-
 /* External API
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
@@ -2435,7 +2387,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 				VMM.attachElement("#twitter_"+id.toString(), twit );
 				VMM.attachElement("#text_thumb_"+id.toString(), d.text );
 				
-			},
+			}
 			
 			
 		},
@@ -2948,7 +2900,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					VMM.ExternalAPI.soundcloud.create(VMM.master_config.soundcloud.que[i]);
 				}
 				VMM.master_config.soundcloud.que = [];
-			},
+			}
 			
 		},
 		
@@ -3015,7 +2967,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 					VMM.ExternalAPI.wikipedia.create(VMM.master_config.wikipedia.que[i]);
 				}
 				VMM.master_config.wikipedia.que = [];
-			},
+			}
 			
 		},
 		
@@ -3155,13 +3107,7 @@ if(typeof VMM != 'undefined' && typeof VMM.ExternalAPI == 'undefined') {
 function onYouTubePlayerAPIReady() {
 	trace("GLOBAL YOUTUBE API CALLED")
 	VMM.ExternalAPI.youtube.onAPIReady();
-}
-
-/*********************************************** 
-     Begin VMM.MediaElement.js 
-***********************************************/ 
-
-/* MediaElement
+}/* MediaElement
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 	
@@ -3365,13 +3311,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 		}
 		
 	}).init();
-}
-
-/*********************************************** 
-     Begin VMM.MediaType.js 
-***********************************************/ 
-
-/* MediaType
+}/* MediaType
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 	
@@ -3485,13 +3425,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaType == 'undefined') {
 		}
 		return false;
 	}
-}
-
-/*********************************************** 
-     Begin VMM.Media.js 
-***********************************************/ 
-
-/* Media
+}/* Media
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Media == 'undefined') {
 	
@@ -3653,13 +3587,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Media == 'undefined') {
 		return _active;
 	};
 	
-}
-
-/*********************************************** 
-     Begin VMM.TextElement.js 
-***********************************************/ 
-
-/* TextElement
+}/* TextElement
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.TextElement == 'undefined') {
 	
@@ -3773,13 +3701,7 @@ if(typeof VMM != 'undefined' && typeof VMM.TextElement == 'undefined') {
 		}
 		
 	}).init();
-}
-
-/*********************************************** 
-     Begin VMM.TouchSlider.js 
-***********************************************/ 
-
-/* TOUCH SLIDER
+}/* TOUCH SLIDER
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.TouchSlider == 'undefined') {
 	
@@ -3968,13 +3890,7 @@ if(typeof VMM != 'undefined' && typeof VMM.TouchSlider == 'undefined') {
 			
 		}
 	}
-}
-
-/*********************************************** 
-     Begin VMM.DragSlider.js 
-***********************************************/ 
-
-/* DRAG SLIDER
+}/* DRAG SLIDER
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 	// VMM.DragSlider.createSlidePanel(drag_object, move_object, w, padding, sticky);
@@ -4120,13 +4036,7 @@ if(typeof VMM != 'undefined' && typeof VMM.DragSlider == 'undefined') {
 		}
 	
 	}
-}
-
-/*********************************************** 
-     Begin VMM.Slider.js 
-***********************************************/ 
-
-/* Slider
+}/* Slider
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 	
@@ -4791,12 +4701,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 
 
 
-
-
-/*********************************************** 
-     Begin VMM.Slider.Slide.js 
-***********************************************/ 
-
 /* Slider Slide 
 ================================================== */
 if (typeof VMM.Slider != 'undefined') {
@@ -5059,12 +4963,6 @@ if (typeof VMM.Slider != 'undefined') {
 	}
 	
 };
-
-
-/*********************************************** 
-     Begin VMM.Language.js 
-***********************************************/ 
-
 /* DEFAULT LANGUAGE 
 ================================================== */
 if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
@@ -5077,7 +4975,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			month: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 			month_abbr: ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."],
 			day: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."],
+			day_abbr: ["Sun.","Mon.", "Tues.", "Wed.", "Thurs.", "Fri.", "Sat."]
 		}, 
 		dateformats: {
 			year: "yyyy",
@@ -5088,7 +4986,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			time_no_seconds_short: "h:MM TT",
 			time_no_seconds_small_date: "h:MM TT'<br/><small>'mmmm d',' yyyy'</small>'",
 			full_long: "mmm d',' yyyy 'at' hh:MM TT",
-			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'",
+			full_long_small_date: "hh:MM TT'<br/><small>mmm d',' yyyy'</small>'"
 		},
 		messages: {
 			loading_timeline: "Loading Timeline... ",
@@ -5100,13 +4998,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Language == 'undefined') {
 			loading: "Loading"
 		}
 	}
-};
-
-/*********************************************** 
-     Begin AES.js 
-***********************************************/ 
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+};/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /*  AES implementation in JavaScript (c) Chris Veness 2005-2011                                   */
 /*   - see http://csrc.nist.gov/publications/PubsFIPS.html#197                                    */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
@@ -5568,13 +5460,7 @@ Utf8.decode = function(strUtf) {
   return strUni;
 }
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
-
-/*********************************************** 
-     Begin bootstrap-tooltip.js 
-***********************************************/ 
-
-/* ===========================================================
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  *//* ===========================================================
  * bootstrap-tooltip.js v2.0.1
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
@@ -5843,288 +5729,7 @@ Utf8.decode = function(strUtf) {
   , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
   }
 
-}( window.jQuery );
-
-/*********************************************** 
-     Begin bootstrap-tooltip.js 
-***********************************************/ 
-
-/* ===========================================================
- * bootstrap-tooltip.js v2.0.1
- * http://twitter.github.com/bootstrap/javascript.html#tooltips
- * Inspired by the original jQuery.tipsy by Jason Frame
- * ===========================================================
- * Copyright 2012 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================== */
-
-!function( $ ) {
-
-  "use strict"
-
- /* TOOLTIP PUBLIC CLASS DEFINITION
-  * =============================== */
-
-  var Tooltip = function ( element, options ) {
-    this.init('tooltip', element, options)
-  }
-
-  Tooltip.prototype = {
-
-    constructor: Tooltip
-
-  , init: function ( type, element, options ) {
-      var eventIn
-        , eventOut
-
-      this.type = type
-      this.$element = $(element)
-      this.options = this.getOptions(options)
-      this.enabled = true
-
-      if (this.options.trigger != 'manual') {
-        eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
-        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
-        this.$element.on(eventIn, this.options.selector, $.proxy(this.enter, this))
-        this.$element.on(eventOut, this.options.selector, $.proxy(this.leave, this))
-      }
-
-      this.options.selector ?
-        (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
-        this.fixTitle()
-    }
-
-  , getOptions: function ( options ) {
-      options = $.extend({}, $.fn[this.type].defaults, options, this.$element.data())
-
-      if (options.delay && typeof options.delay == 'number') {
-        options.delay = {
-          show: options.delay
-        , hide: options.delay
-        }
-      }
-
-      return options
-    }
-
-  , enter: function ( e ) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
-
-      if (!self.options.delay || !self.options.delay.show) {
-        self.show()
-      } else {
-        self.hoverState = 'in'
-        setTimeout(function() {
-          if (self.hoverState == 'in') {
-            self.show()
-          }
-        }, self.options.delay.show)
-      }
-    }
-
-  , leave: function ( e ) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
-
-      if (!self.options.delay || !self.options.delay.hide) {
-        self.hide()
-      } else {
-        self.hoverState = 'out'
-        setTimeout(function() {
-          if (self.hoverState == 'out') {
-            self.hide()
-          }
-        }, self.options.delay.hide)
-      }
-    }
-
-  , show: function () {
-      var $tip
-        , inside
-        , pos
-        , actualWidth
-        , actualHeight
-        , placement
-        , tp
-
-      if (this.hasContent() && this.enabled) {
-        $tip = this.tip()
-        this.setContent()
-
-        if (this.options.animation) {
-          $tip.addClass('fade')
-        }
-
-        placement = typeof this.options.placement == 'function' ?
-          this.options.placement.call(this, $tip[0], this.$element[0]) :
-          this.options.placement
-
-        inside = /in/.test(placement)
-
-        $tip
-          .remove()
-          .css({ top: 0, left: 0, display: 'block' })
-          .appendTo(inside ? this.$element : document.body)
-
-        pos = this.getPosition(inside)
-
-        actualWidth = $tip[0].offsetWidth
-        actualHeight = $tip[0].offsetHeight
-
-        switch (inside ? placement.split(' ')[1] : placement) {
-          case 'bottom':
-            tp = {top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2}
-            break
-          case 'top':
-            tp = {top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2}
-            break
-          case 'left':
-            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth}
-            break
-          case 'right':
-            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width}
-            break
-        }
-
-        $tip
-          .css(tp)
-          .addClass(placement)
-          .addClass('in')
-      }
-    }
-
-  , setContent: function () {
-      var $tip = this.tip()
-      $tip.find('.tooltip-inner').html(this.getTitle())
-      $tip.removeClass('fade in top bottom left right')
-    }
-
-  , hide: function () {
-      var that = this
-        , $tip = this.tip()
-
-      $tip.removeClass('in')
-
-      function removeWithAnimation() {
-        var timeout = setTimeout(function () {
-          $tip.off($.support.transition.end).remove()
-        }, 500)
-
-        $tip.one($.support.transition.end, function () {
-          clearTimeout(timeout)
-          $tip.remove()
-        })
-      }
-
-      $.support.transition && this.$tip.hasClass('fade') ?
-        removeWithAnimation() :
-        $tip.remove()
-    }
-
-  , fixTitle: function () {
-      var $e = this.$element
-      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
-        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
-      }
-    }
-
-  , hasContent: function () {
-      return this.getTitle()
-    }
-
-  , getPosition: function (inside) {
-      return $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
-        width: this.$element[0].offsetWidth
-      , height: this.$element[0].offsetHeight
-      })
-    }
-
-  , getTitle: function () {
-      var title
-        , $e = this.$element
-        , o = this.options
-
-      title = $e.attr('data-original-title')
-        || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
-
-      title = title.toString().replace(/(^\s*|\s*$)/, "")
-
-      return title
-    }
-
-  , tip: function () {
-      return this.$tip = this.$tip || $(this.options.template)
-    }
-
-  , validate: function () {
-      if (!this.$element[0].parentNode) {
-        this.hide()
-        this.$element = null
-        this.options = null
-      }
-    }
-
-  , enable: function () {
-      this.enabled = true
-    }
-
-  , disable: function () {
-      this.enabled = false
-    }
-
-  , toggleEnabled: function () {
-      this.enabled = !this.enabled
-    }
-
-  , toggle: function () {
-      this[this.tip().hasClass('in') ? 'hide' : 'show']()
-    }
-
-  }
-
-
- /* TOOLTIP PLUGIN DEFINITION
-  * ========================= */
-
-  $.fn.tooltip = function ( option ) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('tooltip')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
-      if (typeof option == 'string') data[option]()
-    })
-  }
-
-  $.fn.tooltip.Constructor = Tooltip
-
-  $.fn.tooltip.defaults = {
-    animation: true
-  , delay: 0
-  , selector: false
-  , placement: 'top'
-  , trigger: 'hover'
-  , title: ''
-  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-  }
-
-}( window.jQuery );
-
-/*********************************************** 
-     Begin VMM.Timeline.js 
-***********************************************/ 
-
-/*!
+}( window.jQuery );/*!
 	Timeline
 	Designed and built by Zach Wise at VéritéCo
 
@@ -6243,7 +5848,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 					min: 			.1,
 					max: 			50
 				},
-				rows: 				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				rows: 				[1, 1, 1],
 				width: 				960,
 				height: 			500,
 				marker: {
@@ -6261,7 +5866,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				content: {
 					width: 			720,
 					height: 		400,
-					padding: 		130,
+					padding: 		130
 				},
 				nav: {
 					width: 			100,
@@ -6705,13 +6310,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 
 	VMM.Timeline.Config = {};
 	
-};
-
-/*********************************************** 
-     Begin VMM.Timeline.TimeNav.js 
-***********************************************/ 
-
-/* 	TIMELINE NAVIGATION
+};/* 	TIMELINE NAVIGATION
 ================================================== */
 
 if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefined') {
@@ -6751,7 +6350,8 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 		================================================== */
 		var config				= 	VMM.Timeline.Config;
 		config.nav.rows			= 	[1, config.nav.marker.height, config.nav.marker.height*2, config.nav.marker.height*3, config.nav.marker.height*4,
-                                     config.nav.marker.height*5, config.nav.marker.height*6, config.nav.marker.height*7, config.nav.marker.height*8];
+                                     config.nav.marker.height*5, config.nav.marker.height*6, config.nav.marker.height*7, config.nav.marker.height*8,
+                                     config.nav.marker.height*9, config.nav.marker.height*10];
 		
 		if (content_width != null && content_width != "") {
 			config.nav.width	= 	content_width;
@@ -6760,13 +6360,15 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			config.nav.height	= 	content_height;
 		}
 		
-		//config.nav.density = 		2;
+		/*
+		config.nav.density = 		2;
 		config.nav.multiplier = {
-			current: 				1,
+			current: 				6,
 			min: 					.1,
 			max: 					50
 		};
-
+		*/
+		
 		/* INIT
 		================================================== */
 		this.init = function(d,e) {
@@ -7987,13 +7589,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 		
 	};
 	
-}
-
-/*********************************************** 
-     Begin VMM.Timeline.DataObj.js 
-***********************************************/ 
-
-/* 	TIMELINE SOURCE DATA PROCESSOR
+}/* 	TIMELINE SOURCE DATA PROCESSOR
 ================================================== */
 
 if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.DataObj == 'undefined') {
