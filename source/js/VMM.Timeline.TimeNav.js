@@ -1148,10 +1148,22 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 			
 			for(var i = 0; i < data.length; i++) {
 				
-				var _marker, _marker_flag, _marker_content, _marker_dot, _marker_line, _marker_line_event, _marker_title = "", has_title = false;
+				var color, _marker, _marker_flag, _marker_content, _marker_dot, _marker_line, _marker_line_event, _marker_title = "", has_title = false;
 				
 				_marker					= VMM.appendAndGetElement($content, "<div>", "marker");
 				_marker_flag			= VMM.appendAndGetElement(_marker, "<div>", "flag");
+
+				//
+				// OCN-51: Add color coding to timeline events
+				//
+				color = 0;
+				if (typeof data[i].colorIndexId != "undefined")
+				{
+					// 53 is the height of the image of a flag
+					color = data[i].colorIndexId * -53;
+				}
+				_marker_flag.attr('style', "background-position:0 " + color + "px;width:153px;height:53px;");
+
 				_marker_content			= VMM.appendAndGetElement(_marker_flag, "<div>", "flag-content");
 				_marker_dot				= VMM.appendAndGetElement(_marker, "<div>", "dot");
 				_marker_line			= VMM.appendAndGetElement(_marker, "<div>", "line");
