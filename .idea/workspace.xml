@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Sources\Timeline\compilejs.sh" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline-min.js" afterPath="$PROJECT_DIR$/compiled/js/timeline-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/Variables.less" afterPath="$PROJECT_DIR$/source/less/Variables.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/de.js" afterPath="$PROJECT_DIR$/compiled/js/locale/de.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/dk.js" afterPath="$PROJECT_DIR$/compiled/js/locale/dk.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/en.js" afterPath="$PROJECT_DIR$/compiled/js/locale/en.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/es.js" afterPath="$PROJECT_DIR$/compiled/js/locale/es.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/fr.js" afterPath="$PROJECT_DIR$/compiled/js/locale/fr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/id.js" afterPath="$PROJECT_DIR$/compiled/js/locale/id.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/is.js" afterPath="$PROJECT_DIR$/compiled/js/locale/is.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/it.js" afterPath="$PROJECT_DIR$/compiled/js/locale/it.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/ja.js" afterPath="$PROJECT_DIR$/compiled/js/locale/ja.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/kr.js" afterPath="$PROJECT_DIR$/compiled/js/locale/kr.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/nl.js" afterPath="$PROJECT_DIR$/compiled/js/locale/nl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/pl.js" afterPath="$PROJECT_DIR$/compiled/js/locale/pl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/pt-br.js" afterPath="$PROJECT_DIR$/compiled/js/locale/pt-br.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/ru.js" afterPath="$PROJECT_DIR$/compiled/js/locale/ru.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/zh-ch.js" afterPath="$PROJECT_DIR$/compiled/js/locale/zh-ch.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/locale/zh-tw.js" afterPath="$PROJECT_DIR$/compiled/js/locale/zh-tw.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline-embed.js" afterPath="$PROJECT_DIR$/compiled/js/timeline-embed.js" />
     </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,33 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VMM.ExternalAPI.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
+      <file leaf-file-name="VMM.Timeline.less" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Variables.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="70" selection-start="2460" selection-end="2460" vertical-scroll-proportion="0.3075965">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -343,11 +336,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.LoadLib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.4460433" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-9.579137" />
@@ -408,9 +396,9 @@
         <state line="469" column="151" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.0">
+        <state line="45" column="19" selection-start="2653" selection-end="2653" vertical-scroll-proportion="0.41344956">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -419,17 +407,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
+        <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.60642093">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="70" selection-start="2460" selection-end="2460" vertical-scroll-proportion="0.3075965">
+        <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.020531401">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/less/VMM.Timeline.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
