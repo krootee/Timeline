@@ -1,0 +1,2061 @@
+[33mcommit 71f21e5297a183d95edccf0f14d1c77dbe33e638[m
+Author: Minisaw <minisaw@gmail.com>
+Date:   Sun Jun 24 01:02:16 2012 +0300
+
+    OCN-51: Add color coding to timeline events
+
+[33mcommit be72869c03e1424a006090b9fc6526fb13f1d507[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Sat Jun 23 23:16:32 2012 +0300
+
+    script to merge and minify javascript completed - using Google Closure for minification. advanced_optimization doesnt work atm - control will not work properly with it, so using simple_optimization with google closure.
+
+[33mcommit e01c5d973f53ed75f154c3b6b3376b23359e6320[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Sat Jun 23 22:29:14 2012 +0300
+
+    initial commit of js file compiler of all files into 1
+
+[33mcommit 450fbacba67cbdfa9c14d55c5082e94ba63a401a[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Sat Jun 23 15:28:13 2012 +0300
+
+    Added support for loading 3 custom fields for each entry - stream, provider, colorIndexId. all events are available inside _dates array
+
+[33mcommit c2b36a048269d14db1fc246f87df1e10ad933392[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Sat Jun 23 14:31:47 2012 +0300
+
+    course example json updated with new fields
+
+[33mcommit 62f530156554a5e35af164f24bd93ae7e052518c[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 18:02:46 2012 +0300
+
+    OCN-57 - added new option that will center timeline events around current date. Event with date that is nearest to current date will be selected.
+
+[33mcommit 670853eeb0d3c3a6c1e9ba4235decf228646997b[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 17:26:36 2012 +0300
+
+    Changed initial zoom level to 2 months view
+
+[33mcommit 5e42d21e5c0b748dfe7fdd4652e3f1526af7b199[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 15:37:41 2012 +0300
+
+    OCN-56 - timeline resized to 600px
+
+[33mcommit 21bd9dfde10b3fb53dbfba9a9f3ebd7a90f0f312[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 15:32:40 2012 +0300
+
+    OCN-49 - minor tweaks for multiple rows
+
+[33mcommit 2c4e589fa315e93a691f21bcf23d0daab8122786[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 15:29:22 2012 +0300
+
+    updated JSON with new Udacity image links
+
+[33mcommit 240b8f453c9f11664e6125cfba89b533ff68b35c[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Thu Jun 21 14:26:22 2012 +0300
+
+    Reduced timenav to 9 lines from 10. Fresh version of json file uploaded that includes all tweaks
+
+[33mcommit 913b9c20a01384a01190cf868a96215e8664f9bf[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 20 16:26:55 2012 +0300
+
+    replaced example json with full info
+
+[33mcommit 9374e4677aa9a7009ed820519286f1e866a880a7[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 20 11:37:24 2012 +0300
+
+    .gitignore tweak
+
+[33mcommit 4f7d2a1508b2186e935d081c305eb05629ad1149[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 13 16:15:57 2012 +0300
+
+    Compiled version of timeline.js is not working - replacing with last good known working version (with custom fixes) until this problem is resolved.
+
+[33mcommit e1816880a58a1cbe7a1d80296b0cce578ee79730[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 13 16:08:07 2012 +0300
+
+    Ignore IDEA files
+
+[33mcommit df10b3a3d1775cc0b6156b88da47fe6a9b8a5910[m
+Author: Konstantin Root <konstantin.root@live.com>
+Date:   Wed Jun 13 15:57:29 2012 +0300
+
+    Updated compiler version with latest changes
+    
+    Compiled js and css files.
+    Optimized timeline.png.
+
+[33mcommit e24de4b4bd092f1495fbf384c154f242f65dd9e7[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 13 15:26:04 2012 +0300
+
+    Added example with courses information - 2 events in json
+
+[33mcommit 734afbe8681fe3f7a9400cb32bc915d0d02519ec[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Wed Jun 13 15:21:46 2012 +0300
+
+    Changes to allow 10 rows of events in timeline navigation bar. Plus increase area from 200px to 500px
+
+[33mcommit 88fe665d660fa25645e366eacf3e57f264fb02e1[m
+Author: Konstantin Root <konstantin.root@windowslive.com>
+Date:   Tue Jun 12 12:11:30 2012 +0300
+
+    changes to compiled version to support 500px timeline with 10 rows. To be redone in sources - currently any recompile of project will loose changes
+
+[33mcommit 2777d46deba49aa37730e2d31bcd2fb1e1112acf[m
+Merge: 69df221 f952789
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Jun 7 07:09:17 2012 -0700
+
+    Merge pull request #146 from supirman/master
+    
+    Add id locale
+
+[33mcommit f952789d5ca54a39a8a9450a7041e794b250f41f[m
+Author: Firman Rosdiansyah <firman.droid@gmail.com>
+Date:   Wed Jun 6 16:44:45 2012 +0700
+
+    Add id locale
+
+[33mcommit 69df221cd3eb648f76d679831cc560dbbfb9628f[m
+Merge: 98f27b5 57b90c6
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Jun 1 06:49:21 2012 -0700
+
+    Merge pull request #141 from LaurentJuvanon/patch-1
+    
+    Update source/js/locale/fr.js
+
+[33mcommit 57b90c6ce627ebfa434e8411dd464756dfe7a10f[m
+Author: LaurentJuvanon <laurent.juvanon@laposte.net>
+Date:   Fri Jun 1 10:06:58 2012 -0300
+
+    Update source/js/locale/fr.js
+
+[33mcommit 98f27b5fb8d762fb37ba1f672f705bda65c35299[m
+Merge: fd77879 1588025
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 30 09:11:24 2012 -0500
+
+    Github merge cleanup
+
+[33mcommit fd77879f195f16f7526638a81441ed90ac7a679d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 30 09:11:10 2012 -0500
+
+    Github merge cleanup. Argh
+
+[33mcommit 3130b59dac43fb0c8add3b66e57f2da4d5c891ed[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 30 09:00:02 2012 -0500
+
+    Fix for IE date issue with prettyDate format for single and double digit years closes #131
+
+[33mcommit a7b8323634efd9377c332c873afb304dea9dca47[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 29 21:20:00 2012 -0500
+
+    Tweaks for figuring out the base path for TimelineJS so it won't default to embed.timeline.verite.co Also reworked font loading to allow more customization
+    
+    This should fix any remaining issues with issue #129
+
+[33mcommit d058bfec5596c71b6fe97aab4a3a6f4433ba3976[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 28 21:26:06 2012 -0500
+
+    Fix for tags on rows closes #133
+
+[33mcommit 855134f9bf8d651120011c62ab94287528de0693[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 28 19:01:08 2012 -0500
+
+    Added Danish language support thanks to Tommy Kaas https://groups.google.com/forum/#!topic/verite-timeline/uVhBg1FfWC0
+
+[33mcommit 6f089a3b8242f3429f887a59aa586f8ce52be205[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 28 18:55:45 2012 -0500
+
+    Cleanup
+
+[33mcommit 8006b079e4ed156ef51fe2cb5697556d958db2ce[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 28 18:55:28 2012 -0500
+
+    Fixes for pull #132, adding ru language
+
+[33mcommit 1588025872befb364ff5e22dcd0c159302b3b669[m
+Merge: ad73588 9c633da
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 28 16:51:57 2012 -0700
+
+    Merge pull request #132 from Skarm/master
+    
+    Add ru locale
+
+[33mcommit 9c633da178e656b7b319fe66ecdd52c2c5499e95[m
+Author: Eric <eric@agera.pro>
+Date:   Mon May 28 23:25:49 2012 +0600
+
+    add ru locale
+
+[33mcommit 7358924ea09564ea1aa0d195ab8127d5b3d778a9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 19:44:43 2012 -0500
+
+    Organizational changes
+
+[33mcommit c46e54aca620aa0e444ecbe2b38a6141ca7b2b41[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 19:01:36 2012 -0500
+
+    Fix for allowing local locale closes #128
+
+[33mcommit 4039e37290abd30dc4b52a87a98c480b2aafaa57[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 18:52:05 2012 -0500
+
+    Fixing the allow locale local embed
+
+[33mcommit ad73588638cafb915cf596cde5395f3cb9ae1cf5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:47:52 2012 -0500
+
+    Fixes to de from @fsmanuel  closes #127
+
+[33mcommit e176f6e9f432b6602353cc4f8e02ce9c7affc1ce[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:43:51 2012 -0500
+
+    Added Polish language closes #130
+
+[33mcommit 106a0a746a8287914e0e52cf5772bfb417ece813[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:40:30 2012 -0500
+
+    Latest compile 1.48
+
+[33mcommit 6d9d82f53235f29df4e310ff44df92b057a94255[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:40:15 2012 -0500
+
+    Added features to use slugs in TimeNav when there is no headline
+
+[33mcommit c46a370711293cc2ef48ba60e9037a2314a4b7ec[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:39:37 2012 -0500
+
+    Added Google Plus
+
+[33mcommit f715ca1cf0b936358e004ae1cbd38ad400625b46[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:39:20 2012 -0500
+
+    Added animation queue
+
+[33mcommit 96f46d7a6178f6d0376878da1c891da22a1bddae[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:38:02 2012 -0500
+
+    debug detritus
+
+[33mcommit 639eda6ecdbdf1d76007c8c351742ba6824d938e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:37:51 2012 -0500
+
+    Major optimizations and a form of garbage collection to decrease DOM stress when dealing with lots of slides.
+
+[33mcommit a20574a20342df3897f9e867c58142deba320916[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:36:57 2012 -0500
+
+    Major optimizations for timeline zooming, especially dealing with large timelines.
+
+[33mcommit 4cf5f9e8768dc323b8475f47ef1278d210a03369[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:36:05 2012 -0500
+
+    debugging detritus
+
+[33mcommit 5842854eb0ceeff46fb53fb441c84d55a5e5f04b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:35:39 2012 -0500
+
+    Added new message "Loading"
+
+[33mcommit 61d6584f4a427b2c0c8b1d1d75514a7bc08cdb29[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:35:18 2012 -0500
+
+    Added Google Plus styles
+
+[33mcommit 1375c09038cbeab995ef2d8321a7d5ab0b7d54ab[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:34:34 2012 -0500
+
+    Typography tweaks
+
+[33mcommit 62e1b405e8a49fa2a15ac7623f20fce53f75c391[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:34:05 2012 -0500
+
+    Check for jQuery version and load required version if jQuery is not at the required version.
+
+[33mcommit 5acc7fdb1481143c5550390915a0ba42ee2ba6a8[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:33:01 2012 -0500
+
+    Added Google Plus. Working in all browsers except IE. IE will be fixed soon.
+
+[33mcommit 965021dfd4be960e45bdf896bcef457ca17870d3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:32:16 2012 -0500
+
+    Added Google Plus. Works in all browsers except IE. IE will be working soon.
+
+[33mcommit 65c96b03554ec1e6189428eb38854b00086f72ae[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:31:19 2012 -0500
+
+    Added Google Plus icons and tweaked quote icons
+
+[33mcommit 4db89800cebf8af61c527486ee4b62d70d13c2af[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:30:42 2012 -0500
+
+    Removed debug from languages. Added new message "Loading". Messages still need translations in many languages.
+
+[33mcommit 86570e155da3fd49e8be11fd595ff8d5f2544bf0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 27 14:29:05 2012 -0500
+
+    Polish language added
+
+[33mcommit 0dfd5b502eab203384305eec4192edd8b406a611[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:55:38 2012 -0500
+
+    Fix for jquery load issue
+
+[33mcommit a9cba8898357cf4aecfd53ebc59111f1aa6cd206[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:47:35 2012 -0500
+
+    Latest version 1.44
+
+[33mcommit f0e1c1d02d77e8450aee2e058d7d630fc214d2fa[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:46:24 2012 -0500
+
+    Added more definitions to thumbnail class to prevent bootstrap sites from funkifying the thumbnails closes #124
+
+[33mcommit c27bdf8f56d71cce8299d7f98733368c7e0a3be0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:45:26 2012 -0500
+
+    More style tweaks to twitter and storify (more to come)
+
+[33mcommit 2239ba66f6d6c9b503f84e7a2acbf4345a826068[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:44:43 2012 -0500
+
+    Added debug option to the config. Also trying to catch old installs that are still using the old language model.
+
+[33mcommit 1a429557e8ee91a10788754912278881032f35f3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 20:43:57 2012 -0500
+
+    Wikipedia will now load the article extract based on the language of the link in the media field instead of the language localization from Timeline closes #109
+
+[33mcommit 567f1d7184dad75efe06f407715d4fa323ca48ab[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:50:34 2012 -0500
+
+    Typo
+
+[33mcommit ad8e4f69a107c58fe4f9567a20ae22f67db9e9d3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:30:40 2012 -0500
+
+    Latest version compiled v1.45
+
+[33mcommit 13b8b199c42e682c855b111a300184477bd1cfe3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:29:36 2012 -0500
+
+    Organizational changes and added slug option to have headlines in time nav and not show up as a headline (for Storify)
+
+[33mcommit 8d36d28d7beb97db72e1163e5ed2c52ad7b4a958[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:28:44 2012 -0500
+
+    Organizational changes
+
+[33mcommit c8d622b95c416cffd67d149626a47e4d9ab0da6b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:27:59 2012 -0500
+
+    Added instagram!! and Yfrog and TwitPic
+
+[33mcommit 0a1373fe14be612cfc906deb80e9892b353764d7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:27:22 2012 -0500
+
+    IE media fixes
+
+[33mcommit 935775f03e675a1bef766915a3a744a738f56417[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:26:57 2012 -0500
+
+    Added slug so that Storify elements will show something in the time nav without showing up as a headline
+
+[33mcommit 3c000c393f80c786f9b76bf49d0579fd3298f1c4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:26:06 2012 -0500
+
+    Major cleanup and incorporating new language loading
+
+[33mcommit b69c3ff19bdfcd82d6ec1878ee232c49c4d6c1c0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:25:29 2012 -0500
+
+    Fix for email addresses showing as twitter links because of @ symbol. closes #117
+
+[33mcommit 63c8ff4b1cf304aa9a16c66cb09fd98a2398edd4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:24:37 2012 -0500
+
+    Fix for IE date issues and for <1000 years not showing correctly when using Google Spreadsheet as source closes #115
+
+[33mcommit 996f12d1f8310b91de1e142fcd1eb7423066dec1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:23:22 2012 -0500
+
+    Added storify as source and added ability to use instagram, frog, and twitpic as media.
+
+[33mcommit e66ccf52d2ecc4e9e4cdf78d8e44eb5e93cb038b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:21:00 2012 -0500
+
+    Addition of storify styles
+
+[33mcommit fb7bb1c535f6e4e6b67ac85f95b83d81f7300dbb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:20:29 2012 -0500
+
+    Now versioning the sprite to ensure most up to date sprites are loaded and not from cache
+
+[33mcommit 66099a309a4a29f4f90ff26dd8324908dcc834e4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:19:46 2012 -0500
+
+    Cleanup and Tweaking of font styles
+
+[33mcommit 05a59a657d6e3bbd7f7888c2e194f1a7950f19be[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:19:03 2012 -0500
+
+    Organizational changes
+
+[33mcommit 9f92e28ca80172e223a083563cd8ff5f42d9b2bf[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:18:41 2012 -0500
+
+    !Important! changes to the way languages are handled.
+    
+    Languages are now loaded in addition to the main timeline.js file. They
+    are no longer autonomous compiles.
+
+[33mcommit 8c6063f45e5a9c7266c08a28ceb38738e4305791[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:16:50 2012 -0500
+
+    Added Storify icons
+
+[33mcommit ffc9883282e53335dac6539d6cba850857649a87[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:16:31 2012 -0500
+
+    Organizational changes
+
+[33mcommit 04a837e4d578a09f0b07b6376c38fde42eb5ee39[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:16:19 2012 -0500
+
+    Cleanup and addition of Storify specific styles
+
+[33mcommit f432f4716d3524fa4c535e64479b777606745b19[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:15:43 2012 -0500
+
+    Organization changes
+
+[33mcommit 9d441ab5fc92a078b30eaa5deb4131829ba53745[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:15:18 2012 -0500
+
+    Updated to reflect language changes and addition of Storify as a source
+
+[33mcommit 413cc7e8cd5479a59526ffe3f5c5ae70a6b594a5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 10:14:53 2012 -0500
+
+    Important! New way of using language
+
+[33mcommit 78d105ebaee1bedfe4ab8a583e0607826c950d0d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 23 09:44:43 2012 -0500
+
+    Tweaks to font handling
+
+[33mcommit b0eae9975694d3345a8f118443b23569987dbb8c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 20 18:58:02 2012 -0500
+
+    Fix for google spreadsheet sources without tag in template closes #111
+
+[33mcommit 082df48acf4886e283cc90db163a903453542cb9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 19 23:27:55 2012 -0500
+
+    Preliminary support for rows (called tags)
+
+[33mcommit 3c2df8295b5e160ca8add3ed6ea2d23a9d29cba5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 19 21:46:30 2012 -0500
+
+    Added localization for wikipedia. closes #109
+
+[33mcommit 68185945efe2eb7f6e0b7dc2367cd9d2758eece3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 18 21:32:31 2012 -0500
+
+    Style tweaks dealing with next/prev buttons and hyphenation
+
+[33mcommit 7e0e20b1a14b97dd5bfe4bfe23664aaa22ff0dc9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 18 21:31:57 2012 -0500
+
+    Fixed IE8 bug with Wikipedia (8hrs)! Woo Hoo! closes #107
+
+[33mcommit 4b0bcfebdd0bad943021170693d251829a8fbe13[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 18 17:02:35 2012 -0500
+
+    Progress on better hyphenation
+
+[33mcommit ffbe4e060929cdcf7b20e58b4146772f6a9c855e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 18 17:02:18 2012 -0500
+
+    Working on nasty IE8 stuff dealing with json loading from wikipedia #107
+
+[33mcommit cbcf46656c046dae98fdca072cd1df26c6cdb024[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 18 08:47:20 2012 -0500
+
+    Removed Wikipedia loading from Internet Explorer to prevent breaking in IE closes #106
+
+[33mcommit 9db7bcfc0ac7e7edfcbffff79ea2cd217ed5e9a3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 21:59:09 2012 -0500
+
+    Tweaks to responsive design
+
+[33mcommit 7f044e8d61a0d93c542cf353c9c7eeb101cdff96[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 21:58:57 2012 -0500
+
+    Font tweaks
+
+[33mcommit c3de930004672bcfd7cc25162b15278cf18ff948[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:40:42 2012 -0500
+
+    Remonde old sprites
+
+[33mcommit 41f8b0a36761c44f3362a8d8aa94b6d716f0003d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:38:27 2012 -0500
+
+    Fixing some merge issues
+
+[33mcommit 66f36cfd99eba1df2eb4e9574a9e44b625aa9ed7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:29:35 2012 -0500
+
+    Merged Canary
+
+[33mcommit 132358cdfab5feef3af251863b3f0c4abdd7efb7[m
+Merge: 726ec0a 5a4abd4
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:28:54 2012 -0500
+
+    Merge branch 'master' of https://github.com/VeriteCo/Timeline
+
+[33mcommit 726ec0acfa0258144c4dcd0d3ef82e559787ebd1[m
+Merge: 8fe57ec 9ad67f6
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:28:48 2012 -0500
+
+    Merged Canary
+
+[33mcommit 9ad67f69a352be67fddf5105b283ec5e4cae4062[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 18:25:05 2012 -0500
+
+    Style tweaks for responsive sizing
+
+[33mcommit dd0f5725d178b89eb2bbe49e08f71c931ea2d384[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 17 14:36:30 2012 -0500
+
+    Optimized responsive layout for slides
+
+[33mcommit 3da313f368357372edeed70fef8b627dabc6e5ed[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 23:27:16 2012 -0500
+
+    Starting to tweak the font choices. More work to do.
+
+[33mcommit 04b57d31e22c2b98efdf29b658b3bd6ee02e94d3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 22:44:25 2012 -0500
+
+    Wikipedia design tweaks
+
+[33mcommit d1ed0cd8de1c8fc573965e13f556966549217be6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:35:45 2012 -0500
+
+    Cleaning up comments
+
+[33mcommit 43a1ddc66099d91cb09c1f3baf13b50ba8330ad1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:35:34 2012 -0500
+
+    Many style tweaks, optimized flickr images
+
+[33mcommit 4b01a3395508bba4b6b1ba978d64f1cca70b2b59[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:31:21 2012 -0500
+
+    Optimized flickr image sizes based on feature height. This should optimize flickr image loading
+
+[33mcommit 7cb5104d30a3c01301407ec912d47d1bb309fe2a[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:30:24 2012 -0500
+
+    Updated example source
+
+[33mcommit 2d528f33a63ef530cbf6dac540663e1cfd56cfb4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:30:05 2012 -0500
+
+    example with font option commented out
+
+[33mcommit 37a7be407f93607656683c6ea609881f084d4f00[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 21:29:32 2012 -0500
+
+    Tweaking time indicator
+
+[33mcommit 3f6b97ad825358a1a7c5d98cb7495a357308af07[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 16 08:37:41 2012 -0500
+
+    Fix for HTML parsing data object using the correct end date closes #101
+
+[33mcommit 2946fdb23ce0cf427cba20a558cd669e254a4b96[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 23:17:38 2012 -0500
+
+    Cleanup and version
+
+[33mcommit d806cdab964a4af51e046d9e58f9398f45baaa49[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 23:17:24 2012 -0500
+
+    Cleanup and version
+
+[33mcommit d836b8a501d61f34040fbbe6077346e1fe6b331f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 23:16:41 2012 -0500
+
+    Should work. closes #89
+
+[33mcommit 857cba15eda8e20d4fdaffd3c4dfec4b584163aa[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 22:20:18 2012 -0500
+
+    Fix for files not showing capital first letter on GitHub
+
+[33mcommit 9e3b12df878914343f4f45fdb2c892cc252e2cb6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 22:19:45 2012 -0500
+
+    Added content-box to Reset closes #79
+
+[33mcommit 37b0b12d3053d0b130f3e5e594d6d9be86a92f38[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:38:34 2012 -0500
+
+    Latest compile
+
+[33mcommit d75c8c57d798db89a7844032c340cefc1a81b0a6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:38:22 2012 -0500
+
+    Style tweaks in progress
+
+[33mcommit 37cd36ab7a70fe29b09470a1e2a4d54101d75b00[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:38:01 2012 -0500
+
+    Japanese language added
+
+[33mcommit c7bbb899a86f029bdf69063e6d344f712a26b931[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:37:45 2012 -0500
+
+    Added vimeo to sue etc so external api call can be made to get thumbnail
+
+[33mcommit 76f89d62f197efc4eff692ac9b64765ae0530d9c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:37:08 2012 -0500
+
+    Use string date instead or reparsing
+
+[33mcommit 5a4ac4b0c27fe0d57d771414f19bc5ea67e16e58[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:36:28 2012 -0500
+
+    Enabling thumbnails in the timeline
+
+[33mcommit b5b721c027c2e5a2b79fcc55522ee33fd8d68a80[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:35:52 2012 -0500
+
+    Date parse debugging
+
+[33mcommit 9bf2144605cc5a3ab72bbb4ce8d9fdb4f8d28ce5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:35:17 2012 -0500
+
+    New name will be TimelineJS
+
+[33mcommit dda7b060f4a88803e623ec5041250c0ef7100a00[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:35:03 2012 -0500
+
+    Cleaning up examples section and updating path references
+
+[33mcommit ab1900f6e28f98af496cdcbad7f383aab66d8884[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:34:22 2012 -0500
+
+    Trying to fix an issue where github is showing lowercase filenames when they should be starting with capital letters
+
+[33mcommit 70c3ce75187f2648b66e81733e10d873214b420a[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:33:33 2012 -0500
+
+    Tweaked thumbnail styles and other design tweaks
+
+[33mcommit bbd7c029182800f82a7759166a1fb82110e34a37[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 15 17:32:05 2012 -0500
+
+    New name for Timeline will be TimelineJS
+
+[33mcommit 5a4abd450e387556ab477f4f0d983fa00ef9aad2[m
+Merge: 086e84d c03f813
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 14 14:07:58 2012 -0700
+
+    Merge pull request #97 from sugyan/master
+    
+    added Japanese date formats
+
+[33mcommit c03f8133adfdc9fcd3f8f111152496e0baf12e25[m
+Author: sugyan <sugi1982@gmail.com>
+Date:   Tue May 15 00:29:56 2012 +0900
+
+    add locale/ja.js
+
+[33mcommit 086e84d96f5f948c84e512a64bff18fd5c9c0c6d[m
+Merge: 8fe57ec bcc4369
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 11 15:42:45 2012 -0700
+
+    Merge pull request #90 from ycz87/patch-1
+    
+    Update source/js/locale/zh-ch.js
+
+[33mcommit 8fe57ecb3aea09e1a5d06ea17200472201151200[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 11 17:30:02 2012 -0500
+
+    Fix for incorrect date string on slide or navigation
+
+[33mcommit d9872475f1437aab392315362343c2558f10fde6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 11 17:15:48 2012 -0500
+
+    Update ignore
+
+[33mcommit bcc436997b70655a38d650d2ebdc3a21fe156f4a[m
+Author: Mandog <yuchangzhou@gmail.com>
+Date:   Fri May 11 21:57:37 2012 +0800
+
+    Update source/js/locale/zh-ch.js
+
+[33mcommit 659fe510d48b55548285165cad2e98ecc8b39401[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 23:01:43 2012 -0500
+
+    Organizing
+
+[33mcommit b135ea1a421910bbd4212d2da940af955c5e28bc[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 22:58:33 2012 -0500
+
+    Organizing
+
+[33mcommit d47ab97460627a50f2ab2bf4b4075359b9a6892a[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 22:57:19 2012 -0500
+
+    Reorganizing
+
+[33mcommit b13c5eb63f0645ec7c5f3ee6774b52ce5ccedea3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 22:09:43 2012 -0500
+
+    Cleanup
+
+[33mcommit cf50d37a5285fc9d0591e38a12bd823471880067[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 22:08:57 2012 -0500
+
+    Removed dark theme work in progress. Will add it back when I have time to complete it.
+
+[33mcommit 6d1ad7fdf46072662346802c0582af52109e733a[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 15:57:44 2012 -0500
+
+    Added Wikipedia as a source
+
+[33mcommit 43363dfc71f36d73820101cb818420422cbc0e5c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 13:04:01 2012 -0500
+
+    Started addition of wikipedia
+
+[33mcommit 26be602bcd755c422edc5d27b4cd0acb0b9bc272[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 10 08:36:15 2012 -0500
+
+    Updated kitchen sink example to new embed method closes #86
+
+[33mcommit 870ee49ab6e5e07ab89046309cfbc65613cfe834[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 22:19:29 2012 -0500
+
+    Removed correct protocol from google spreadsheet call again
+
+[33mcommit 31f1cb60b84346fdd0e4522ce135b459c7fe19e2[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 22:14:05 2012 -0500
+
+    Fix for twitter protocol
+
+[33mcommit 72f3b96d0db980a5e99dbfe9b7a2cec1d092e676[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 22:04:37 2012 -0500
+
+    More cleanup
+
+[33mcommit 683c0bccc6ec884ef932ddfa86ac178fd5cf2b91[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 22:03:48 2012 -0500
+
+    Google spreadsheet data source will now use the correct protocol
+
+[33mcommit b7e415898e366f3f46ccef7d6974c1d82b0a7f7f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 00:29:46 2012 -0500
+
+    Sprite tweaks
+
+[33mcommit bfabe80fd844c22c7fe368bd6cd04df6776254d3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 00:24:30 2012 -0500
+
+    More styling changes. Expect more visual tweaking over the next week
+
+[33mcommit 1640647c10f2aa4631330d79ce644206b0673a78[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 00:11:15 2012 -0500
+
+    Refactored sprites and began design cleanup
+
+[33mcommit 061e96445198858cf40e15e946cf81a4ea1d8486[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 00:10:51 2012 -0500
+
+    Refactored sprites and began design cleanup
+
+[33mcommit e6ae4346e5aaa619ecd586758c29094cd77d2a1b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 9 00:06:30 2012 -0500
+
+    Rolled back attempt at dealing with google spreadsheets https issue closes #80
+
+[33mcommit eab9f039ae4f155f329648470ff035fa500daa29[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 14:40:00 2012 -0500
+
+    Cleaning up sprites
+
+[33mcommit f61aed76f4f03790dc43d5954b493c8265c1cc5e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 14:39:36 2012 -0500
+
+    XMLHttpRequest issue with some server restrictions and Google Docs
+
+[33mcommit 15b44e56e67b3c42233ce6912596de1fbde87f39[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 14:39:13 2012 -0500
+
+    Fix for nav height
+
+[33mcommit a8aca9b8d90608651e46bec67bcd08b1e0bd6d44[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 14:38:50 2012 -0500
+
+    XMLHttpRequest issue fix for some server restrictions and Google Docs
+
+[33mcommit f809d2c7ea7aeb6216106bcf359838934a91148e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 14:38:19 2012 -0500
+
+    Fix for possible server restriction issue with XMLHttpRequest domain issues with Google Docs
+
+[33mcommit 78ba0cf9b46b54666600583c095fa198741ed2f8[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 09:09:56 2012 -0500
+
+    Bugfix for date format on english language
+
+[33mcommit e501f2ba26f56f5077e721271a26cc927085f53f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue May 8 08:43:41 2012 -0500
+
+    Cleanup date formatting for start and end dates
+
+[33mcommit b84f22cd8516d1d9b10b338a061de214d23f43ce[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 21:50:54 2012 -0500
+
+    Typography Fixes
+
+[33mcommit e3f8f14bf3419d15ba8d887fd3e5af6c8a070423[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 20:46:41 2012 -0500
+
+    Starting to add an icon for Dailymotion.
+    
+    I'm thinking of making all video icons show a unified video icon. The
+    end user only really cares if it's a video or not. The service icons
+    can be confusing and just add more complexity to the Timeline
+    experience.
+
+[33mcommit 4039266b21dd9f61ad397b1b84a023bdf7c2c4bf[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 20:44:50 2012 -0500
+
+    Adding the ability for using your own api keys with services supported by Timeline
+    
+    Google and Flickr are hooked up, so you can use your own keys to avoid
+    possible outages on large publication sites
+
+[33mcommit fe38bbcab7d2919a6d203a5c99642b735cd7a356[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 20:42:58 2012 -0500
+
+    Added better twitter error handling to reveal if the error was a rate limit or not closes 77
+
+[33mcommit eacedbf728e9f3265b866da169872d0dd4c85a21[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 09:33:36 2012 -0500
+
+    Added common class names to the timeline reset scope
+
+[33mcommit 5368204fc5f6373afee6b9df5b0333a177c94955[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon May 7 09:33:10 2012 -0500
+
+    Added dailymotion video support thanks to @salvadordiaz
+    
+    Had problems merging because of some other work in progress that was
+    not committed yet. This effectively merges
+    131994bd6b740e09ca3a206858ee82ab98442be8
+
+[33mcommit 8fa7835a34a0f0b786125a7fa88b3ba33680254d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 6 09:57:14 2012 -0500
+
+    Renamed VMM.Element to VMM.Lib to reflect that it's a library abstraction
+
+[33mcommit 55879584ac73c6b3ed58936bcbb2fb40a24a7acf[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 6 09:43:52 2012 -0500
+
+    Tweaked the h tag styling
+
+[33mcommit e267057ffdbc17966fbf35e0e5d93e59b00b3663[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 6 09:43:33 2012 -0500
+
+    Added new font combo Lora and Istok Web
+
+[33mcommit 994a19bcaa2e2d80f2baf0e62c6681d4ad2e9bae[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun May 6 09:43:05 2012 -0500
+
+    Must of missed a couple $ references to jQuery, fixed now closes #74
+
+[33mcommit 98b58083dc161ba0fecbbbbafb32fa0c5def16f7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 5 15:16:20 2012 -0500
+
+    Dates now show both start and end in slide if they are different
+
+[33mcommit 51d86a909278155c20df472b5352cd9e37bca9f4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 5 12:49:59 2012 -0500
+
+    Bug fix for Firefox iframe
+
+[33mcommit 3a08043527f63fbe1e819b4871c4ad2a5436cc14[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 5 11:29:41 2012 -0500
+
+    Finished rework of slides and preload logistics
+    
+    One bug left in Firefox to do with iframe's html having a height of 0.
+    Still need to test on IE. After that, this will merge with the master
+    branch.
+
+[33mcommit 8b5313afa40772459df086ce74589543ec629859[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat May 5 01:29:58 2012 -0500
+
+    Made slides their own object and started optimizing slide load
+
+[33mcommit 408a3407d9e09c859bdc297e30bfecec17a1fc10[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 4 15:27:30 2012 -0500
+
+    Formatting
+
+[33mcommit a1a7df67bb76e3ca149c939a6709560f5ac4b81e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 4 15:26:14 2012 -0500
+
+    formatting
+
+[33mcommit e1c09984490b065a1b15acb055649f01baf88842[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 4 12:49:25 2012 -0500
+
+    Added language specific messages to the loading event
+
+[33mcommit d7884f0c7eb35146e1bac283df09012a40fc33a0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 4 09:57:04 2012 -0500
+
+    Fixed a bug where a hash in the url that is not a slide number would cause an error on load
+
+[33mcommit 84e025a3edb3d0b42d9c584abcdf067b63db8e10[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri May 4 08:37:33 2012 -0500
+
+    Fixed problem when timeline is reinitialized with new data it adds to the old data
+
+[33mcommit b3ed1a62ba0c565c74d3593c77e4d95ac6e52e62[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 21:45:37 2012 -0500
+
+    formatting
+
+[33mcommit 7f39de8faa378c55dcd597101c555ce5f097db97[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 21:28:50 2012 -0500
+
+    Updated documentation for new config options
+    
+    config option  to directly link to a slide using a hash
+    config option to start the timeline on the last date.
+
+[33mcommit 2f9d5228e9a96aa659061ff218cfc6d9152bcee3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 21:27:40 2012 -0500
+
+    Added direct linking via hash url and config option to start timeline on the last date instead of first date.
+    
+    Added ability to directly link to a slide using a hash in the url
+    closes #19
+    Added config option to start the timeline on the last date.
+
+[33mcommit f4082fb63fac02a16af3b53af0c2e60d45655e95[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 21:23:43 2012 -0500
+
+    Fixed default google map bug
+
+[33mcommit 84b86a67f8ead714766403cc51babd4b94086eef[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 15:27:51 2012 -0500
+
+    Update documentation to refer to minified version of the js
+
+[33mcommit 16fdce90913aa73706435e625dc39f2b1ca6ca4b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 14:53:37 2012 -0500
+
+    B.C. Time support Laterst version
+
+[33mcommit cd8d5450e1a8874ee30bf84b69ca380911cf92b5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu May 3 14:51:54 2012 -0500
+
+    B.C. Time support!! Just use negative years to implement closes #14
+
+[33mcommit bb906d2cd36c9341f94332223ec88397fa7ed135[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 22:06:53 2012 -0500
+
+    Small fix for soundcloud responsive sizing
+
+[33mcommit f6e7fc6ae350b2feab9a9d4d4326373b9865f4a1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 22:00:20 2012 -0500
+
+    Update
+
+[33mcommit 11ac2f0e076e559dd5ae6fa901f9f1c867d3ce11[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:59:48 2012 -0500
+
+    Update
+
+[33mcommit 98697c56f10c4bee186db7c27b7bd06e19df173b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:59:08 2012 -0500
+
+    Update
+
+[33mcommit 19d60f40bbf7e8e6c1d892f6e5bcd35a0bf915e5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:57:45 2012 -0500
+
+    Update
+
+[33mcommit 8098ded35b427137733a114bac950fcf6c8aea9d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:56:43 2012 -0500
+
+    Update
+
+[33mcommit be796f27fd7c8287f99ee74d23305cba6760197c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:54:16 2012 -0500
+
+    Changed to new embed method
+
+[33mcommit dfb6d832eaa3247f91d3ca3b6878bcea02f1e364[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:53:54 2012 -0500
+
+    Update documentation to include new embed, font options and maptypes
+
+[33mcommit aebcc9346438847b02993ee807b80bc4d7432962[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 21:53:29 2012 -0500
+
+    Rewrote the responsive sizing of slides. Much better now for skinny sizes
+
+[33mcommit 3bbd301d2a0f64a74fb8a8a2c14bda689d473e22[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:05:02 2012 -0500
+
+    Latest version
+    
+    added debug mode, and major cleanup and config cleanup
+
+[33mcommit ab3a1eaf8f4870f1dfee2a391469969c6257cba3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:04:24 2012 -0500
+
+    added debug mode
+
+[33mcommit 191d742b4e7fff29b19670eb58c8b477164a7b21[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:04:13 2012 -0500
+
+    Tweaking z-index presentation
+
+[33mcommit 9e9dab2c6fa4aca137c81aaebe15d52de5fdf455[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:03:46 2012 -0500
+
+    Major cleanup
+
+[33mcommit 593cfc774b3d431c4fbe05909f3fd633852f2923[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:03:16 2012 -0500
+
+    Added debug false for production versions
+
+[33mcommit d4e23bf17c923808c1027ed277c1e795bb5fc058[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 16:02:36 2012 -0500
+
+    Tweaking next button
+
+[33mcommit b204c24e2cabd6277e9ed988f74ece976baff548[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 08:52:53 2012 -0500
+
+    Latest version
+    
+    Fixes for links in slider content on touch devices and tweaks to
+    responsive content
+
+[33mcommit 0c16ca49a3766e3fb58cda6e5e46640a16173919[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 08:51:38 2012 -0500
+
+    More responsive tweaking
+
+[33mcommit a174d849a9f3a0d81846b856df51627ef906dd8e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 08:51:00 2012 -0500
+
+    Allow spider links to be clickable closes #70
+
+[33mcommit 1248375aa32b8f7c062e2d126624b9f6c34e03e4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 01:01:01 2012 -0500
+
+    Testung for mobile
+
+[33mcommit 9bfc82af47fde8fab0f441e9aabee028c024c8b6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 01:00:33 2012 -0500
+
+    Update to latest version
+
+[33mcommit ea39fdcc441a154f8222012113231fcc4def96e0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 01:00:04 2012 -0500
+
+    Better data parsing and moved VMM.Util.parseDate to VMM.Util.date.parse
+
+[33mcommit 38e0d0f03d7f84bcb0396c47cda06592481998b2[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 00:59:04 2012 -0500
+
+    cleanup and allowing for multiple timelines closes #53 and closes #18
+
+[33mcommit 4997c5f37e7b144d8a31583cc38c06540a9faaa5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 00:57:23 2012 -0500
+
+    More optimizations for mobile. Still more to do
+
+[33mcommit b8f34b6cb343ec0c684ca968be70a792665d6b7c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 00:57:01 2012 -0500
+
+    allow json object as source. closes #23
+
+[33mcommit 62cec5609aaf5ff28e022bfd120f6ca345e3f57b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed May 2 00:55:46 2012 -0500
+
+    Using a class namespace instead of id so that multiple timelines can be used
+    
+    preparing to deal with issue #18 and issue #53
+
+[33mcommit f687f827fdb8a7372c3330da5fd70301ca916cb7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 23:01:46 2012 -0500
+
+    Allow timeline to zoom further out
+
+[33mcommit c7c8dceb9dbd7e8392d1f3c932560c856b7ea2eb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 22:26:37 2012 -0500
+
+    More bug fixes for Google Maps API
+
+[33mcommit d39b24dfb631198b773264d89872370580878cd9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 21:46:51 2012 -0500
+
+    Fix for issue #2 Next button shows up on browser resize even on last slide closes #2
+
+[33mcommit 281c1fbeab7a079f23fecd9e0dc3757ef4107cd9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 21:28:23 2012 -0500
+
+    Fix for showing Google Static Maps closes #9
+
+[33mcommit 3c0e650d85b6a3d4b3fbc3ddc4a00399ae433758[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 21:05:04 2012 -0500
+
+    Fix auto start videos on non API videos closes #45
+
+[33mcommit d1a7f3de2b97543d97441e2de07bdc1be942c6f7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 17:03:11 2012 -0500
+
+    Fix for using Sans-Serif font for tooltip
+
+[33mcommit 3eec86a141175b469fc656d45102059195a16970[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 16:51:54 2012 -0500
+
+    Fix for Google Maps showing wrong location when sll is part of the url construct
+
+[33mcommit d6885871b49edd056468e90427b6e303db3d0c47[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 13:41:57 2012 -0500
+
+    Fix for link styles
+
+[33mcommit a2b89c0414dd715753662a59e07de1afd28c1723[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 12:58:37 2012 -0500
+
+    Fix fonts
+
+[33mcommit 7b30f025ac280710b5cc60e463f8c93e956792a0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 12:45:05 2012 -0500
+
+    Moved to theme folder
+
+[33mcommit 2855595c6602267585cb66abbf1af91b3b7458ca[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 12:43:56 2012 -0500
+
+    Language IS
+
+[33mcommit acca48bf66d2e73cd51180904f0465443d1c5362[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 12:43:40 2012 -0500
+
+    Changed build by line to VeriteCo
+
+[33mcommit 58bea115b142c0840434e167483de82982b289fb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 12:37:18 2012 -0500
+
+    Moved theme files to new folder
+
+[33mcommit 99d139df9948eac4d5af30aa0ec6fca4d945a461[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 10:24:37 2012 -0500
+
+    Fix for large size images bug caused from new optimizations
+
+[33mcommit 1e9f01c31ac788c2950d1513675e512c7366aab8[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 10:18:11 2012 -0500
+
+    Updated Version Number
+
+[33mcommit c7a08c8041b93ff8a8d22bbf497da972a7b9a456[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 10:04:57 2012 -0500
+
+    Ready to merge
+
+[33mcommit cc98e61afc964aa74888fabefd43b48712316554[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 09:59:33 2012 -0500
+
+    Updated CodeKit config
+
+[33mcommit 665a26a2e903bf1919e42d14dab77d28f3c9d2cb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 09:55:21 2012 -0500
+
+    Added orientation
+
+[33mcommit 55a06ab6ab094d5cccb0426cfa60995cafe3e8f5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 30 09:55:09 2012 -0500
+
+    Fixed iPhone scrolling bug and implemented better formatting for small screens
+
+[33mcommit a2f5e1566708c6dff789f9f6f9c1bfc92b198b50[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 29 22:37:28 2012 -0500
+
+    Refactored the way that the time interval is created and modified.
+    
+    Zoom should be much smoother now and interval animates upon zooming.
+
+[33mcommit 023e55a453af411d636bd25a99ed1e02cd56bde1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 29 01:05:27 2012 -0500
+
+    Changed the way the interval is calculated and displayed by default
+    
+    This should fix some problems with funky date combos and also provide a
+    better default view
+
+[33mcommit 5c810dd51a12659191c8c5604b24ee08e83e3322[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 28 21:26:53 2012 -0500
+
+    Added font support and some preset Google Font options
+
+[33mcommit 0a07c5e2aa89ee4502b6c5b9e4b0ec188d37338e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 23:45:35 2012 -0500
+
+    CodeKit Config for compiling
+
+[33mcommit 342264f83a16780f2f3648d8294102c2ff585a54[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 23:45:22 2012 -0500
+
+    Adding Font Options
+
+[33mcommit bd2de43976a210791ff3412831d5c5449f5c10d2[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 22:34:44 2012 -0500
+
+    Tweaks for text display, doc display and small tag
+
+[33mcommit 4450e9fe41b257cc60c052d9a884b2b8ed1d3f94[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 22:34:03 2012 -0500
+
+    Tweaking small tag
+
+[33mcommit 9479b76c17682132c4c75d05ddabb683bec49e97[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 22:33:34 2012 -0500
+
+    Tweaking the display of docs in the media element
+
+[33mcommit de5fd930d3934cf6f96e7b4edf448bfe496f5005[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Apr 27 22:32:39 2012 -0500
+
+    Reference Google CDN for jQuery
+
+[33mcommit 5ab19a2a659a293cb1be55ededa593ee4dfce31f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 26 23:51:15 2012 -0500
+
+    Bringing z-index into a reasonable range and hyphenate long link text
+
+[33mcommit ad977bb5831f3e31b3564590605f0f1bcd5d1273[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 26 22:14:14 2012 -0500
+
+    Refactored LESS file structure and small bug fixes
+
+[33mcommit b33c4c9ee8d1a1b2c6787d9715cd2c19ab375f32[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 26 16:14:52 2012 -0500
+
+    Tweaking CSS date size so that headline is more important than date
+
+[33mcommit 05a986b9099b9d65717a705806758440045be40b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 26 13:42:00 2012 -0500
+
+    Fix for image width appearing too large on non-webkit browsers
+
+[33mcommit 6b6fbbe4233010155681936f7a1f1d7f299934d3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 26 13:26:51 2012 -0500
+
+    Breaking the code out into separate files
+
+[33mcommit b0dd0ccee3464a38c1fbffe8023e07ea8220c8b8[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 24 22:52:55 2012 -0500
+
+    Fix for some YouTube URL constructs breaking
+
+[33mcommit 2c234779054dd022f79941ccaae01d174079ea23[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 24 22:20:36 2012 -0500
+
+    Yet another fix for IE, I wish that browser would go away.
+    
+    IE8 and IE9 were broadcasting themselves at IE7 when in compatibility
+    mode and that caused some problems for some people. I'm ready to ditch
+    support for IE..
+
+[33mcommit f51588828134009f917a3654989df0744329e7e0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 23 10:15:22 2012 -0500
+
+    Fix for large Flickr images
+    
+    The original size could be loaded instead of large, now it should only
+    use the Large size.
+
+[33mcommit bdfe3b1f1d839b929232fc6973f793dd475c40a9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 23 09:58:30 2012 -0500
+
+    Dutch Support added thanks to Rinus van Dijk
+
+[33mcommit 611685493c59a2b3d4a8022e21b231a58ca20415[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 22 14:03:26 2012 -0500
+
+    Moved Wordpress plugin to it's own repo
+    
+    It can now be found here:
+    https://github.com/VeriteCo/Timeline-Wordpress-Plugin
+
+[33mcommit f32fc64ede4f1b732bd656a3182e823dba08ad5b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 22 13:35:58 2012 -0500
+
+    Added Portuguese Brazil
+
+[33mcommit 19d7a885e47d0097c231a5ed7f1ffb42eb460a1c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 22:04:43 2012 -0500
+
+    Added an example of using another language
+
+[33mcommit eb2b51f62dcb96ab243819914e74bb105fd9cc7f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:59:02 2012 -0500
+
+    Language support fix
+
+[33mcommit 84316af2aac5589daebb28db624eae827a3942c5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:46:53 2012 -0500
+
+    Renamed to keep consistent naming
+
+[33mcommit 7815ea199e095d99bee98a073cc315eb7326528d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:46:39 2012 -0500
+
+    Moved to lib folder for cleanup
+
+[33mcommit 2ccf7fbf4ee562d2d500b40623060b4dc157f8f1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:46:21 2012 -0500
+
+    Added Wordpress plugin
+    
+    Thanks to jrue for making this happen.
+
+[33mcommit f5960951d2fe83f29df89f39c3acbb40d512ea78[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:45:34 2012 -0500
+
+    Added language support
+
+[33mcommit f89d349e0d4cb0412f4380ace1a968449b63faa3[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:44:46 2012 -0500
+
+    Cleanup
+
+[33mcommit 616397c8d61b2b19485f40e7d2fad8a422b87e33[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sat Apr 21 21:43:27 2012 -0500
+
+    Moved to new lib folder
+
+[33mcommit 1fd53c3eaa431b4cc4eb2b244971680e79eb748d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 16 08:07:49 2012 -0500
+
+    Removed snapitto website screenshot capability due to their free service ending
+    
+    Use website media element at your own risk, it's an iframe and can
+    cause problems with some sites.
+
+[33mcommit 18e347a3858049470b04f893bc5e8b98310bd990[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Apr 11 08:39:33 2012 -0500
+
+    Clean up
+
+[33mcommit 06926ed4030f95e37e2625ce32591e1117e5f384[m
+Merge: c7dae18 4c3ede3
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Apr 11 06:29:18 2012 -0700
+
+    Merge pull request #33 from seanhellwig/master
+    
+    Fix for Enhancement issue #3 - add left and right key navigation bindings
+
+[33mcommit 4c3ede3f10c17ea84c69e16bad364e089b9afd0b[m
+Author: Sean Hellwig <seanhellwig@gmail.com>
+Date:   Wed Apr 11 00:54:39 2012 -0700
+
+    fix for issue #3 - support left and right key navigation
+
+[33mcommit e0a04380e4c95607f5119d1fffe8a5fc28683f5b[m
+Author: Sean Hellwig <seanhellwig@gmail.com>
+Date:   Tue Apr 10 23:51:29 2012 -0700
+
+    fix for issue #3 - support left and right key navigation
+
+[33mcommit c7dae18c2c0c07210807d29f2991a41d7240226b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 14:47:56 2012 -0500
+
+    Included a map attribution on Google Maps
+
+[33mcommit c8aa6644a37c759c0e7877fe7955f1a9809c4f73[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 10:19:20 2012 -0500
+
+    Added Stamen Maps License attribution
+
+[33mcommit e813edcbeae0bdc5668d6ce69e2096064772440d[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 10:10:51 2012 -0500
+
+    Fixed a IE Json problem
+
+[33mcommit 14eb4739ef87519304732f12eaffb35ba8d4a19f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 10:03:17 2012 -0500
+
+    Fixed IE json problems, added encryption for API keys, fixes for linkify
+
+[33mcommit c293df0e324e84fee853c1553def2a61f2b294d1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 10:02:43 2012 -0500
+
+    Fixed more linkify problems
+
+[33mcommit 33ac8e2918e10658e2cfd67fdd6b1c1dbdf37bec[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Apr 10 10:02:12 2012 -0500
+
+    Added encryption library for handling api keys
+
+[33mcommit 994e8fc3db357278b61fe7c866730583800c0d62[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 9 18:19:02 2012 -0500
+
+    Twitter API Error handling and better linkification.
+
+[33mcommit 3e18b93e932b2b0568c979908f0e1d02b8079915[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 9 18:18:17 2012 -0500
+
+    Fixes to linkify function
+    
+    More and better pattern matching.
+
+[33mcommit 8b17edde566655ed906a891d16e2fcbf469b903f[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:44:51 2012 -0500
+
+    Added Google Maps API and Stamen Map types, cleanup up config
+
+[33mcommit 0b44e3082efd3dc5f155104f740ec99de5b642e1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:34:31 2012 -0500
+
+    Added google maps api and stamen map tiles. Clean up config
+    
+    The default map style is now Stamen Map's Toner. This can be changed in
+    the config either in the source or in the embed config object.
+
+[33mcommit 4fa310c033ce17ab3f400e937becdea313b78bb1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:32:30 2012 -0500
+
+    No real changes
+
+[33mcommit 7da0f9e4ba54f93126e2ccd34a80249ad5ef0b11[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:32:03 2012 -0500
+
+    Cleanup Config
+
+[33mcommit 9dbde85d58e82f3ed6f1c175315b4a06c5aa1cf4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:31:53 2012 -0500
+
+    Cleanup config
+
+[33mcommit 56702201008845bb8c3b90f40cab39b092b29c13[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:31:37 2012 -0500
+
+    Cleanup for themes
+
+[33mcommit 42e032242038bf5bbc68f854918a7ee6ee4c9af5[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:31:15 2012 -0500
+
+    Cleanup in preparation for themes
+
+[33mcommit 0d5481c4c4ebbef8d333b6fab627801e6bcc50eb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:30:57 2012 -0500
+
+    Cleaning up configs
+
+[33mcommit 2e774ee01f0aa894dc6f50cfb38830f317bf45db[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:29:38 2012 -0500
+
+    More ignore
+
+[33mcommit af18d1920d0abe82eca714012e246f542177c516[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:29:26 2012 -0500
+
+    Added more DS Store files to ignore
+
+[33mcommit 4f8b2fc5d0e3e5bb2c555e532b846fe048556fe2[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:28:37 2012 -0500
+
+    Cleaning up color variables in preparation for themes
+
+[33mcommit 140838b8a69360eeffd071d6b56c5fe4f07c1630[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 8 23:27:54 2012 -0500
+
+    New Dark Theme
+
+[33mcommit 24af8bae0d40c7b8463cc9398d5d94f20b93aec9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 20:42:14 2012 -0500
+
+    Tweaked embed to allow 100% width and height
+
+[33mcommit 6cc130cd07b93d9fce96c6b41e9031838f93e278[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 17:08:48 2012 -0500
+
+    Fix for Google Maps from other countries
+
+[33mcommit 5e80d387753acdc6493416d942e50b3b2571d754[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 16:50:48 2012 -0500
+
+    Removed a console.log call
+
+[33mcommit 8322813792c4a0c5e1b16a54bf8a5bc2cac8ee78[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 16:44:30 2012 -0500
+
+    Fixed an issue with duplicate external JS files being able to load
+
+[33mcommit a78e7a0af1103dc36f424f129dbf94c662f2cfb0[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 16:06:14 2012 -0500
+
+    Fix for Google Doc type detection
+
+[33mcommit 5dc4052ababc4cf3e5f6f02ab9c597dce125142e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 15:36:13 2012 -0500
+
+    New library for loading 3rd party javascript APIs
+
+[33mcommit bea7e81c9430e87a1ec4f09d761e060ce7365f50[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 15:35:43 2012 -0500
+
+    Refinements to the IE8 cross domain issue, added Google Doc Viewer Support
+    
+    Also implemented new LoadLib for loading 3rd party javascript APIs
+
+[33mcommit 6bcf15a3a5f58a4c201d85c0ab10622889c92114[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 15:33:04 2012 -0500
+
+    Small cleanup
+
+[33mcommit a679545cbaee569c49033ce807a10a420211faa7[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 15:32:55 2012 -0500
+
+    small cleanup
+
+[33mcommit 5422f6ae6d06d98ac0f29e4c4b5404ddbb62900e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Apr 5 15:32:30 2012 -0500
+
+    Changed source and embed js referenced in order to test new code
+
+[33mcommit 94c2b213102c2bfc3bb2c40c3e421db03054bfdf[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Apr 2 00:17:45 2012 -0500
+
+    Still fixing the IE json issue
+
+[33mcommit 0df921d035ba00042d1de6c63f2243c641498853[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 23:19:38 2012 -0500
+
+    Fix for IE problem loading from google docs thnx @mwidmann
+
+[33mcommit 33221bd8d0910d7b8622f0629e9631d9e4297d2c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 23:18:13 2012 -0500
+
+    Added an example html for the asynchronous embed
+
+[33mcommit 9ac4b1d1a8ec753215f6986ebde5b7d0ce0d73c9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 23:17:47 2012 -0500
+
+    Finish up a working asynchronous embed
+    
+    It works, just need to test IE etc.
+
+[33mcommit e06e1f52d1f6c0d2d7d6da2050873e7ea47b84ae[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:21:48 2012 -0500
+
+    Updated to non minified ver - Started development asynchronous embed feature
+
+[33mcommit 3d3fb279fb9b19cf554bfe778d42b835d162059e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:17:13 2012 -0500
+
+    added html, body styles since I removed them from timeline.css
+
+[33mcommit dc1f059374bfb948d874d4eb4c5b6a69063b6ae9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:16:37 2012 -0500
+
+    Minor changes in preparation for  asynchronous embed feature
+
+[33mcommit f3e62767a4da369da9257e12451d51d3bb5c6424[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:15:23 2012 -0500
+
+    Removed html and body definitions
+
+[33mcommit a7237190f2ff31a0fd04f08e3501f330d4e3df09[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:14:53 2012 -0500
+
+    Started development asynchronous embed feature
+    
+    This will make it easier to embed timeline inline
+
+[33mcommit 58997a94cca2441e95d07633a311f9dc34b26518[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Sun Apr 1 21:12:17 2012 -0500
+
+    removed detritus leftover from early development
+
+[33mcommit 646e1d3cdd3eb8beb32e448fee058cef85e95dcf[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 22:35:46 2012 -0500
+
+    Added our current License as a separate file
+    
+    GNU General Public License version 3
+    Most likely this will change soon to a much better license.
+    Just waiting to hear back from the peeps at Knight
+
+[33mcommit 2ad43d70056eb6129f126e8025e37f1ce2861d00[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 22:26:01 2012 -0500
+
+    Collateral damage as I streamline my dev process
+
+[33mcommit 3cfef6b67b098cf0a871ca0f29937cb5af06ae7c[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:35:13 2012 -0500
+
+    Added a compiled version of timeline.js that is not minified
+
+[33mcommit 6bf230ab71379b2d3348034810afe3615df138fb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:34:29 2012 -0500
+
+    Fix for IE8 bug
+    
+    Also added a incompatibility message for IE7 users
+
+[33mcommit d43581f3cacdfb1a24064d9d7ca4f8954b86387a[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:33:18 2012 -0500
+
+    more to ignore
+
+[33mcommit e4180c224c4d39195ff195497b0010e0e7d96519[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:33:07 2012 -0500
+
+    More DS_STORE to ignore
+    
+    hey that rhymes
+
+[33mcommit b2049b9a5e8897d81cc8fd5587f8a7f74d99a331[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:32:37 2012 -0500
+
+    Fix for IE7 and removal of analytics
+
+[33mcommit 49e12a0115e7d661bf8ddcccfbf111988594b556[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:32:00 2012 -0500
+
+    Added more DS_STOREs to the ignore file
+
+[33mcommit 472b37485480099b3afeab33da5f5c2221be2fe4[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:31:36 2012 -0500
+
+    Ignore DS_Store
+
+[33mcommit 26cf675c75962fc3d4eff7940f1ab830dac0aafe[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Fri Mar 30 21:30:59 2012 -0500
+
+    Replaced with markdown version
+
+[33mcommit 2215170007936bcacc31e4957f3a95bed5e4dcc8[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Thu Mar 29 22:32:38 2012 -0500
+
+    Fixed IE 8 Bugs
+    
+    Also removed some leftover analytics code from the examples
+
+[33mcommit cf2c8e2be7dbb72c8ad38bd78f1ec3b1e86e7fe9[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Mar 19 09:28:43 2012 -0500
+
+    Fixed some issues with Google Docs
+    
+    Fixed a problem with title screens not showing up and made
+    implementation better/smarter.
+
+[33mcommit 731c7591c5faa217cf8469f62ff122a2f8cc9a7e[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Mar 5 20:17:09 2012 -0600
+
+    Added tooltip and increased font size
+
+[33mcommit ea2ca717f81d100ae5a7cc4c1c80fb79dc9c2cfb[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Feb 29 20:26:00 2012 -0600
+
+    still getting th hang of markdown…
+    
+    Why can't we just use good old html?
+
+[33mcommit 692b8be28837aa96568258a22c2a4873087cfd80[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Feb 29 20:24:17 2012 -0600
+
+    Updated readme to fix formatting
+
+[33mcommit d14939b7b4c35469154d0b655bb29f3163720427[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Feb 29 20:21:00 2012 -0600
+
+    Added a read me markdown
+
+[33mcommit 4db864f0be7e39ce263d092769dd48274c97662b[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Wed Feb 22 23:25:15 2012 -0600
+
+    Improved styling of tweets
+    
+    Also fixed block quote styling and added a new feature to allow
+    websites to be added to the timeline via a link.
+
+[33mcommit 9f1ae1f346cdfa7b7a36abcd422b61e087c8de50[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Feb 21 23:34:45 2012 -0600
+
+    Fix for Flickr URL parsing
+
+[33mcommit 13fc9eafd586b9b6c5e345a522218c5af7761dd1[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Feb 21 10:37:35 2012 -0600
+
+    Fixed a bug with flickr image parsing
+    
+    Temporary fix. More elegant solution will be coming
+
+[33mcommit c10be3b1f039ff6e97b106800fc32d908c00b760[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Tue Feb 21 09:56:50 2012 -0600
+
+    Updated documentation
+
+[33mcommit c1cdc8d5c5fb93e2937821f9882344d60e1ae450[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Feb 20 15:18:51 2012 -0600
+
+    Fixed a couple CSS issues
+
+[33mcommit ac5c3cdfeb0264e2ae9ff3b446a5df4c220a3823[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Feb 20 11:39:30 2012 -0600
+
+    Updated Documentation
+    
+    To include link to google spreadsheet template
+
+[33mcommit 0db65750ef98f5d3dd465e8a223a0b1d3b1f7fc6[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Feb 20 11:32:58 2012 -0600
+
+    Added Documentation
+
+[33mcommit 9e475b8df113fd1e1cd38f58eaa8b64ec369e0b2[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Feb 20 11:13:01 2012 -0600
+
+    ignore .DS_Store
+
+[33mcommit b8452caa26a84f6a43fdc0f5ffcaf047e5500420[m
+Author: Zach Wise <zach@digitalartwork.net>
+Date:   Mon Feb 20 11:12:31 2012 -0600
+
+    First Commit

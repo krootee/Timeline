@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Sources\Timeline\compiled\js\timeline-min.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline-embed.js" afterPath="$PROJECT_DIR$/compiled/js/timeline-embed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline.js" afterPath="$PROJECT_DIR$/compiled/js/timeline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compilejs.sh" afterPath="$PROJECT_DIR$/compilejs.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Core/VMM.Date.js" afterPath="$PROJECT_DIR$/source/js/Core/VMM.Date.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Core/VMM.Library.js" afterPath="$PROJECT_DIR$/source/js/Core/VMM.Library.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Core/VMM.Util.js" afterPath="$PROJECT_DIR$/source/js/Core/VMM.Util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js" afterPath="$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Language.js" afterPath="$PROJECT_DIR$/source/js/VMM.Language.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/locale/en.js" afterPath="$PROJECT_DIR$/source/js/locale/en.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline-min.js" afterPath="$PROJECT_DIR$/compiled/js/timeline-min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" afterPath="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/Variables.less" afterPath="$PROJECT_DIR$/source/less/Variables.less" />
     </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,41 +27,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VMM.TImeline.Min.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.TImeline.Min.js">
+      <file leaf-file-name="VMM.ExternalAPI.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="6" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
+            <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Variables.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VMM.Timeline.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
+      <file leaf-file-name="VMM.Timeline.TimeNav.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="39" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VMM.Util.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.Util.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="469" column="151" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VMM.ExternalAPI.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.3646409">
+            <state line="40" column="70" selection-start="2460" selection-end="2460" vertical-scroll-proportion="0.3075965">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -90,8 +72,6 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/source/less/VMM.Timeline.TimeNav.less" />
-        <option value="$PROJECT_DIR$/source/less/Variables.less" />
-        <option value="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
         <option value="$PROJECT_DIR$/compiled/js/timeline.js" />
         <option value="$PROJECT_DIR$/source/js/Core/VMM.Library.js" />
         <option value="$PROJECT_DIR$/source/js/VMM.Language.js" />
@@ -100,6 +80,8 @@
         <option value="$PROJECT_DIR$/source/js/VMM.Timeline.js" />
         <option value="$PROJECT_DIR$/source/js/Core/VMM.Util.js" />
         <option value="$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js" />
+        <option value="$PROJECT_DIR$/source/less/Variables.less" />
+        <option value="$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js" />
       </list>
     </option>
   </component>
@@ -166,6 +148,10 @@
               <option name="myItemId" value="source" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="less" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -229,6 +215,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timeline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -271,7 +271,6 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290993" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24984913" sideWeight="0.6709007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -283,6 +282,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3290993" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -343,140 +343,90 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/js/lib/Embed.LoadLib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-11.138489">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/lib/jQuery/easing-min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.31491712">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.LoadLib.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.4460433">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.4460433" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-9.579137">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-9.579137" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.FileExtention.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.Browser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Embed/Embed.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="40" selection-start="615" selection-end="615" vertical-scroll-proportion="0.4383057">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/VMM.TImeline.Min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="6" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="14" column="40" selection-start="615" selection-end="615" vertical-scroll-proportion="0.4383057" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/lib/jQuery/easing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="8" selection-start="2344" selection-end="2344" vertical-scroll-proportion="0.3327338">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="55" column="8" selection-start="2344" selection-end="2344" vertical-scroll-proportion="0.3327338" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.Library.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="571" column="9" selection-start="13571" selection-end="13571" vertical-scroll-proportion="0.72482014">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="571" column="9" selection-start="13571" selection-end="13571" vertical-scroll-proportion="0.72482014" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/locale/en.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="80" selection-start="953" selection-end="953" vertical-scroll-proportion="0.41906476">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="23" column="80" selection-start="953" selection-end="953" vertical-scroll-proportion="0.41906476" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.Date.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="89" selection-start="1486" selection-end="1486" vertical-scroll-proportion="-0.03417266">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="39" column="89" selection-start="1486" selection-end="1486" vertical-scroll-proportion="-0.03417266" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Language.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="80" selection-start="627" selection-end="627" vertical-scroll-proportion="0.12230216">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="12" column="80" selection-start="627" selection-end="627" vertical-scroll-proportion="0.12230216" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.TImeline.Min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="6" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="39" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="137" column="39" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/js/Core/VMM.Util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="469" column="151" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.0">
+        <state line="469" column="151" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.ExternalAPI.js">
+    <entry file="file://$PROJECT_DIR$/source/less/Variables.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="798" column="13" selection-start="27948" selection-end="27948" vertical-scroll-proportion="0.3646409">
+        <state line="74" column="33" selection-start="2218" selection-end="2218" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/VMM.Timeline.TimeNav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="70" selection-start="2460" selection-end="2460" vertical-scroll-proportion="0.3075965">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

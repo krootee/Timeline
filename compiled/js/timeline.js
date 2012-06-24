@@ -6350,8 +6350,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 		================================================== */
 		var config				= 	VMM.Timeline.Config;
 		config.nav.rows			= 	[1, config.nav.marker.height, config.nav.marker.height*2, config.nav.marker.height*3, config.nav.marker.height*4,
-                                     config.nav.marker.height*5, config.nav.marker.height*6, config.nav.marker.height*7, config.nav.marker.height*8,
-                                     config.nav.marker.height*9, config.nav.marker.height*10];
+                                     config.nav.marker.height*5, config.nav.marker.height*6, config.nav.marker.height*7, config.nav.marker.height*8];
 		
 		if (content_width != null && content_width != "") {
 			config.nav.width	= 	content_width;
