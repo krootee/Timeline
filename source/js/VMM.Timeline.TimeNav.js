@@ -616,6 +616,8 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 					VMM.Lib.css(_marker_line_event, "height", _line_height);
 					VMM.Lib.css(_marker_line_event, "width", _line);
 					VMM.Lib.css(_marker_line_event, "top", _line_last_height_pos);
+
+					VMM.Lib.css(_marker_flag, "width", _line);
 				}
 				
 				// CONTROL ROW POSITION
