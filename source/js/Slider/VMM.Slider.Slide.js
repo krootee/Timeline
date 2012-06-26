@@ -184,8 +184,9 @@ if (typeof VMM.Slider != 'undefined') {
 					if (data.type != "start") {
 						var st = VMM.Date.prettyDate(data.startdate);
 						var en = VMM.Date.prettyDate(data.enddate);
+                        var duration = (data.enddate.getTime() - data.startdate.getTime())/(1000*60*60*24)/7;
 						if (st != en) {
-							c.text += VMM.createElement("h2", st + " &mdash; " + en + "", "date");
+							c.text += VMM.createElement("h2", st + " &mdash; " + en + " (" + Math.round(duration) + " weeks)", "date");
 						} else {
 							c.text += VMM.createElement("h2", st, "date");
 						}
