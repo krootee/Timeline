@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f86fe95c-77ff-4739-a2de-70efde595738" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/css/themes/dark.css" afterPath="$PROJECT_DIR$/compiled/css/themes/dark.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/css/timeline.css" afterPath="$PROJECT_DIR$/compiled/css/timeline.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline-min.js" afterPath="$PROJECT_DIR$/compiled/js/timeline-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compiled/js/timeline.js" afterPath="$PROJECT_DIR$/compiled/js/timeline.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Slider/VMM.Slider.js" afterPath="$PROJECT_DIR$/source/js/Slider/VMM.Slider.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/Typography.less" afterPath="$PROJECT_DIR$/source/less/Typography.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/less/VMM.Slider.less" afterPath="$PROJECT_DIR$/source/less/VMM.Slider.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/js/Media/VMM.MediaType.js" afterPath="$PROJECT_DIR$/source/js/Media/VMM.MediaType.js" />
     </list>
     <ignored path="Timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,10 +24,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Typography.less" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Typography.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/less/Typography.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.51978415">
+            <state line="33" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VMM.MediaType.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.MediaType.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="85" column="111" selection-start="3106" selection-end="3106" vertical-scroll-proportion="0.73021585">
               <folding />
             </state>
           </provider>
@@ -76,6 +78,7 @@
         <option value="$PROJECT_DIR$/source/less/VMM.Slider.less" />
         <option value="$PROJECT_DIR$/source/js/Slider/VMM.Slider.js" />
         <option value="$PROJECT_DIR$/source/less/Typography.less" />
+        <option value="$PROJECT_DIR$/source/js/Media/VMM.MediaType.js" />
       </list>
     </option>
   </component>
@@ -415,11 +418,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.Media.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="54" selection-start="2271" selection-end="2271" vertical-scroll-proportion="-1.9429097" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/less/VMM.Slider.less">
       <provider selected="true" editor-type-id="text-editor">
         <state line="499" column="39" selection-start="10808" selection-end="10808" vertical-scroll-proportion="1.7406716" />
@@ -512,7 +510,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/less/Typography.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.51978415">
+        <state line="33" column="31" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/js/Media/VMM.MediaType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="111" selection-start="3106" selection-end="3106" vertical-scroll-proportion="0.73021585">
           <folding />
         </state>
       </provider>
