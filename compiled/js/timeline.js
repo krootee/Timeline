@@ -6929,7 +6929,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 					VMM.Lib.css(_marker_line_event, "width", _line);
 					VMM.Lib.css(_marker_line_event, "top", _line_last_height_pos);
 
-					VMM.Lib.css(_marker_flag, "width", _line);
+//					VMM.Lib.css(_marker_flag, "width", _line);
 				}
 				
 				// CONTROL ROW POSITION
@@ -7482,9 +7482,10 @@ if (color < colors.length)
 	bcolor = colors[color];
 }
 
+				_marker_flag.attr('style', "background-color:" + bcolor + ";");
+
 				_marker_content			= VMM.appendAndGetElement(_marker_flag, "<div>", "flag-content");
 
-				_marker_content.attr('style', "background-color:" + bcolor + ";");
 
 				_marker_dot				= VMM.appendAndGetElement(_marker, "<div>", "dot");
 				_marker_line			= VMM.appendAndGetElement(_marker, "<div>", "line");
