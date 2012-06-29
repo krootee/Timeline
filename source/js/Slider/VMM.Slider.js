@@ -114,11 +114,11 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			return config;
 		};
 		
-		this.setSize = function(w, h) {
+		this.setSize = function(w, h, fast) {
 			if (w != null) {config.slider.width = w};
 			if (h != null) {config.slider.height = h};
 			if (_active) {
-				reSize();
+				reSize(null, null, fast);
 			}
 			
 		}
@@ -131,8 +131,12 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			return current_slide;
 		};
 		
-		this.setSlide = function(n) {
-			goToSlide(n);
+        this.setSlide = function(n, fast) {
+            if (typeof fast == 'undefined') {
+                goToSlide(n);
+            } else {
+                goToSlide(n, config.ease, config.duration, fast);
+            }
 		};
 		
 		/* ON EVENT
@@ -141,7 +145,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			trace("onConfigSet");
 		};
 		
-		function reSize(go_to_slide, from_start) {
+		function reSize(go_to_slide, from_start, fast) {
 			
 			var _go_to_slide = true;
 			var _from_start = false;
@@ -180,7 +184,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			VMM.Lib.width($slider_mask, current_width);
 			
 			if (_go_to_slide) {
-				goToSlide(current_slide, "linear", 1);
+				goToSlide(current_slide, "linear", 1, fast);
 			};
 			
 			if (current_slide == 0) {
@@ -579,16 +583,16 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				VMM.fireEvent(layout, "LOADED");
 			}
 			
-			/* SET Vertical Scoll
+			/* SET Vertical Scroll
 			================================================== */
 			if (slides[current_slide].height() > config.slider_height) {
 				VMM.Lib.css(".slider", "overflow-y", "scroll" );
-			} else {
+			} else if (typeof VMM.Lib.prop(layout, "scrollHeight") != 'undefined') {
 				VMM.Lib.css(layout, "overflow-y", "hidden" );
 				VMM.Lib.animate(layout, _duration, _ease, {scrollTop: VMM.Lib.prop(layout, "scrollHeight") - VMM.Lib.height(layout) });
 			}
 			
-			preloadSlides();
+			preloadSlides(!firstrun);
 		}
 
 		/* BUILD NAVIGATION
@@ -651,7 +655,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 			
 			reSize(false, true);
 			VMM.Lib.visible(navigation.prevBtn, false);
-			goToSlide(config.current_slide, "easeOutExpo", __duration, true, true);
+			goToSlide(config.current_slide, "easeOutExpo", __duration, true, !_active);
 			
 			_active = true;
 		};

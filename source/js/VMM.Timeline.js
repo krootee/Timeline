@@ -59,7 +59,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 	VMM.Timeline = function(w, h, conf, _timeline_id) {
 		
 		var $timeline, $feedback, $messege, slider, timenav, version, timeline_id;
-		var events = {}, data = {}, _dates = [], config = {};
+		var events = {}, data = {}, _dates = [], config = {}, filter = {};
 		var has_width = false, has_height = false, ie7 = false, is_moving = false;
 		
 		if (type.of(_timeline_id) == "string") {
@@ -81,7 +81,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				messege:		"MESSEGE",
 				headline:		"TIMELINE_HEADLINE",
 				slide_change:	"SLIDE_CHANGE",
-				resize:			"resize"
+				resize:			"resize",
+                apply_filter:   "APPLY_FILTER"
 			},
 			id: 					timeline_id,
 			type: 					"timeline",
@@ -254,9 +255,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			build();
 		}
 		
-		function reSize() {
+		function reSize(fast) {
 			updateSize();
-			slider.setSize(config.feature.width, config.feature.height);
+			slider.setSize(config.feature.width, config.feature.height, fast);
 			timenav.setSize(config.width, config.height);
 		};
 		
@@ -292,11 +293,11 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			slider.setSlide(config.current_slide);
 		};
 		
-		var goToEvent = function(n) {
+		var goToEvent = function(n, fast) {
 			if (n <= _dates.length - 1 && n >= 0) {
 				config.current_slide = n;
-				slider.setSlide(config.current_slide);
-				timenav.setMarker(config.current_slide, config.ease,config.duration);
+				slider.setSlide(config.current_slide, fast);
+				timenav.setMarker(config.current_slide, config.ease,config.duration, fast);
 			} 
 		}
 		
@@ -330,6 +331,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			
 			VMM.bindEvent(global, onDataReady, config.events.data_ready);
 			VMM.bindEvent(global, showMessege, config.events.messege);
+            VMM.bindEvent(global, applyFilter, config.events.apply_filter);
 			
 			/* GET DATA
 			================================================== */
@@ -369,39 +371,25 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 		
         /* FILTERING
          ================================================== */
+        function applyFilter(e, _filter) {
+            filter = _filter;
+            buildDates();
+        };
 
-        this.getFilterValues = function() {
-            var providerToCourseNumberMap = {};
-            var streamNamesMap = {};
-            for (var i = 0; i < data.date.length; i++) {
-                if (typeof data.date[i].provider != 'undefined') {
-                    var providerName = data.date[i].provider;
-                    if (isNaN(providerToCourseNumberMap[providerName])) {
-                        providerToCourseNumberMap[providerName] = 1;
-                    } else {
-                        providerToCourseNumberMap[providerName]++;
-                    }
-                }
-                if (typeof data.date[i].stream!= 'undefined') {
-                    streamNamesMap[data.date[i].stream] = 0;
-                }
+        var filterMatch = function(filter, entry) {
+            if (filter.hide_completed && entry.enddate.getTime() <= new Date().getTime()) {
+                return false;
             }
-
-            var providerNames=[];
-            for(var k in providerToCourseNumberMap) {providerNames.push(k);}
-            providerNames.sort(function(a,b){return providerToCourseNumberMap[b] - providerToCourseNumberMap[a]});
-
-            var streamNames=[];
-            for(var k in streamNamesMap) {streamNames.push(k);}
-            streamNames.sort();
-
-            var result = {};
-            result.providers = providerNames;
-            result.streams = streamNames;
-
-            return result;
+            if (typeof filter.streams != 'undefined' && filter.streams.indexOf(entry.stream) < 0) {
+                return false;
+            }
+            if (typeof filter.providers != 'undefined' && filter.providers.indexOf(entry.provider) < 0) {
+                return false;
+            }
+            return true;
 		};
 		
+
 		/* MESSEGES 
 		================================================== */
 		
@@ -450,7 +438,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			VMM.attachElement($timeline, "");
 			VMM.appendElement($timeline, "<div class='container main'><div class='feature'><div class='slider'></div></div><div class='navigation'></div></div>");
 			
-			reSize();
+			reSize(true);
 			
 			VMM.bindEvent("div.slider", onSliderLoaded, "LOADED");
 			VMM.bindEvent("div.navigation", onTimeNavLoaded, "LOADED");
@@ -484,7 +472,9 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 		
 		// BUILD DATE OBJECTS
 		var buildDates = function() {
-			
+            if (typeof _dates !== 'undefined') {
+                var _selected = _dates[slider.getCurrentNumber()];
+            }
 			_dates = [];
 			VMM.fireEvent(global, config.events.messege, "Building Dates");
 			updateSize();
@@ -539,8 +529,10 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
                         _date.provider          = data.date[i].provider;
                         _date.colorIndexId      = data.date[i].colorIndexId;
 
-                        _dates.push(_date);
-					} 
+                        if (filterMatch(filter, _date)) {
+						    _dates.push(_date);
+					    } 
+                    }
 					
 				}
 				
@@ -605,6 +597,24 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				_dates.sort(function(a, b){
 					return a.fulldate - b.fulldate
 				});
+            }
+
+            // preserve selection made before filtering, if any
+            if (typeof _selected != 'undefined') {
+                var found = 0;
+                for (var i = 0; i < _dates.length; i++) {
+                    if (_dates[i].headline == _selected.headline
+                        && _dates[i].provider == _selected.provider
+                        && _dates[i].fulldate == _selected.fulldate) {
+                        found = i;
+                        break;
+                    }
+                }
+                if (found > 0) {
+                    config.start_at_current_date = false;
+                }
+                config.current_slide = found;
+                goToEvent(found, true);
 			}
 			
 			onDatesProcessed();
