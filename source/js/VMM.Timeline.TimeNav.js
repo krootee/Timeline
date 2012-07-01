@@ -223,7 +223,9 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
                 // ANIMATE MARKER
                 VMM.Lib.stop($timenav);
                 VMM.Lib.animate($timenav, _duration, _ease, {"left": timenav_pos.left});
-            }
+			} else {
+				VMM.Lib.css($timenav, "left", timenav_pos.left);
+			}
         }
 
         /* TOUCH EVENTS

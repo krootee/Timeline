@@ -653,7 +653,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				//VMM.DragSlider.createPanel($slider_container, $slider_container, VMM.Lib.width(slides[0]), config.spacing, true);
 			}
 			
-			reSize(false, true);
+			reSize(false, !_active);
 			VMM.Lib.visible(navigation.prevBtn, false);
 			goToSlide(config.current_slide, "easeOutExpo", __duration, true, !_active);
 			
