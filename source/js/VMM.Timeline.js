@@ -374,9 +374,14 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
         /* FILTERING
          ================================================== */
         function applyFilter(e, _filter) {
-            filter = _filter;
-			buildDates();
-        };
+			filter = _filter;
+			try {
+				timenav.setSkipRescale(true);
+				buildDates();
+			} finally {
+				timenav.setSkipRescale(false);
+			}	
+		};
 
         var filterMatch = function(filter, entry) {
             if (filter.hide_completed && entry.enddate.getTime() <= new Date().getTime()) {
