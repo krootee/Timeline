@@ -534,6 +534,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
                         _date.stream            = data.date[i].stream;
                         _date.provider          = data.date[i].provider;
                         _date.colorIndexId      = data.date[i].colorIndexId;
+                        _date.courseId          = data.date[i].uniqueId;
 
                         if (filterMatch(filter, _date)) {
 						    _dates.push(_date);
