@@ -57,7 +57,9 @@
 if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 	
 	VMM.Timeline = function(w, h, conf, _timeline_id) {
-		
+
+        var that = this;
+
 		var $timeline, $feedback, $messege, slider, timenav, version, timeline_id;
 		var events = {}, data = {}, _dates = [], config = {}, filter = {};
 		var has_width = false, has_height = false, ie7 = false, is_moving = false;
@@ -217,8 +219,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			$feedback = 			VMM.appendAndGetElement($timeline, "<div>", "feedback", "");
 			$messege = 				VMM.appendAndGetElement($feedback, "<div>", "messege", "Timeline");
 			slider = 				new VMM.Slider(timeline_id + " div.slider", config);
-			timenav = 				new VMM.Timeline.TimeNav(timeline_id + " div.navigation");
-			
+			timenav = 				new VMM.Timeline.TimeNav(that, timeline_id + " div.navigation");
+
 			if (!has_width) {
 				config.width = VMM.Lib.width($timeline);
 			} else {
@@ -412,7 +414,30 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 		var detachMessege = function() {
 			VMM.Lib.detach($feedback);
 		}
-		
+
+        // this function is required for both this and other objects to be able to call "getSlideNumberCorrespondingToToday"
+        this.getSlideNumberCorrespondingToTodayPriviledged = function() {
+            return getSlideNumberCorrespondingToToday();
+        }
+
+        var getSlideNumberCorrespondingToToday = function() {
+            var eventNumber = 0;
+            var minDistance = _dates[0].fulldate;
+            var tempDistance = 0;
+            var dateCurrent = (new Date()).getTime();
+
+            for (var iteratorDates = 0; iteratorDates < _dates.length; iteratorDates++) {
+                tempDistance = Math.abs(dateCurrent - _dates[iteratorDates].fulldate);
+
+                if (tempDistance <= minDistance) {
+                    minDistance = tempDistance;
+                    eventNumber = iteratorDates;
+                }
+            }
+
+            return eventNumber;
+        }
+
 		/* BUILD DISPLAY
 		================================================== */
 		var build = function() {
@@ -422,23 +447,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				config.current_slide = _dates.length - 1;
 			}
 
-            if (config.start_at_current_date)
-            {
-                var eventNumber = 0;
-                var minDistance = _dates[0].fulldate;
-                var tempDistance = 0;
-                var dateCurrent = (new Date()).getTime();
-
-                for (var iteratorDates = 0; iteratorDates < _dates.length; iteratorDates++) {
-                    tempDistance = Math.abs(dateCurrent - _dates[iteratorDates].fulldate);
-
-                    if (tempDistance <= minDistance) {
-                        minDistance = tempDistance;
-                        eventNumber = iteratorDates;
-                    }
-                }
-
-                config.current_slide = eventNumber;
+            if (config.start_at_current_date) {
+                config.current_slide = getSlideNumberCorrespondingToToday();
             }
 
             // CREATE DOM STRUCTURE

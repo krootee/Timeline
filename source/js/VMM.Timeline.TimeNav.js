@@ -3,7 +3,7 @@
 
 if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefined') {
 
-    VMM.Timeline.TimeNav = function(parent, content_width, content_height) {
+    VMM.Timeline.TimeNav = function(outerObjectReference, parent, content_width, content_height) {
         trace("VMM.Timeline.TimeNav");
 
         var events = {}, timespan = {}, layout = parent;
@@ -163,7 +163,10 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 
         function onBackHome(e) {
 			VMM.DragSlider.cancelSlide();
-			goToMarker(0);
+
+            // OCN-138: Replace "Return to Title" button to "Return to Today"
+            var currentSlide = outerObjectReference.getSlideNumberCorrespondingToTodayPriviledged();
+			goToMarker(currentSlide);
 			upDate();
         }
 
