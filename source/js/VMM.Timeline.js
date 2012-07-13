@@ -294,7 +294,11 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			setHash(config.current_slide);
 			slider.setSlide(config.current_slide);
 		};
-		
+
+        this.goToEventPriviledged = function(n, fast) {
+            return goToEvent(n, fast);
+        }
+        
 		var goToEvent = function(n, fast) {
 			if (n <= _dates.length - 1 && n >= 0) {
 				config.current_slide = n;
@@ -640,7 +644,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				goToEvent(found, true);
 			}
 			if (typeof config.onDataLoad == 'function') {
-				config.onDataLoad(_dates, timenav);
+				config.onDataLoad(_dates, that);
 			}
 		}
 		
