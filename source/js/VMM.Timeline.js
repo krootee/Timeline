@@ -210,7 +210,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 							provider: data.date[i].provider,
 							stream: data.date[i].stream
 						};
-						return config.onNavigateToHidden(filterDelta, uid);
+						config.onNavigateToHidden(filterDelta, uid);
+						break;
 					}
 				}
 			}
