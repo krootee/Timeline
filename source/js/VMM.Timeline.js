@@ -123,8 +123,8 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 				width: 				960,
 				height: 			500,
 				marker: {
-					width: 			150,
-					height: 		48
+					width: 			180,
+					height: 		30
 				}
 			},
 			feature: {
@@ -241,7 +241,6 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 			}
 			
 			config.nav.width			=	config.width;
-			config.nav.height			=	500;
 			config.nav.getSlideNumberForToday = getSlideNumberForToday;
 			config.feature.width		=	config.width;
 			config.feature.height		=	config.height - config.nav.height;
