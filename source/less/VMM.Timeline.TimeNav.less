@@ -220,9 +220,15 @@
 						.time-flag-active();
 						//.box-shadow();
 						.flag-content {
-							h3 {
-								color: @color-theme;
-							}
+                            .flag-outer {
+                                .flag-middle {
+                                    .flag-inner {
+                                        h3 {
+                                            color: @color-theme;
+                                        }
+                                    }
+                                }
+                            }
 							.thumbnail {
 								opacity: 1;
 								-moz-opacity: 1;
@@ -241,13 +247,18 @@
 					.flag {
 						
 						.flag-content {
-							h3 {
-								color: @color-theme;
-							}
-							h4 {
-								color:@color-nav-title;
-							}
-							
+                            .flag-outer {
+                                .flag-middle {
+                                    .flag-inner {
+                                        h3 {
+                                            color: @color-theme;
+                                        }
+                                        h4 {
+                                            color:@color-nav-title;
+                                        }
+                                    }
+                                }
+                            }
 						}
 					}
 				}
@@ -313,43 +324,54 @@
 							//padding: 5px 7px 2px 5px;
 							padding: 0px 7px 2px 6px;
 							overflow:hidden;
-							height:25px;
 
-							h3 {
-								
-								font-weight: bold;
-								font-size: @base-font;
-								line-height: @base-line;
-								font-size: 11px;
-								line-height:11px;
-								//overflow: visible;
-								//color:@color-nav-date;
-								color:@color-nav-title;
-								margin-top:4px;
-								margin-bottom:2px;
-								small {
-									display:none;
-								}
-							}
-							h4 {
-								display:none;
-								
-								font-weight: normal;
-								font-size: @base-font;
-								line-height: @base-line;
-								
-								margin-top:5px;
-								font-size: 10px;
-								line-height:10px;
-								//color:@color-nav-title;
-								color:@color-nav-date;
-								small {
-									display:none;
-								}
-							}
+                            .flag-outer {
+                                height:24px;
+                                margin-top: 4px;
+                                overflow: hidden;
+                                .flag-middle {
+                                    display: table;
+                                    height: 100%;
+                                    .flag-inner {
+                                        display: table-cell;
+                                        vertical-align: middle;
+                                        h3 {
+
+                                            font-weight: bold;
+                                            font-size: @base-font;
+                                            line-height: @base-line;
+                                            font-size: 11px;
+                                            line-height:11px;
+                                            //overflow: visible;
+                                            //color:@color-nav-date;
+                                            color:@color-nav-title;
+                                            margin-bottom:2px;
+                                            small {
+                                                display:none;
+                                            }
+                                        }
+                                        h4 {
+                                            display:none;
+
+                                            font-weight: normal;
+                                            font-size: @base-font;
+                                            line-height: @base-line;
+
+                                            margin-top:5px;
+                                            font-size: 10px;
+                                            line-height:10px;
+                                            //color:@color-nav-title;
+                                            color:@color-nav-date;
+                                            small {
+                                                display:none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 							
 							.thumbnail {
-								margin-bottom: 15px;
+								margin-bottom: 3px;
 								margin-right: 3px;
 								opacity: 0.5;
 								-moz-opacity: 0.5;
@@ -374,9 +396,22 @@
 						//.opacity(100);
 						.time-flag-active();
 						.flag-content {
-							h3 {
-								color:@color-dark-second;
-							}
+                            .flag-outer {
+                                height:24px;
+                                margin-top: 4px; 
+                                overflow: hidden;
+                                .flag-middle {
+                                    display: table;
+                                    height: 100%;
+                                    .flag-inner {
+                                        display: table-cell; 
+                                        vertical-align: middle;
+                                        h3 {
+                                            color:@color-dark-second;
+                                        }
+                                    }
+                                }
+                            }
 							h4 {
 								color:@color-nav-date;
 							}
@@ -388,18 +423,6 @@
 						}
 					}
 					
-					.flag.row1 {
-						z-index:25;
-						top:48px;
-					}
-					.flag.row2 {
-						z-index:24;
-						top:96px;
-					}
-					.flag.row3 {
-						z-index:23;
-						top:1px;
-					}
 					.flag.zFront {
 						z-index:201;
 					}
